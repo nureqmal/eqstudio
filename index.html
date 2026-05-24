@@ -10,7 +10,7 @@
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;font-size:16px;}
 body{
-  background:#F7F4EE;
+  background:#FDFAF4;
   color:#1a1410;
   font-family:'DM Sans',sans-serif;
   font-weight:300;
@@ -19,7 +19,7 @@ body{
 }
 
 /* ── CURSOR ── */
-#cur{position:fixed;width:6px;height:6px;background:#1a1410;border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform 0.1s;}
+#cur{position:fixed;width:6px;height:6px;background:#2a1c08;border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform 0.1s;}
 #cur-r{position:fixed;width:28px;height:28px;border:1px solid rgba(26,20,16,0.3);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all 0.14s ease;}
 #cur-r.hover{width:44px;height:44px;border-color:rgba(26,20,16,0.15);background:rgba(26,20,16,0.04);}
 
@@ -31,7 +31,7 @@ nav{
   transition:all 0.4s ease;
 }
 nav.scrolled{
-  background:rgba(247,244,238,0.92);
+  background:rgba(253,250,244,0.95);
   backdrop-filter:blur(16px);
   padding:16px 48px;
   border-bottom:1px solid rgba(26,20,16,0.06);
@@ -52,7 +52,7 @@ nav.scrolled{
 .nav-links a:hover{color:#1a1410;}
 .nav-cta{
   padding:10px 24px;
-  background:#1a1410;color:#F7F4EE;
+  background:#2a1c08;color:#F7F4EE;
   font-size:11px;letter-spacing:0.25em;text-transform:uppercase;
   text-decoration:none;transition:all 0.3s;
   font-family:'DM Sans',sans-serif;
@@ -61,7 +61,7 @@ nav.scrolled{
 
 /* Mobile nav toggle */
 .nav-burger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
-.nav-burger span{display:block;width:22px;height:1px;background:#1a1410;transition:all 0.3s;}
+.nav-burger span{display:block;width:22px;height:1px;background:#2a1c08;transition:all 0.3s;}
 
 /* ── HERO ── */
 .hero{
@@ -105,7 +105,7 @@ nav.scrolled{
   animation:fadeRight 1s ease both 0.9s;
 }
 .btn-primary{
-  padding:15px 36px;background:#1a1410;color:#F7F4EE;
+  padding:15px 36px;background:#2a1c08;color:#F7F4EE;
   font-size:11px;letter-spacing:0.35em;text-transform:uppercase;
   text-decoration:none;transition:all 0.35s;display:inline-block;
   position:relative;overflow:hidden;
@@ -141,7 +141,7 @@ nav.scrolled{
 /* Right — Mockup */
 .hero-right{
   position:relative;overflow:hidden;
-  background:linear-gradient(145deg,#1a1410 0%,#2d2018 100%);
+  background:linear-gradient(145deg,#261e10 0%,#382812 100%);
   animation:fadeIn 1.2s ease both 0.4s;
 }
 .hero-right-pattern{
@@ -155,7 +155,7 @@ nav.scrolled{
 }
 .hero-phone{
   width:220px;
-  background:#0d0a08;
+  background:#1c1610;
   border-radius:28px;
   border:1px solid rgba(201,168,76,0.2);
   box-shadow:0 40px 100px rgba(0,0,0,0.6),0 0 0 1px rgba(201,168,76,0.08);
@@ -166,12 +166,12 @@ nav.scrolled{
 }
 @keyframes phoneFloat{0%,100%{transform:rotate(3deg) translateY(0);}50%{transform:rotate(3deg) translateY(-12px);}}
 .phone-notch{
-  width:80px;height:24px;background:#0d0a08;
+  width:80px;height:24px;background:#1c1610;
   border-radius:0 0 14px 14px;margin:0 auto;position:relative;z-index:2;
   border:1px solid rgba(201,168,76,0.1);border-top:none;
 }
 .phone-screen{
-  padding:16px 14px 24px;background:#0d0a08;
+  padding:16px 14px 24px;background:#1c1610;
   font-family:'Cormorant',serif;text-align:center;
 }
 .ps-bismillah{font-size:14px;color:rgba(201,168,76,0.8);margin-bottom:8px;}
@@ -186,14 +186,14 @@ nav.scrolled{
 .hero-phone-2{
   position:absolute;
   width:190px;right:30px;top:50%;transform:translateY(-55%) rotate(-6deg);
-  background:#12100e;border-radius:24px;
+  background:#1e1810;border-radius:24px;
   border:1px solid rgba(201,168,76,0.1);
   box-shadow:0 30px 80px rgba(0,0,0,0.5);
   overflow:hidden;
   animation:phoneFloat2 6s ease-in-out infinite 2s;
 }
 @keyframes phoneFloat2{0%,100%{transform:translateY(-55%) rotate(-6deg);}50%{transform:translateY(-58%) rotate(-6deg);}}
-.phone-screen-2{padding:20px 14px;background:#12100e;text-align:center;font-family:'Cormorant',serif;}
+.phone-screen-2{padding:20px 14px;background:#1e1810;text-align:center;font-family:'Cormorant',serif;}
 .ps2-top{font-size:7px;letter-spacing:0.4em;color:rgba(201,168,76,0.3);text-transform:uppercase;margin-bottom:12px;}
 .ps2-flower{font-size:24px;margin-bottom:8px;display:block;}
 .ps2-name{font-size:18px;font-style:italic;color:rgba(240,230,211,0.8);font-weight:300;}
@@ -218,7 +218,7 @@ nav.scrolled{
 .marquee-wrap{
   overflow:hidden;border-top:1px solid rgba(26,20,16,0.08);
   border-bottom:1px solid rgba(26,20,16,0.08);
-  padding:16px 0;background:#1a1410;
+  padding:16px 0;background:#2a1c08;
 }
 .marquee-track{
   display:flex;gap:48px;white-space:nowrap;
@@ -233,7 +233,7 @@ nav.scrolled{
 .marquee-item::after{content:'✦';color:#8B6914;font-style:normal;font-size:12px;}
 
 /* ── HOW IT WORKS ── */
-.how-section{padding:120px 80px;background:#F7F4EE;}
+.how-section{padding:120px 80px;background:#FDFAF4;}
 .how-inner{max-width:1100px;margin:0 auto;}
 .section-header{margin-bottom:80px;}
 .section-tag{
@@ -261,7 +261,7 @@ nav.scrolled{
   border:1px solid rgba(26,20,16,0.12);
   display:flex;align-items:center;justify-content:center;
   font-family:'Cormorant',serif;font-size:22px;color:rgba(26,20,16,0.3);
-  margin-bottom:28px;background:#F7F4EE;position:relative;z-index:1;
+  margin-bottom:28px;background:#FDFAF4;position:relative;z-index:1;
   transition:all 0.35s;
 }
 .step:hover .step-num{border-color:#8B6914;color:#8B6914;background:#fff;}
@@ -275,7 +275,7 @@ nav.scrolled{
 /* ── TEMPLATES ── */
 .templates-section{
   padding:120px 80px;
-  background:#F0EBE1;
+  background:#F5EFE3;
 }
 .templates-inner{max-width:1100px;margin:0 auto;}
 .templates-grid{
@@ -283,7 +283,7 @@ nav.scrolled{
   gap:24px;margin-top:60px;
 }
 .template-card{
-  background:#F7F4EE;border:1px solid rgba(26,20,16,0.06);
+  background:#FDFAF4;border:1px solid rgba(26,20,16,0.06);
   overflow:hidden;position:relative;
   transition:all 0.4s cubic-bezier(0.4,0,0.2,1);
   cursor:pointer;
@@ -307,7 +307,7 @@ nav.scrolled{
 .template-card:hover .tc-preview-inner{transform:scale(1.03);}
 
 /* Template themes */
-.theme-dark{background:linear-gradient(145deg,#0d0a08,#1c1408);}
+.theme-dark{background:linear-gradient(145deg,#1c1208,#1c1408);}
 .theme-blush{background:linear-gradient(145deg,#f5ece8,#e8d5cc);}
 .theme-sage{background:linear-gradient(145deg,#e8ede4,#d4dfd0);}
 .theme-navy{background:linear-gradient(145deg,#0f1825,#1a2d44);}
@@ -342,7 +342,7 @@ nav.scrolled{
 }
 .template-card:hover .tc-overlay{opacity:1;}
 .tc-overlay-btn{
-  padding:11px 28px;background:#F7F4EE;color:#1a1410;
+  padding:11px 28px;background:#FDFAF4;color:#1a1410;
   font-size:10px;letter-spacing:0.3em;text-transform:uppercase;
   border:none;cursor:pointer;transition:all 0.25s;text-decoration:none;display:inline-block;
 }
@@ -366,7 +366,7 @@ nav.scrolled{
 }
 
 /* ── PRICING ── */
-.pricing-section{padding:120px 80px;background:#1a1410;}
+.pricing-section{padding:120px 80px;background:#221a10;}
 .pricing-inner{max-width:900px;margin:0 auto;text-align:center;}
 .pricing-section .section-tag{color:rgba(201,168,76,0.6);justify-content:center;}
 .pricing-section .section-tag::before{background:rgba(201,168,76,0.4);}
@@ -420,33 +420,28 @@ nav.scrolled{
 
 /* ── TESTIMONIALS ── */
 .testi-section{padding:120px 80px;background:#F7F4EE;}
-.testi-inner{max-width:1100px;margin:0 auto;}
-.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:60px;}
-.testi-card{
-  padding:36px;background:#fff;border:1px solid rgba(26,20,16,0.06);
-  transition:all 0.35s;
-}
-.testi-card:hover{transform:translateY(-4px);box-shadow:0 20px 60px rgba(26,20,16,0.08);}
-.testi-stars{color:#c9a84c;font-size:14px;letter-spacing:3px;margin-bottom:20px;}
-.testi-quote{
-  font-family:'Cormorant',serif;font-style:italic;
-  font-size:18px;color:#1a1410;line-height:1.7;margin-bottom:24px;
-}
-.testi-author{
-  display:flex;align-items:center;gap:12px;
-  padding-top:20px;border-top:1px solid rgba(26,20,16,0.06);
-}
-.testi-avatar{
-  width:40px;height:40px;border-radius:50%;
-  background:linear-gradient(135deg,#c9a84c,#8B6914);
-  display:flex;align-items:center;justify-content:center;
-  font-family:'Cormorant',serif;font-size:14px;color:#1a1410;font-weight:600;
-}
-.testi-name{font-size:13px;color:#1a1410;font-weight:400;}
-.testi-role{font-size:11px;color:rgba(26,20,16,0.4);}
+.testi-inner{max-width:680px;margin:0 auto;}
+.carousel-wrap{margin-top:60px;}
+.carousel-track{overflow:hidden;}
+.carousel-slide{display:none;animation:fadeSlide 0.5s ease;}
+.carousel-slide.active{display:block;}
+@keyframes fadeSlide{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+.testi-card{padding:44px 40px;background:#fff;border:1px solid rgba(26,20,16,0.06);box-shadow:0 8px 40px rgba(26,20,16,0.05);}
+.testi-stars{color:#c9a84c;font-size:16px;letter-spacing:4px;margin-bottom:24px;}
+.testi-quote{font-family:'Cormorant',serif;font-style:italic;font-size:clamp(18px,3vw,24px);color:#1a1410;line-height:1.8;margin-bottom:28px;}
+.testi-author{display:flex;align-items:center;gap:14px;padding-top:24px;border-top:1px solid rgba(26,20,16,0.06);}
+.testi-avatar{width:44px;height:44px;border-radius:50%;flex-shrink:0;background:linear-gradient(135deg,#c9a84c,#8B6914);display:flex;align-items:center;justify-content:center;font-family:'Cormorant',serif;font-size:15px;color:#1a1410;font-weight:600;}
+.testi-name{font-size:14px;color:#1a1410;font-weight:400;}
+.testi-role{font-size:11px;color:rgba(26,20,16,0.4);margin-top:2px;}
+.carousel-controls{display:flex;align-items:center;justify-content:center;gap:20px;margin-top:24px;}
+.carousel-prev,.carousel-next{width:44px;height:44px;border-radius:50%;border:1px solid rgba(26,20,16,0.1);background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;color:rgba(26,20,16,0.35);transition:all 0.25s;}
+.carousel-prev:hover,.carousel-next:hover{border-color:#8B6914;color:#8B6914;}
+.carousel-dots{display:flex;gap:8px;align-items:center;}
+.carousel-dot{width:6px;height:6px;border-radius:50%;background:rgba(26,20,16,0.12);border:none;padding:0;cursor:pointer;transition:all 0.3s;}
+.carousel-dot.active{width:20px;border-radius:3px;background:#8B6914;}
 
 /* ── FAQ ── */
-.faq-section{padding:120px 80px;background:#F0EBE1;}
+.faq-section{padding:120px 80px;background:#F5EFE3;}
 .faq-inner{max-width:700px;margin:0 auto;}
 .faq-list{margin-top:60px;}
 .faq-item{border-bottom:1px solid rgba(26,20,16,0.08);}
@@ -471,7 +466,7 @@ nav.scrolled{
 }
 
 /* ── ORDER FORM ── */
-.order-section{padding:120px 80px;background:#1a1410;}
+.order-section{padding:120px 80px;background:#221a10;}
 .order-inner{max-width:700px;margin:0 auto;}
 .order-section .section-tag{color:rgba(201,168,76,0.6);justify-content:center;}
 .order-section .section-tag::before{background:rgba(201,168,76,0.4);}
@@ -488,7 +483,7 @@ nav.scrolled{
 }
 .form-input{
   width:100%;padding:14px 18px;
-  background:rgba(201,168,76,0.04);
+  background:rgba(201,168,76,0.06);
   border:1px solid rgba(201,168,76,0.1);
   border-bottom:1px solid rgba(201,168,76,0.25);
   font-family:'Cormorant',serif;font-size:17px;
@@ -497,7 +492,7 @@ nav.scrolled{
 }
 .form-input::placeholder{color:rgba(201,168,76,0.2);}
 .form-input:focus{border-bottom-color:#c9a84c;background:rgba(201,168,76,0.06);}
-.form-input option{background:#1a1410;color:#F7F4EE;}
+.form-input option{background:#2a1c08;color:#F7F4EE;}
 .form-divider{
   display:flex;align-items:center;gap:16px;
   margin:32px 0 24px;
@@ -537,7 +532,7 @@ nav.scrolled{
 
 /* ── FOOTER ── */
 footer{
-  padding:60px 80px 40px;background:#120e09;
+  padding:60px 80px 40px;background:#1a1408;
   border-top:1px solid rgba(201,168,76,0.08);
 }
 .footer-inner{max-width:1100px;margin:0 auto;}
@@ -575,7 +570,7 @@ footer{
   .nav-links{display:none;}
   .nav-links.mobile-open{
     display:flex;flex-direction:column;
-    position:fixed;inset:0;background:#F7F4EE;
+    position:fixed;inset:0;background:#FDFAF4;
     align-items:center;justify-content:center;gap:32px;z-index:200;
   }
   .nav-links.mobile-open a{font-size:20px;}
@@ -607,7 +602,7 @@ footer{
 .filter-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px;margin-top:0;}
 .filter-btn{padding:9px 20px;background:transparent;border:1px solid rgba(26,20,16,0.12);font-family:'DM Sans',sans-serif;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(26,20,16,0.4);cursor:pointer;transition:all 0.25s;}
 .filter-btn:hover{border-color:rgba(139,105,20,0.4);color:#8B6914;}
-.filter-btn.active{background:#1a1410;border-color:#1a1410;color:#F7F4EE;}
+.filter-btn.active{background:#2a1c08;border-color:#1a1410;color:#F7F4EE;}
 .filter-price{font-size:10px;color:rgba(201,168,76,0.7);margin-left:4px;}
 /* ── CATEGORY BADGES ── */
 .tc-cat-badge{position:absolute;top:16px;right:16px;z-index:3;padding:4px 10px;font-size:8px;letter-spacing:0.3em;text-transform:uppercase;font-family:'DM Sans',sans-serif;}
@@ -820,15 +815,15 @@ footer{
         <!-- Saiz terbaik: 800x1067px (ratio 3:4), format JPG/WebP -->
         <div class="tc-preview">
           <img
-            src="images/tirai.jpg"
+            src="images/preview-01.jpg"
             alt="Midnight Luxe Template"
             style="width:100%;height:100%;object-fit:cover;object-position:top;transition:transform 0.5s ease;"
-            onerror="this.parentElement.innerHTML=fallbackPreview('Midnight Luxe','#0d0a08','#c9a84c')"
+            onerror="this.parentElement.innerHTML=fallbackPreview('Midnight Luxe','#1c1208','#c9a84c')"
           >
           <div class="tc-overlay">
             <a href="#tempah" class="tc-overlay-btn">Pilih Template Ini</a>
             <!-- TUKAR href kepada link demo kad kau -->
-            <a href="demos/tirai.html" class="tc-overlay-btn ghost" target="_blank">Live Demo →</a>
+            <a href="demos/template-01.html" class="tc-overlay-btn ghost" target="_blank">Live Demo →</a>
           </div>
         </div>
         <div class="tc-info">
@@ -891,7 +886,7 @@ footer{
 
       <!-- TEMPLATE 04 — TUKAR GAMBAR & LINK DEMO -->
       <div class="template-card reveal" data-category="prestige" style="transition-delay:0.05s;">
-        <!-- <div class="tc-badge" style="background:#1a1410;">New</div> -->
+        <!-- <div class="tc-badge" style="background:#2a1c08;">New</div> -->
         <div class="tc-cat-badge cat-prestige">Prestige</div>
         <div class="tc-preview">
           <img
@@ -989,7 +984,7 @@ footer{
 
       <!-- DUMMY PLACEHOLDER (buang bila semua template dah ada gambar) -->
       <div class="template-card reveal" style="transition-delay:0.3s;opacity:0.4;pointer-events:none;">
-        <div class="tc-preview" style="background:#1a1410;display:flex;align-items:center;justify-content:center;">
+        <div class="tc-preview" style="background:#2a1c08;display:flex;align-items:center;justify-content:center;">
           <div style="text-align:center;padding:32px;">
             <div style="font-size:32px;margin-bottom:12px;">✦</div>
             <p style="font-family:'Cormorant',serif;font-style:italic;font-size:18px;color:rgba(201,168,76,0.4);">Akan Datang</p>
@@ -1039,7 +1034,7 @@ footer{
     <div class="reveal" style="text-align:center;">
       <p class="section-tag" style="justify-content:center;">Pakej &amp; Harga</p>
       <h2 class="section-h2">Pilih yang sesuai<br><em>dengan impian anda</em></h2>
-      <p style="font-size:14px;color:rgba(247,244,238,0.35);margin-top:12px;line-height:1.7;">Setiap pakej include semua feature pakej di bawahnya — makin tinggi, makin lengkap.</p>
+      <p style="font-size:14px;color:rgba(253,248,238,0.5);margin-top:12px;line-height:1.7;">Setiap pakej include semua feature pakej di bawahnya — makin tinggi, makin lengkap.</p>
     </div>
 
     <div class="reveal" style="transition-delay:0.1s;margin-top:40px;margin-bottom:28px;">
@@ -1083,8 +1078,14 @@ footer{
           <p class="pkg-price"><sup>RM</sup>39</p>
           <p class="pkg-price-note">Sekali bayar</p>
         </div>
-        <div class="pkg-body">
-          <div class="pkg-feature include">✦ Semua dalam Esential</div>
+                <div class="pkg-body">
+          <div class="pkg-feature include">✦ Kad digital interaktif</div>
+          <div class="pkg-feature include">✦ Countdown masa nyata</div>
+          <div class="pkg-feature include">✦ RSVP via WhatsApp</div>
+          <div class="pkg-feature include">✦ Navigasi Waze &amp; Maps</div>
+          <div class="pkg-feature include">✦ Maklumat majlis lengkap</div>
+          <div class="pkg-feature include">✦ Nama tetamu peribadi</div>
+          <div class="pkg-feature include">✦ Link seumur hidup</div>
           <div class="pkg-feature pkg-new">✦ Gambar pengantin</div>
           <div class="pkg-feature exclude">— Video pendek</div>
           <div class="pkg-feature exclude">— Gallery gambar</div>
@@ -1100,8 +1101,15 @@ footer{
           <p class="pkg-price"><sup>RM</sup>59</p>
           <p class="pkg-price-note">Sekali bayar</p>
         </div>
-        <div class="pkg-body">
-          <div class="pkg-feature include">✦ Semua dalam Potrait</div>
+                <div class="pkg-body">
+          <div class="pkg-feature include">✦ Kad digital interaktif</div>
+          <div class="pkg-feature include">✦ Countdown masa nyata</div>
+          <div class="pkg-feature include">✦ RSVP via WhatsApp</div>
+          <div class="pkg-feature include">✦ Navigasi Waze &amp; Maps</div>
+          <div class="pkg-feature include">✦ Maklumat majlis lengkap</div>
+          <div class="pkg-feature include">✦ Nama tetamu peribadi</div>
+          <div class="pkg-feature include">✦ Link seumur hidup</div>
+          <div class="pkg-feature include">✦ Gambar pengantin</div>
           <div class="pkg-feature pkg-new">✦ 1 video pendek</div>
           <div class="pkg-feature exclude">— Gallery gambar</div>
         </div>
@@ -1115,8 +1123,32 @@ footer{
           <p class="pkg-price"><sup>RM</sup>99</p>
           <p class="pkg-price-note">Sekali bayar</p>
         </div>
+                <div class="pkg-body">
+          <div class="pkg-feature include">✦ Kad digital interaktif</div>
+          <div class="pkg-feature include">✦ Countdown masa nyata</div>
+          <div class="pkg-feature include">✦ RSVP via WhatsApp</div>
+          <div class="pkg-feature include">✦ Navigasi Waze &amp; Maps</div>
+          <div class="pkg-feature include">✦ Maklumat majlis lengkap</div>
+          <div class="pkg-feature include">✦ Nama tetamu peribadi</div>
+          <div class="pkg-feature include">✦ Link seumur hidup</div>
+          <div class="pkg-feature include">✦ Gambar pengantin</div>
+          <div class="pkg-feature include">✦ 1 video pendek</div>
+          <div class="pkg-feature pkg-new">✦ Gallery gambar pengantin</div>
+        </div>PRESTIGE -->
+      <div class="pkg-card" onclick="selectPackage('Prestige','RM99')">
+        <div class="pkg-top">
+          <p class="pkg-name">Prestige</p>
+          <p class="pkg-price"><sup>RM</sup>99</p>
+          <p class="pkg-price-note">Sekali bayar</p>
+        </div>
         <div class="pkg-body">
-          <div class="pkg-feature include">✦ Semua dalam Cinematic</div>
+          <div class="pkg-feature include">✦ Kad digital interaktif</div>
+          <div class="pkg-feature include">✦ Countdown masa nyata</div>
+          <div class="pkg-feature include">✦ RSVP via WhatsApp</div>
+          <div class="pkg-feature include">✦ Navigasi Waze &amp; Maps</div>
+          <div class="pkg-feature include">✦ Maklumat majlis lengkap</div>
+          <div class="pkg-feature include">✦ Link seumur hidup</div>
+          <div class="pkg-feature include">✦ Gambar pengantin</div>
           <div class="pkg-feature pkg-new">✦ 1 video pendek</div>
           <div class="pkg-feature pkg-new">✦ Gallery gambar pengantin</div>
         </div>
@@ -1130,23 +1162,23 @@ footer{
 
 <style>
 .pkg-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
-.pkg-card{border:1px solid rgba(201,168,76,0.12);background:rgba(255,255,255,0.02);display:flex;flex-direction:column;position:relative;overflow:hidden;transition:all 0.35s cubic-bezier(0.4,0,0.2,1);cursor:pointer;}
+.pkg-card{border:1px solid rgba(201,168,76,0.12);background:rgba(255,255,255,0.04);display:flex;flex-direction:column;position:relative;overflow:hidden;transition:all 0.35s cubic-bezier(0.4,0,0.2,1);cursor:pointer;}
 .pkg-card:hover{border-color:rgba(201,168,76,0.35);transform:translateY(-6px);box-shadow:0 24px 60px rgba(0,0,0,0.4);}
-.pkg-highlight{border-color:rgba(201,168,76,0.3);background:rgba(201,168,76,0.04);}
+.pkg-highlight{border-color:rgba(201,168,76,0.3);background:rgba(201,168,76,0.08);}
 .pkg-highlight:hover{border-color:rgba(201,168,76,0.55);}
 .pkg-badge-top{background:linear-gradient(90deg,#c9a84c,#8B6914);padding:8px 16px;text-align:center;font-size:10px;letter-spacing:0.3em;color:#1a1410;text-transform:uppercase;font-weight:500;}
 .pkg-top{padding:28px 24px 20px;border-bottom:1px solid rgba(201,168,76,0.08);}
 .pkg-name{font-family:"Tenor Sans",serif;font-size:13px;letter-spacing:0.35em;text-transform:uppercase;color:rgba(201,168,76,0.55);margin-bottom:12px;}
 .pkg-highlight .pkg-name{color:#c9a84c;}
-.pkg-price{font-family:"Cormorant",serif;font-size:52px;font-weight:300;color:#F7F4EE;line-height:1;}
+.pkg-price{font-family:"Cormorant",serif;font-size:52px;font-weight:300;color:#FDF8EE;line-height:1;}
 .pkg-highlight .pkg-price{color:#c9a84c;}
 .pkg-price sup{font-size:22px;vertical-align:super;color:rgba(247,244,238,0.4);}
 .pkg-highlight .pkg-price sup{color:rgba(201,168,76,0.5);}
 .pkg-price-note{font-size:10px;color:rgba(247,244,238,0.18);letter-spacing:0.15em;margin-top:6px;text-transform:uppercase;}
 .pkg-body{padding:24px;flex:1;display:flex;flex-direction:column;gap:10px;}
 .pkg-feature{font-size:13px;font-family:"Cormorant",serif;font-style:italic;line-height:1.4;}
-.pkg-feature.include{color:rgba(247,244,238,0.55);}
-.pkg-feature.exclude{color:rgba(247,244,238,0.14);}
+.pkg-feature.include{color:rgba(253,248,238,0.8);}
+.pkg-feature.exclude{color:rgba(247,244,238,0.22);}
 .pkg-feature.pkg-new{color:#c9a84c;font-weight:600;font-style:normal;}
 .pkg-btn{display:block;margin:0 24px 24px;padding:12px;border:1px solid rgba(201,168,76,0.2);text-align:center;font-size:10px;letter-spacing:0.35em;text-transform:uppercase;color:rgba(201,168,76,0.5);text-decoration:none;transition:all 0.3s;font-family:"DM Sans",sans-serif;}
 .pkg-btn:hover{background:rgba(201,168,76,0.08);color:#c9a84c;border-color:rgba(201,168,76,0.45);}
@@ -1156,41 +1188,158 @@ footer{
 @media(max-width:540px){.pkg-grid{grid-template-columns:1fr;}}
 </style>
 
-<!-- TESTIMONIALS -->
+<!-- TESTIMONIALS CAROUSEL -->
 <section class="testi-section">
   <div class="testi-inner">
     <div class="section-header reveal">
       <p class="section-tag">Kata Pelanggan</p>
       <h2 class="section-h2">Mereka dah cuba,<br><em>tetamu terkesima</em></h2>
     </div>
-    <div class="testi-grid">
-      <div class="testi-card reveal">
-        <p class="testi-stars">★★★★★</p>
-        <p class="testi-quote">"Masa tetamu bukak kad tu, terus WhatsApp aku tanya 'eh mana dapat kad cantik macam ni?' Berbaloi sangat RM199 tu!"</p>
-        <div class="testi-author">
-          <div class="testi-avatar">NF</div>
-          <div><p class="testi-name">Nur Farhana</p><p class="testi-role">Pengantin · Kuala Lumpur</p></div>
+
+    <div class="carousel-wrap reveal" style="transition-delay:0.2s;">
+      <div class="carousel-track" id="testiTrack">
+
+        <!-- =============================================
+          CARA TAMBAH TESTIMONIAL BARU:
+          Copy satu blok .testi-slide di bawah,
+          paste selepas slide terakhir,
+          tukar avatar initials, nama, lokasi & quote.
+        ============================================= -->
+
+        <div class="testi-slide">
+          <div class="testi-card">
+            <p class="testi-stars">★★★★★</p>
+            <p class="testi-quote">"Masa tetamu bukak kad tu, terus WhatsApp aku tanya 'eh mana dapat kad cantik macam ni?' Berbaloi sangat!"</p>
+            <div class="testi-author">
+              <div class="testi-avatar">NF</div>
+              <div><p class="testi-name">Nur Farhana</p><p class="testi-role">Pengantin · Kuala Lumpur</p></div>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="testi-card reveal" style="transition-delay:0.1s;">
-        <p class="testi-stars">★★★★★</p>
-        <p class="testi-quote">"Siap dalam 24 jam! Lagi cepat dari yang dijanjikan. Design pun exactly macam yang aku nak. Memang recommend!"</p>
-        <div class="testi-author">
-          <div class="testi-avatar">AR</div>
-          <div><p class="testi-name">Ahmad Razif</p><p class="testi-role">Pengantin · Selangor</p></div>
+
+        <div class="testi-slide">
+          <div class="testi-card">
+            <p class="testi-stars">★★★★★</p>
+            <p class="testi-quote">"Siap dalam 24 jam! Lagi cepat dari yang dijanjikan. Design pun exactly macam yang aku nak. Memang recommend!"</p>
+            <div class="testi-author">
+              <div class="testi-avatar">AR</div>
+              <div><p class="testi-name">Ahmad Razif</p><p class="testi-role">Pengantin · Selangor</p></div>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="testi-card reveal" style="transition-delay:0.2s;">
-        <p class="testi-stars">★★★★★</p>
-        <p class="testi-quote">"Sebagai pengantin 2026, kad digital ni memang wajib. EQstudio buat yang terbaik — interaktif, cantik dan mudah kongsi!"</p>
-        <div class="testi-author">
-          <div class="testi-avatar">ZA</div>
-          <div><p class="testi-name">Zahidah Aisyah</p><p class="testi-role">Pengantin · Johor Bahru</p></div>
+
+        <div class="testi-slide">
+          <div class="testi-card">
+            <p class="testi-stars">★★★★★</p>
+            <p class="testi-quote">"Sebagai pengantin 2026, kad digital ni memang wajib. EQstudio buat yang terbaik — interaktif, cantik dan mudah kongsi!"</p>
+            <div class="testi-author">
+              <div class="testi-avatar">ZA</div>
+              <div><p class="testi-name">Zahidah Aisyah</p><p class="testi-role">Pengantin · Johor Bahru</p></div>
+            </div>
+          </div>
         </div>
+
+        <div class="testi-slide">
+          <div class="testi-card">
+            <p class="testi-stars">★★★★★</p>
+            <p class="testi-quote">"Tetamu siap screenshot kad kitorang letak kat WhatsApp status dia. Tak sangka kad digital boleh jadi se-viral tu!"</p>
+            <div class="testi-author">
+              <div class="testi-avatar">HI</div>
+              <div><p class="testi-name">Hafizuddin &amp; Ira</p><p class="testi-role">Pengantin · Johor</p></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testi-slide">
+          <div class="testi-card">
+            <p class="testi-stars">★★★★★</p>
+            <p class="testi-quote">"Proses senang, komunikasi cepat. Hantar info pagi, petang dah dapat draft. Malam tu terus approve. Terbaik!"</p>
+            <div class="testi-author">
+              <div class="testi-avatar">SM</div>
+              <div><p class="testi-name">Syafiq &amp; Mira</p><p class="testi-role">Pengantin · Kedah</p></div>
+            </div>
+          </div>
+        </div>
+
       </div>
+
+      <!-- Controls -->
+      <div class="carousel-controls">
+        <button class="carousel-btn prev" onclick="moveCarousel(-1)" aria-label="Sebelum">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <div class="carousel-dots" id="testiDots"></div>
+        <button class="carousel-btn next" onclick="moveCarousel(1)" aria-label="Seterusnya">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+      </div>
+
+      <!-- Slide counter -->
+      <p class="carousel-counter" id="testiCounter">1 / 5</p>
     </div>
   </div>
 </section>
+
+<style>
+/* ── CAROUSEL ── */
+.carousel-wrap{position:relative;overflow:hidden;}
+.carousel-track{
+  display:flex;
+  transition:transform 0.5s cubic-bezier(0.4,0,0.2,1);
+}
+.testi-slide{
+  min-width:100%;padding:4px 2px;
+}
+.testi-card{
+  padding:40px 36px;background:#fff;
+  border:1px solid rgba(26,20,16,0.06);
+  max-width:640px;margin:0 auto;
+}
+.testi-stars{color:#c9a84c;font-size:16px;letter-spacing:4px;margin-bottom:20px;}
+.testi-quote{
+  font-family:'Cormorant',serif;font-style:italic;
+  font-size:clamp(18px,3vw,22px);color:#1a1410;
+  line-height:1.7;margin-bottom:28px;
+}
+.testi-author{
+  display:flex;align-items:center;gap:14px;
+  padding-top:20px;border-top:1px solid rgba(26,20,16,0.06);
+}
+.testi-avatar{
+  width:44px;height:44px;border-radius:50%;
+  background:linear-gradient(135deg,#c9a84c,#8B6914);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Cormorant',serif;font-size:15px;
+  color:#1a1410;font-weight:600;flex-shrink:0;
+}
+.testi-name{font-size:14px;color:#1a1410;font-weight:400;}
+.testi-role{font-size:11px;color:rgba(26,20,16,0.4);margin-top:2px;}
+.carousel-controls{
+  display:flex;align-items:center;justify-content:center;
+  gap:20px;margin-top:28px;
+}
+.carousel-btn{
+  width:40px;height:40px;border-radius:50%;
+  border:1px solid rgba(26,20,16,0.15);background:transparent;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:all 0.25s;
+  color:rgba(26,20,16,0.4);
+}
+.carousel-btn svg{width:18px;height:18px;}
+.carousel-btn:hover{border-color:#8B6914;color:#8B6914;background:rgba(139,105,20,0.04);}
+.carousel-dots{display:flex;gap:8px;align-items:center;}
+.carousel-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:rgba(26,20,16,0.15);cursor:pointer;
+  transition:all 0.3s;border:none;padding:0;
+}
+.carousel-dot.active{background:#8B6914;width:20px;border-radius:3px;}
+.carousel-counter{
+  text-align:center;font-size:11px;
+  color:rgba(26,20,16,0.3);letter-spacing:0.2em;
+  margin-top:12px;
+}
+</style>
 
 <!-- FAQ -->
 <section class="faq-section" id="faq">
@@ -1384,6 +1533,38 @@ var obs=new IntersectionObserver(function(entries){
 },{threshold:0.08,rootMargin:'0px 0px -40px 0px'});
 document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el);});
 
+/* CAROUSEL */
+var carIdx = 0;
+function carouselInit(){
+  var slides = document.querySelectorAll('.carousel-slide');
+  var dots = document.getElementById('carouselDots');
+  if(!dots || !slides.length) return;
+  dots.innerHTML = '';
+  slides.forEach(function(s,i){
+    s.classList.toggle('active', i===0);
+    var d = document.createElement('button');
+    d.className = 'carousel-dot' + (i===0?' active':'');
+    d.onclick = function(){ carouselGo(i); };
+    dots.appendChild(d);
+  });
+  // Auto slide every 5s
+  setInterval(function(){ carouselMove(1); }, 5000);
+}
+function carouselMove(dir){
+  var slides = document.querySelectorAll('.carousel-slide');
+  carouselGo((carIdx + dir + slides.length) % slides.length);
+}
+function carouselGo(idx){
+  var slides = document.querySelectorAll('.carousel-slide');
+  var dots = document.querySelectorAll('.carousel-dot');
+  slides[carIdx].classList.remove('active');
+  if(dots[carIdx]) dots[carIdx].classList.remove('active');
+  carIdx = idx;
+  slides[carIdx].classList.add('active');
+  if(dots[carIdx]) dots[carIdx].classList.add('active');
+}
+document.addEventListener('DOMContentLoaded', carouselInit);
+
 /* FILTER TEMPLATES */
 function filterTemplates(cat, btn){
   document.querySelectorAll('.filter-btn').forEach(function(b){b.classList.remove('active');});
@@ -1473,6 +1654,14 @@ function submitOrder(){
   document.getElementById('orderFormWrap').style.display='none';
   document.getElementById('orderSuccess').style.display='block';
 }
+
+/* ── TESTIMONIAL CAROUSEL ── */
+var tcCurrent=0,tcTotal=0,tcAutoTimer;
+function tcInit(){var slides=document.querySelectorAll('.tc-slide');tcTotal=slides.length;var dw=document.getElementById('tcDots');if(!dw)return;dw.innerHTML='';for(var i=0;i<tcTotal;i++){var d=document.createElement('button');d.className='tc-dot'+(i===0?' active':'');(function(idx){d.onclick=function(){tcGoTo(idx);};})(i);dw.appendChild(d);}tcAutoTimer=setInterval(function(){tcMove(1);},4500);}
+function tcMove(dir){tcGoTo((tcCurrent+dir+tcTotal)%tcTotal);}
+function tcGoTo(idx){tcCurrent=idx;var t=document.getElementById('tcTrack');if(t)t.style.transform='translateX(-'+tcCurrent+'00%)';document.querySelectorAll('.tc-dot').forEach(function(d,i){d.classList.toggle('active',i===tcCurrent);});clearInterval(tcAutoTimer);tcAutoTimer=setInterval(function(){tcMove(1);},4500);}
+document.addEventListener('DOMContentLoaded',tcInit);
+window.addEventListener('load',function(){if(tcTotal===0)tcInit();});
 </script>
 </body>
 </html>
