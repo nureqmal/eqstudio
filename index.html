@@ -1470,7 +1470,7 @@ function renderTemplates(registry){
   const select = document.getElementById('f-template');
   grid.innerHTML = '';
   select.innerHTML = '<option value="">Pilih template…<\/option>';
-  let delay=0, firstPop=true;
+  let delay=0;
   for(const [cat, templates] of Object.entries(registry)){
     const price    = PRICE_MAP[cat]  || 29;
     const catSlug  = CAT_SLUG[cat]   || 'esential';
@@ -1488,8 +1488,7 @@ function renderTemplates(registry){
       const thumbHTML = previewImg
         ? `<div class="tc-thumb has-img"><img class="tc-preview-img" src="${PAGES_BASE}/${previewImg}" alt="${name}" loading="lazy"><div class="tc-overlay"><a href="#tempah" class="tc-ov-btn" onclick="prefill('${pv}')">Pilih Template<\/a>${demoUrl?`<a href="${demoUrl}" class="tc-ov-btn ghost" target="_blank">Live Demo →<\/a>`:''}<\/div><\/div>`
         : `<div class="tc-thumb"><div class="tc-inner" style="background:linear-gradient(150deg,#0a0d0b,#0f1a15)"><span style="font-size:32px">${emoji}<\/span><p style="margin-top:12px;font-family:var(--ff-display);font-style:italic;color:var(--text2);font-size:14px">${name}<\/p><\/div><div class="tc-overlay"><a href="#tempah" class="tc-ov-btn" onclick="prefill('${pv}')">Pilih Template<\/a>${demoUrl?`<a href="${demoUrl}" class="tc-ov-btn ghost" target="_blank">Live Demo →<\/a>`:''}<\/div><\/div>`;
-      const popBadge = (isPopular&&firstPop)?'<span class="tc-badge2 badge-pop">Popular ❖<\/span>':'';
-      if(isPopular&&firstPop) firstPop=false;
+      const popBadge = isPopular?'<span class="tc-badge2 badge-pop">Popular ❖<\/span>':'';
       const card=document.createElement('div');
       card.className='tmpl-card reveal';
       card.dataset.cat=catSlug;
