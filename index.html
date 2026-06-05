@@ -1331,9 +1331,9 @@ jitter();
 /* ── REGISTRY LOADER ── */
 const REGISTRY_URL = 'https://raw.githubusercontent.com/nureqmal/eqstudio-cards/main/templates/registry.json';
 const PAGES_BASE   = 'https://nureqmal.github.io/eqstudio-cards';
-const PRICE_MAP    = { Essential:29, Portrait:39, Light:39, Cinematic:59, Prestige:99 };
-const CAT_SLUG     = { Essential:'esential', Portrait:'potrait', Light:'potrait', Cinematic:'cinematic', Prestige:'prestige' };
-const CAT_BADGE    = { Essential:'badge-essential', Portrait:'badge-potrait', Light:'badge-potrait', Cinematic:'badge-cinematic', Prestige:'badge-prestige' };
+const PRICE_MAP    = { Essential:29, Portrait:39, Potrait:39, Light:39, Cinematic:59, Prestige:99 };
+const CAT_SLUG     = { Essential:'esential', Portrait:'potrait', Potrait:'potrait', Light:'potrait', Cinematic:'cinematic', Prestige:'prestige' };
+const CAT_BADGE    = { Essential:'badge-essential', Portrait:'badge-potrait', Potrait:'badge-potrait', Light:'badge-potrait', Cinematic:'badge-cinematic', Prestige:'badge-prestige' };
 
 async function loadTemplates(){
   try{
@@ -1389,7 +1389,7 @@ function renderTemplates(registry){
   const cs=document.createElement('div');
   cs.className='coming-soon-card reveal';
   cs.style.transitionDelay=delay+'s';
-  cs.innerHTML='<div class="coming-soon-inner"><span class="cs-icon">❖<\/span><span>Akan Datang<\/span><span style="font-size:11px;font-family:'Syne',sans-serif;letter-spacing:.2em;opacity:.4;font-style:normal;">Coming Soon<\/span><\/div><div style="padding:18px 20px;border-top:1px solid rgba(255,255,255,.05);"><p style="font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:rgba(240,237,230,.2);">Template Baharu<\/p><p style="font-size:11px;color:rgba(240,237,230,.1);margin-top:3px;">Dalam Proses<\/p><\/div>';
+  cs.innerHTML=`<div class="coming-soon-inner"><span class="cs-icon">✦</span><span>Akan Datang</span><span style="font-size:11px;font-family:'Syne',sans-serif;letter-spacing:.2em;opacity:.4;font-style:normal;">Coming Soon</span></div><div style="padding:18px 20px;border-top:1px solid rgba(255,255,255,.05);"><p style="font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:rgba(240,237,230,.2);">Template Baharu</p><p style="font-size:11px;color:rgba(240,237,230,.1);margin-top:3px;">Dalam Proses</p></div>`;
   grid.appendChild(cs);
   // Option belum pasti
   const ob=document.createElement('option');
