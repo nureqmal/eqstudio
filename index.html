@@ -1364,7 +1364,7 @@ function renderTemplates(registry){
       const previewImg = info.preview_img  || '';
       const demoFile   = info.file         || '';
       const isPopular  = info.popular      || false;
-      const demoUrl    = demoFile ? PAGES_BASE+'/templates/'+demoFile : '';
+      const demoUrl    = demoFile ? PAGES_BASE+'/demo.html?t='+demoFile : '';
       const prefillVal = name+' (— '+cat+') — RM'+price;
       const pv = prefillVal.replace(/'/g,"\\'");
       const thumbHTML = previewImg
