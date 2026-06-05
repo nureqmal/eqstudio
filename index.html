@@ -456,16 +456,31 @@ section { position:relative; z-index:2; }
 .tc-feat { font-size:11px; color:var(--text3); }
 .tc-price2 { font-family:var(--ff-display); font-size:22px; color:var(--gold); font-style:italic; }
 .tc-badge2 {
-  position:absolute; top:14px; left:14px; z-index:3;
-  padding:4px 10px; font-family:var(--ff-ui); font-size:8px;
-  font-weight:700; letter-spacing:.2em; text-transform:uppercase;
+  position:absolute; top:12px; left:12px; z-index:3;
+  padding:5px 11px;
+  font-family:var(--ff-ui); font-size:8px;
+  font-weight:800; letter-spacing:.18em; text-transform:uppercase;
+  border-radius:2px;
 }
 .tc-catbadge {
   position:absolute; top:14px; right:14px; z-index:3;
   padding:4px 10px; font-family:var(--ff-ui); font-size:8px;
   font-weight:600; letter-spacing:.2em; text-transform:uppercase;
 }
-.badge-pop { background:var(--gold-g); color:#060b0a; }
+/* Popular badge — merah luxury, lain dari category badge */
+.badge-pop {
+  background: linear-gradient(135deg, #8b1a1a, #c0392b, #8b1a1a);
+  color: #ffd5d5;
+  border: 1px solid rgba(192,57,43,.6);
+  box-shadow: 0 0 12px rgba(192,57,43,.4), inset 0 1px 0 rgba(255,255,255,.1);
+  letter-spacing:.25em;
+  border-radius: 2px;
+}
+.badge-pop::before {
+  content: '◆ ';
+  font-size: 6px;
+  opacity: .8;
+}
 .badge-essential { background:rgba(13,107,82,.8); color:#a8f0d4; border:1px solid rgba(13,107,82,.3); }
 .badge-potrait   { background:rgba(180,80,70,.7); color:#fde0d0; border:1px solid rgba(180,80,70,.3); }
 .badge-cinematic { background:rgba(201,164,74,.8); color:#1a1200; }
@@ -1488,7 +1503,7 @@ function renderTemplates(registry){
       const thumbHTML = previewImg
         ? `<div class="tc-thumb has-img"><img class="tc-preview-img" src="${PAGES_BASE}/${previewImg}" alt="${name}" loading="lazy"><div class="tc-overlay"><a href="#tempah" class="tc-ov-btn" onclick="prefill('${pv}')">Pilih Template<\/a>${demoUrl?`<a href="${demoUrl}" class="tc-ov-btn ghost" target="_blank">Live Demo →<\/a>`:''}<\/div><\/div>`
         : `<div class="tc-thumb"><div class="tc-inner" style="background:linear-gradient(150deg,#0a0d0b,#0f1a15)"><span style="font-size:32px">${emoji}<\/span><p style="margin-top:12px;font-family:var(--ff-display);font-style:italic;color:var(--text2);font-size:14px">${name}<\/p><\/div><div class="tc-overlay"><a href="#tempah" class="tc-ov-btn" onclick="prefill('${pv}')">Pilih Template<\/a>${demoUrl?`<a href="${demoUrl}" class="tc-ov-btn ghost" target="_blank">Live Demo →<\/a>`:''}<\/div><\/div>`;
-      const popBadge = isPopular?'<span class="tc-badge2 badge-pop">Popular ❖<\/span>':'';
+      const popBadge = isPopular?'<span class="tc-badge2 badge-pop">Popular<\/span>':'';
       const card=document.createElement('div');
       card.className='tmpl-card reveal';
       card.dataset.cat=catSlug;
