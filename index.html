@@ -456,31 +456,23 @@ section { position:relative; z-index:2; }
 .tc-feat { font-size:11px; color:var(--text3); }
 .tc-price2 { font-family:var(--ff-display); font-size:22px; color:var(--gold); font-style:italic; }
 .tc-badge2 {
-  position:absolute; top:12px; left:12px; z-index:3;
-  padding:5px 11px;
-  font-family:var(--ff-ui); font-size:8px;
-  font-weight:800; letter-spacing:.18em; text-transform:uppercase;
-  border-radius:2px;
+  display:inline-block;
+  padding:4px 10px; font-family:var(--ff-ui); font-size:8px;
+  font-weight:800; letter-spacing:.2em; text-transform:uppercase;
+  border-radius:2px; margin-bottom:6px;
 }
 .tc-catbadge {
   position:absolute; top:14px; right:14px; z-index:3;
   padding:4px 10px; font-family:var(--ff-ui); font-size:8px;
   font-weight:600; letter-spacing:.2em; text-transform:uppercase;
 }
-/* Popular badge — merah luxury, lain dari category badge */
 .badge-pop {
   background: linear-gradient(135deg, #8b1a1a, #c0392b, #8b1a1a);
   color: #ffd5d5;
   border: 1px solid rgba(192,57,43,.6);
-  box-shadow: 0 0 12px rgba(192,57,43,.4), inset 0 1px 0 rgba(255,255,255,.1);
-  letter-spacing:.25em;
-  border-radius: 2px;
+  box-shadow: 0 0 10px rgba(192,57,43,.35), inset 0 1px 0 rgba(255,255,255,.1);
 }
-.badge-pop::before {
-  content: '◆ ';
-  font-size: 6px;
-  opacity: .8;
-}
+.badge-pop::before { content:'◆ '; font-size:6px; opacity:.8; }
 .badge-essential { background:rgba(13,107,82,.8); color:#a8f0d4; border:1px solid rgba(13,107,82,.3); }
 .badge-potrait   { background:rgba(180,80,70,.7); color:#fde0d0; border:1px solid rgba(180,80,70,.3); }
 .badge-cinematic { background:rgba(201,164,74,.8); color:#1a1200; }
@@ -1486,11 +1478,20 @@ function renderTemplates(registry){
   grid.innerHTML = '';
   select.innerHTML = '<option value="">Pilih template…<\/option>';
   let delay=0;
+  // Sort: popular templates dari semua kategori dikumpul dulu
+  const allTemplates = [];
   for(const [cat, templates] of Object.entries(registry)){
+    for(const [key, info] of Object.entries(templates)){
+      allTemplates.push({cat, key, info});
+    }
+  }
+  allTemplates.sort((a,b) => (b.info.popular?1:0) - (a.info.popular?1:0));
+
+  for(const {cat, key, info} of allTemplates){
     const price    = PRICE_MAP[cat]  || 29;
     const catSlug  = CAT_SLUG[cat]   || 'esential';
     const badgeCls = CAT_BADGE[cat]  || 'badge-essential';
-    for(const [key, info] of Object.entries(templates)){
+    {
       const name       = info.name         || key;
       const desc       = info.desc         || '';
       const emoji      = info.preview_emoji|| '✨';
@@ -1503,7 +1504,7 @@ function renderTemplates(registry){
       const thumbHTML = previewImg
         ? `<div class="tc-thumb has-img"><img class="tc-preview-img" src="${PAGES_BASE}/${previewImg}" alt="${name}" loading="lazy"><div class="tc-overlay"><a href="#tempah" class="tc-ov-btn" onclick="prefill('${pv}')">Pilih Template<\/a>${demoUrl?`<a href="${demoUrl}" class="tc-ov-btn ghost" target="_blank">Live Demo →<\/a>`:''}<\/div><\/div>`
         : `<div class="tc-thumb"><div class="tc-inner" style="background:linear-gradient(150deg,#0a0d0b,#0f1a15)"><span style="font-size:32px">${emoji}<\/span><p style="margin-top:12px;font-family:var(--ff-display);font-style:italic;color:var(--text2);font-size:14px">${name}<\/p><\/div><div class="tc-overlay"><a href="#tempah" class="tc-ov-btn" onclick="prefill('${pv}')">Pilih Template<\/a>${demoUrl?`<a href="${demoUrl}" class="tc-ov-btn ghost" target="_blank">Live Demo →<\/a>`:''}<\/div><\/div>`;
-      const popBadge = isPopular?'<span class="tc-badge2 badge-pop">Popular<\/span>':'';
+      const popBadge = isPopular?'<span class="tc-badge2 badge-pop">Popular ❖<\/span>':'';
       const card=document.createElement('div');
       card.className='tmpl-card reveal';
       card.dataset.cat=catSlug;
