@@ -439,6 +439,16 @@ section { position:relative; z-index:2; }
 }
 .tc-ov-btn.ghost:hover { border-color:rgba(240,237,230,.4); color:var(--text); }
 
+/* Preview Image */
+.tc-thumb img.tc-preview-img {
+  width:100%; height:100%; object-fit:cover;
+  transition:transform .5s var(--ease-silk);
+  display:block;
+}
+.tmpl-card:hover .tc-preview-img { transform:scale(1.04); }
+.tc-thumb.has-img { background:#060b0a; }
+
+
 /* Card meta */
 .tc-meta2 { padding:18px 20px; border-top:1px solid var(--border); }
 .tc-meta2-top { display:flex; align-items:flex-start; justify-content:space-between; }
@@ -910,165 +920,9 @@ footer {
       <button class="f-btn" onclick="filterT('prestige',this)">Prestige <span class="f-price">RM99</span></button>
     </div>
     <div class="tmpl-grid" id="tmplGrid">
-
-      <!-- 1 Midnight Luxe -->
-      <div class="tmpl-card reveal" data-cat="cinematic">
-        <span class="tc-badge2 badge-pop">Popular ✦</span>
-        <span class="tc-catbadge badge-cinematic">Cinematic</span>
-        <div class="tc-thumb">
-          <div class="tc-inner th-midnight">
-            <span class="tc-arab gold-t">بِسْمِ اللَّهِ</span>
-            <div class="tc-divline gold-bg"></div>
-            <p class="tc-smlab gold-t">Walimatul Urus</p>
-            <p class="tc-names2 gold-t2">Izzat<span class="tc-and2 gold-t">&amp;</span>Hana</p>
-            <p class="tc-date2 gold-t">✦ 10 · 08 · 2026 ✦</p>
-          </div>
-          <div class="tc-overlay">
-            <a href="#tempah" class="tc-ov-btn" onclick="prefill('Midnight Luxe (Dark Gold) — Cinematic RM59')">Pilih Template</a>
-            <a href="demos/template-01.html" class="tc-ov-btn ghost" target="_blank">Live Demo →</a>
-          </div>
-        </div>
-        <div class="tc-meta2">
-          <div class="tc-meta2-top">
-            <div><p class="tc-cname">Midnight Luxe</p><p class="tc-feat">Cinematic · Petals · Music</p></div>
-            <p class="tc-price2">RM59</p>
-          </div>
-        </div>
+      <div id="tmpl-loading" style="grid-column:1/-1;text-align:center;padding:80px 0;color:var(--text3);font-family:var(--ff-ui);font-size:11px;letter-spacing:.25em">
+        <span style="opacity:.4">✦</span> &nbsp; MEMUATKAN KOLEKSI TEMPLATE &nbsp; <span style="opacity:.4">✦</span>
       </div>
-
-      <!-- 2 Blush Romance -->
-      <div class="tmpl-card reveal" data-cat="potrait" style="transition-delay:.1s">
-        <span class="tc-catbadge badge-potrait">Potrait</span>
-        <div class="tc-thumb">
-          <div class="tc-inner th-blush">
-            <span class="tc-arab blush-t">بِسْمِ اللَّهِ</span>
-            <div class="tc-divline" style="background:#e8b4a0;"></div>
-            <p class="tc-smlab blush-t">Walimatul Urus</p>
-            <p class="tc-names2" style="color:#f5e0d0;">Razif<span class="tc-and2 blush-t">&amp;</span>Delisha</p>
-            <p class="tc-date2 blush-t">🌸 15 · 03 · 2026 🌸</p>
-          </div>
-          <div class="tc-overlay">
-            <a href="#tempah" class="tc-ov-btn" onclick="prefill('Blush Romance (Pink Soft) — Potrait RM39')">Pilih Template</a>
-            <a href="demos/template-02.html" class="tc-ov-btn ghost" target="_blank">Live Demo →</a>
-          </div>
-        </div>
-        <div class="tc-meta2">
-          <div class="tc-meta2-top">
-            <div><p class="tc-cname">Blush Romance</p><p class="tc-feat">Floral · Soft · Elegant</p></div>
-            <p class="tc-price2">RM39</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- 3 Sage Garden -->
-      <div class="tmpl-card reveal" data-cat="esential" style="transition-delay:.2s">
-        <span class="tc-catbadge badge-essential">Esential</span>
-        <div class="tc-thumb">
-          <div class="tc-inner th-sage">
-            <span class="tc-arab sage-t">بِسْمِ اللَّهِ</span>
-            <div class="tc-divline" style="background:#7db88a;"></div>
-            <p class="tc-smlab sage-t">Walimatul Urus</p>
-            <p class="tc-names2" style="color:#c8e8ca;">Adib<span class="tc-and2 sage-t">&amp;</span>Sofiya</p>
-            <p class="tc-date2 sage-t">🌿 22 · 06 · 2026 🌿</p>
-          </div>
-          <div class="tc-overlay">
-            <a href="#tempah" class="tc-ov-btn" onclick="prefill('Sage Garden (Green Natural) — Esential RM29')">Pilih Template</a>
-            <a href="demos/template-03.html" class="tc-ov-btn ghost" target="_blank">Live Demo →</a>
-          </div>
-        </div>
-        <div class="tc-meta2">
-          <div class="tc-meta2-top">
-            <div><p class="tc-cname">Sage Garden</p><p class="tc-feat">Nature · Fresh · Modern</p></div>
-            <p class="tc-price2">RM29</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- 4 Midnight Navy -->
-      <div class="tmpl-card reveal" data-cat="prestige" style="transition-delay:.05s">
-        <span class="tc-catbadge badge-prestige">Prestige</span>
-        <div class="tc-thumb">
-          <div class="tc-inner th-navy">
-            <span class="tc-arab navy-t">بِسْمِ اللَّهِ</span>
-            <div class="tc-divline" style="background:#7baae0;"></div>
-            <p class="tc-smlab navy-t">Walimatul Urus</p>
-            <p class="tc-names2" style="color:#cce0ff;">Hakimi<span class="tc-and2 navy-t">&amp;</span>Nailah</p>
-            <p class="tc-date2 navy-t">⚓ 05 · 09 · 2026 ⚓</p>
-          </div>
-          <div class="tc-overlay">
-            <a href="#tempah" class="tc-ov-btn" onclick="prefill('Midnight Navy (Dark Blue) — Prestige RM99')">Pilih Template</a>
-            <a href="demos/template-04.html" class="tc-ov-btn ghost" target="_blank">Live Demo →</a>
-          </div>
-        </div>
-        <div class="tc-meta2">
-          <div class="tc-meta2-top">
-            <div><p class="tc-cname">Midnight Navy</p><p class="tc-feat">Bold · Classic · Timeless</p></div>
-            <p class="tc-price2">RM99</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- 5 Ivory Classic -->
-      <div class="tmpl-card reveal" data-cat="esential" style="transition-delay:.15s">
-        <span class="tc-catbadge badge-essential">Esential</span>
-        <div class="tc-thumb">
-          <div class="tc-inner th-ivory">
-            <span class="tc-arab gold-t">بِسْمِ اللَّهِ</span>
-            <div class="tc-divline gold-bg"></div>
-            <p class="tc-smlab gold-t">Walimatul Urus</p>
-            <p class="tc-names2" style="color:#e8e0cc;">Faris<span class="tc-and2 gold-t">&amp;</span>Aisyah</p>
-            <p class="tc-date2 gold-t">✦ 12 · 07 · 2026 ✦</p>
-          </div>
-          <div class="tc-overlay">
-            <a href="#tempah" class="tc-ov-btn" onclick="prefill('Ivory Classic (Cream Minimal) — Esential RM29')">Pilih Template</a>
-            <a href="demos/template-05.html" class="tc-ov-btn ghost" target="_blank">Live Demo →</a>
-          </div>
-        </div>
-        <div class="tc-meta2">
-          <div class="tc-meta2-top">
-            <div><p class="tc-cname">Ivory Classic</p><p class="tc-feat">Minimal · Clean · Pure</p></div>
-            <p class="tc-price2">RM29</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- 6 Rosewood Dark -->
-      <div class="tmpl-card reveal" data-cat="potrait" style="transition-delay:.25s">
-        <span class="tc-catbadge badge-potrait">Potrait</span>
-        <div class="tc-thumb">
-          <div class="tc-inner th-rose">
-            <span class="tc-arab rose-t">بِسْمِ اللَّهِ</span>
-            <div class="tc-divline" style="background:#f09ca0;"></div>
-            <p class="tc-smlab rose-t">Walimatul Urus</p>
-            <p class="tc-names2" style="color:#f5d0d4;">Ariff<span class="tc-and2 rose-t">&amp;</span>Maisarah</p>
-            <p class="tc-date2 rose-t">🌹 28 · 08 · 2026 🌹</p>
-          </div>
-          <div class="tc-overlay">
-            <a href="#tempah" class="tc-ov-btn" onclick="prefill('Rosewood Dark (Dark Rose) — Potrait RM39')">Pilih Template</a>
-            <a href="demos/template-06.html" class="tc-ov-btn ghost" target="_blank">Live Demo →</a>
-          </div>
-        </div>
-        <div class="tc-meta2">
-          <div class="tc-meta2-top">
-            <div><p class="tc-cname">Rosewood Dark</p><p class="tc-feat">Moody · Rich · Dramatic</p></div>
-            <p class="tc-price2">RM39</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Coming Soon -->
-      <div class="coming-soon-card reveal" style="transition-delay:.3s">
-        <div class="coming-soon-inner">
-          <span class="cs-icon">✦</span>
-          <span>Akan Datang</span>
-          <span style="font-size:11px;font-family:'Syne',sans-serif;letter-spacing:.2em;opacity:.4;font-style:normal;">Coming Soon</span>
-        </div>
-        <div style="padding:18px 20px;border-top:1px solid rgba(255,255,255,.05);">
-          <p style="font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:rgba(240,237,230,.2);">Template Baharu</p>
-          <p style="font-size:11px;color:rgba(240,237,230,.1);margin-top:3px;">Dalam Proses</p>
-        </div>
-      </div>
-
     </div>
   </div>
 </section>
@@ -1299,14 +1153,7 @@ footer {
             <div class="fg">
               <label class="fl">Template Pilihan</label>
               <select class="fi" id="f-template">
-                <option value="">Pilih template…</option>
-                <option>Midnight Luxe (Dark Gold) — Cinematic RM59</option>
-                <option>Blush Romance (Pink Soft) — Potrait RM39</option>
-                <option>Sage Garden (Green Natural) — Esential RM29</option>
-                <option>Midnight Navy (Dark Blue) — Prestige RM99</option>
-                <option>Ivory Classic (Cream Minimal) — Esential RM29</option>
-                <option>Rosewood Dark (Dark Rose) — Potrait RM39</option>
-                <option>Belum pasti — nak tanya dulu</option>
+                <option value="">Memuatkan template...</option>
               </select>
               <p class="fh">Tak pasti? Pilih "Belum pasti" — kami cadangkan yang terbaik</p>
             </div>
@@ -1481,6 +1328,75 @@ jitter();
   tick(); setInterval(tick,1000);
 })();
 
+/* ── REGISTRY LOADER ── */
+const REGISTRY_URL = 'https://raw.githubusercontent.com/nureqmal/eqstudio-cards/main/templates/registry.json';
+const PAGES_BASE   = 'https://nureqmal.github.io/eqstudio-cards';
+const PRICE_MAP    = { Essential:29, Portrait:39, Light:39, Cinematic:59, Prestige:99 };
+const CAT_SLUG     = { Essential:'esential', Portrait:'potrait', Light:'potrait', Cinematic:'cinematic', Prestige:'prestige' };
+const CAT_BADGE    = { Essential:'badge-essential', Portrait:'badge-potrait', Light:'badge-potrait', Cinematic:'badge-cinematic', Prestige:'badge-prestige' };
+
+async function loadTemplates(){
+  try{
+    const res = await fetch(REGISTRY_URL+'?v='+Date.now());
+    if(!res.ok) throw new Error('fetch failed');
+    const registry = await res.json();
+    renderTemplates(registry);
+  }catch(e){
+    const el=document.getElementById('tmpl-loading');
+    if(el) el.innerHTML='<span style="color:var(--text3)">Tidak dapat memuatkan template. <a href=\'#tempah\' style=\'color:var(--gold)\'>Hubungi kami</a> untuk lihat katalog.</span>';
+  }
+}
+
+function renderTemplates(registry){
+  const grid   = document.getElementById('tmplGrid');
+  const select = document.getElementById('f-template');
+  grid.innerHTML = '';
+  select.innerHTML = '<option value="">Pilih template…<\/option>';
+  let delay=0, firstPop=true;
+  for(const [cat, templates] of Object.entries(registry)){
+    const price    = PRICE_MAP[cat]  || 29;
+    const catSlug  = CAT_SLUG[cat]   || 'esential';
+    const badgeCls = CAT_BADGE[cat]  || 'badge-essential';
+    for(const [key, info] of Object.entries(templates)){
+      const name       = info.name         || key;
+      const desc       = info.desc         || '';
+      const emoji      = info.preview_emoji|| '✨';
+      const previewImg = info.preview_img  || '';
+      const demoFile   = info.file         || '';
+      const isPopular  = info.popular      || false;
+      const demoUrl    = demoFile ? PAGES_BASE+'/templates/'+demoFile : '';
+      const prefillVal = name+' (— '+cat+') — RM'+price;
+      const pv = prefillVal.replace(/'/g,"\\'");
+      const thumbHTML = previewImg
+        ? `<div class="tc-thumb has-img"><img class="tc-preview-img" src="${PAGES_BASE}/${previewImg}" alt="${name}" loading="lazy"><div class="tc-overlay"><a href="#tempah" class="tc-ov-btn" onclick="prefill('${pv}')">Pilih Template<\/a>${demoUrl?`<a href="${demoUrl}" class="tc-ov-btn ghost" target="_blank">Live Demo →<\/a>`:''}<\/div><\/div>`
+        : `<div class="tc-thumb"><div class="tc-inner" style="background:linear-gradient(150deg,#0a0d0b,#0f1a15)"><span style="font-size:32px">${emoji}<\/span><p style="margin-top:12px;font-family:var(--ff-display);font-style:italic;color:var(--text2);font-size:14px">${name}<\/p><\/div><div class="tc-overlay"><a href="#tempah" class="tc-ov-btn" onclick="prefill('${pv}')">Pilih Template<\/a>${demoUrl?`<a href="${demoUrl}" class="tc-ov-btn ghost" target="_blank">Live Demo →<\/a>`:''}<\/div><\/div>`;
+      const popBadge = (isPopular&&firstPop)?'<span class="tc-badge2 badge-pop">Popular ❖<\/span>':'';
+      if(isPopular&&firstPop) firstPop=false;
+      const card=document.createElement('div');
+      card.className='tmpl-card reveal';
+      card.dataset.cat=catSlug;
+      card.style.transitionDelay=delay+'s';
+      card.innerHTML=`${popBadge}<span class="tc-catbadge ${badgeCls}">${cat}<\/span>${thumbHTML}<div class="tc-meta2"><div class="tc-meta2-top"><div><p class="tc-cname">${name}<\/p><p class="tc-feat">${desc}<\/p><\/div><p class="tc-price2">RM${price}<\/p><\/div><\/div>`;
+      grid.appendChild(card);
+      revObs.observe(card);
+      const opt=document.createElement('option');
+      opt.value=prefillVal; opt.textContent=prefillVal;
+      select.appendChild(opt);
+      delay=(delay+0.05)%0.3;
+    }
+  }
+  // Coming Soon card
+  const cs=document.createElement('div');
+  cs.className='coming-soon-card reveal';
+  cs.style.transitionDelay=delay+'s';
+  cs.innerHTML='<div class="coming-soon-inner"><span class="cs-icon">❖<\/span><span>Akan Datang<\/span><span style="font-size:11px;font-family:'Syne',sans-serif;letter-spacing:.2em;opacity:.4;font-style:normal;">Coming Soon<\/span><\/div><div style="padding:18px 20px;border-top:1px solid rgba(255,255,255,.05);"><p style="font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:rgba(240,237,230,.2);">Template Baharu<\/p><p style="font-size:11px;color:rgba(240,237,230,.1);margin-top:3px;">Dalam Proses<\/p><\/div>';
+  grid.appendChild(cs);
+  // Option belum pasti
+  const ob=document.createElement('option');
+  ob.value='Belum pasti — nak tanya dulu'; ob.textContent=ob.value;
+  select.appendChild(ob);
+}
+
 /* ── FILTER ── */
 function filterT(cat,btn){
   document.querySelectorAll('.f-btn').forEach(b=>b.classList.remove('on'));
@@ -1489,6 +1405,8 @@ function filterT(cat,btn){
     c.classList.toggle('hide',cat!=='all'&&c.dataset.cat!==cat);
   });
 }
+
+loadTemplates();
 
 /* ── FAQ ── */
 function toggleFaq(btn){
