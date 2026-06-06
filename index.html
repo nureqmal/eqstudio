@@ -1539,9 +1539,8 @@ async function loadTemplates(){
 
 function renderTemplates(registry){
   const grid   = document.getElementById('tmplGrid');
-  const select = document.getElementById('f-template');
+  if(!grid) return;
   grid.innerHTML = '';
-  select.innerHTML = '<option value="">Pilih template…<\/option>';
   let delay=0;
   // Sort: popular templates dari semua kategori dikumpul dulu
   const allTemplates = [];
@@ -1577,9 +1576,6 @@ function renderTemplates(registry){
       card.innerHTML=`${popBadge}<span class="tc-catbadge ${badgeCls}">${cat}<\/span>${thumbHTML}<div class="tc-meta2"><div class="tc-meta2-top"><div><p class="tc-cname">${name}<\/p><p class="tc-feat">${desc}<\/p><\/div><p class="tc-price2">RM${price}<\/p><\/div><\/div>`;
       grid.appendChild(card);
       revObs.observe(card);
-      const opt=document.createElement('option');
-      opt.value=prefillVal; opt.textContent=prefillVal;
-      select.appendChild(opt);
       delay=(delay+0.05)%0.3;
     }
   }
@@ -1589,10 +1585,6 @@ function renderTemplates(registry){
   cs.style.transitionDelay=delay+'s';
   cs.innerHTML=`<div class="coming-soon-inner"><span class="cs-icon">✦</span><span>Akan Datang</span><span style="font-size:11px;font-family:'Syne',sans-serif;letter-spacing:.2em;opacity:.4;font-style:normal;">Coming Soon</span></div><div style="padding:18px 20px;border-top:1px solid rgba(255,255,255,.05);"><p style="font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:rgba(240,237,230,.2);">Template Baharu</p><p style="font-size:11px;color:rgba(240,237,230,.1);margin-top:3px;">Dalam Proses</p></div>`;
   grid.appendChild(cs);
-  // Option belum pasti
-  const ob=document.createElement('option');
-  ob.value='Belum pasti — nak tanya dulu'; ob.textContent=ob.value;
-  select.appendChild(ob);
   // Apply mobile view-more after render
   applyMobileViewMore();
 }
