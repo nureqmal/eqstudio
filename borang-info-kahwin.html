@@ -858,12 +858,28 @@ const WA_NUMBER = '601154151433';
 // ── TEMPLATE LIST BY CATEGORY ──
 const TEMPLATES = {
   essential: [
-    '🌹 Rose Gold','🌿 Sage Green','🥂 Champagne Gold','🫒 Dark Olive',
-    '🔵 Dusty Blue','💎 Emerald Green','🫐 Navy','🏺 Terracotta',
-    '🌸 Blush Pink','💜 Mauve','⚫ Charcoal','🤎 Dark Brown','🍫 Chocolate Brown'
+    'Ivory Teracotta',
+    'Blush Rose Gold',
+    'Dusty Blue',
+    'Beige',
+    'Sage Green Cream',
+    'Forrest Copper',
+    'Gold Luxury',
+    'Midnight Navy',
+    'Emerald Royal',
+    'Burgundy Velvet',
   ],
   portrait: [
-    '📸 Dusty Blue Portrait'
+    'Butter Yellow Ivory',
+    'Blush Pink Lavender',
+    'Sky Blue Lemon',
+    'Mint Cream',
+    'Peach Apricot',
+    'Chocolate Copper',
+    'Burgundy Velvet',
+    'Midnight Sapphire Gold',
+    'Obsidian Black Gold',
+    'Emerald Imperial Gold',
   ]
 };
 
@@ -879,8 +895,7 @@ function setCategory(cat) {
   const list = TEMPLATES[cat] || [];
   list.forEach(name => {
     const opt = document.createElement('option');
-    const cleanName = name.replace(/^[\S]+\s/, ''); // buang emoji
-    opt.value = cleanName;
+    opt.value = name;
     opt.textContent = name;
     sel.appendChild(opt);
   });
