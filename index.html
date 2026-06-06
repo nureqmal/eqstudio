@@ -72,6 +72,53 @@ body::before {
 .banner-pulse { width:6px; height:6px; border-radius:50%; background:var(--gold); animation:pulse 1.8s ease-in-out infinite; flex-shrink:0; }
 @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.6)} }
 .banner b { color:var(--gold2); }
+.banner-link { color:var(--gold2); text-decoration:underline; text-underline-offset:3px; letter-spacing:0.12em; }
+.banner-text-short { display:none; }
+@media(max-width:560px) {
+  .banner { padding:8px 16px; gap:6px; font-size:10px; flex-wrap:nowrap; justify-content:center; }
+  .banner-text-full { display:none; }
+  .banner-text-short { display:inline; }
+}
+
+/* ── PROMO STRIP (hero) ── */
+.promo-strip {
+  display:inline-flex; align-items:center; gap:14px; flex-wrap:wrap;
+  background:rgba(201,164,74,0.07);
+  border:1px solid rgba(201,164,74,0.22);
+  border-radius:2px;
+  padding:14px 24px;
+  margin-bottom:36px;
+  font-family:var(--ff-ui);
+  opacity:0; animation:fadeUp .8s var(--ease-silk) .2s forwards;
+}
+.promo-strip-badge {
+  background:var(--gold-g); color:#060b0a;
+  font-size:9px; font-weight:800; letter-spacing:0.2em; text-transform:uppercase;
+  padding:3px 10px; border-radius:1px; flex-shrink:0;
+}
+.promo-strip-text {
+  font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--text2);
+}
+.promo-strip-text b { color:var(--gold2); }
+.promo-strip-bar-wrap { display:flex; align-items:center; gap:10px; }
+.promo-strip-bar {
+  width:100px; height:4px;
+  background:rgba(255,255,255,0.06);
+  border-radius:99px; overflow:hidden;
+  flex-shrink:0;
+}
+.promo-strip-bar-fill {
+  height:100%; width:0%;
+  background:linear-gradient(90deg,var(--emerald2),var(--gold));
+  border-radius:99px;
+  transition:width 1.4s cubic-bezier(0.25,0,0,1);
+}
+.promo-strip-slots { font-size:10px; color:var(--text3); letter-spacing:0.08em; white-space:nowrap; }
+.promo-strip-slots b { color:var(--gold); }
+@media(max-width:560px) {
+  .promo-strip { padding:12px 16px; gap:10px; }
+  .promo-strip-bar { width:70px; }
+}
 
 /* ── NAV ── */
 nav {
@@ -869,8 +916,10 @@ footer {
 <!-- BANNER -->
 <div class="banner">
   <span class="banner-pulse"></span>
-  <span>Kad kahwin digital nombor 1 di Malaysia.</span>
+  <span class="banner-text-full">🎉 Launch Promo — <b>20 tempahan pertama</b> pada harga istimewa!</span>
+  <span class="banner-text-short">🎉 Launch Promo — Slot terhad!</span>
   <span style="opacity:.3">·</span>
+  <a href="#harga" class="banner-link">Lihat Harga →</a>
 </div>
 
 <!-- NAV -->
@@ -897,6 +946,16 @@ footer {
   <div class="hero-glow hero-glow-2"></div>
 
   <div style="position:relative;z-index:3;">
+    <!-- PROMO STRIP -->
+    <div class="promo-strip">
+      <span class="promo-strip-badge">Launch Promo</span>
+      <span class="promo-strip-text">Harga istimewa untuk <b>20 tempahan pertama</b></span>
+      <div class="promo-strip-bar-wrap">
+        <div class="promo-strip-bar"><div class="promo-strip-bar-fill" id="hero-bar"></div></div>
+        <span class="promo-strip-slots"><b id="hero-slots-left">20</b> slot tinggal</span>
+      </div>
+    </div>
+
     <p class="hero-tag">
       <span class="hero-tag-line"></span>
       Kad Digital Perkahwinan
@@ -1054,6 +1113,17 @@ footer {
       <div style="display:inline-flex;align-items:center;gap:10px;background:rgba(201,164,74,0.08);border:1px solid rgba(201,164,74,0.25);border-radius:30px;padding:8px 20px;margin-top:16px;font-family:'Syne',sans-serif;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold2)">
         <span style="width:7px;height:7px;border-radius:50%;background:var(--gold);animation:pulse 1.8s ease-in-out infinite;flex-shrink:0;display:inline-block"></span>
         🎉 Launch Promo — terhad untuk <strong id="slot-count">20</strong> tempahan pertama sahaja
+      </div>
+      <!-- PRICING PROGRESS BAR -->
+      <div style="max-width:400px;margin:20px auto 0;font-family:'Syne',sans-serif;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+          <span style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(240,237,230,0.3)">Slot Promo Diambil</span>
+          <span style="font-size:9px;letter-spacing:0.1em;color:var(--gold2)"><strong id="pricing-slots-taken">0</strong> / 20</span>
+        </div>
+        <div style="width:100%;height:5px;background:rgba(255,255,255,0.05);border-radius:99px;overflow:hidden;">
+          <div id="pricing-bar" style="height:100%;width:0%;background:linear-gradient(90deg,var(--emerald2),var(--gold));border-radius:99px;transition:width 1.4s cubic-bezier(0.25,0,0,1);"></div>
+        </div>
+        <p style="font-size:9px;color:rgba(240,237,230,0.2);margin-top:8px;letter-spacing:0.1em;text-align:center;">Harga asal berkuat kuasa selepas slot habis</p>
       </div>
     </div>
     <div class="all-include reveal" style="transition-delay:.1s">
@@ -1377,6 +1447,30 @@ footer {
 </div>
 
 <script>
+/* ── PROMO SLOTS — update TAKEN_SLOTS bila ada order masuk ── */
+const TOTAL_SLOTS = 20;
+const TAKEN_SLOTS = 0;
+(function initPromo(){
+  const pct       = (TAKEN_SLOTS / TOTAL_SLOTS) * 100;
+  const remaining = TOTAL_SLOTS - TAKEN_SLOTS;
+  // hero strip
+  const heroLeft  = document.getElementById('hero-slots-left');
+  const heroBar   = document.getElementById('hero-bar');
+  // pricing section
+  const pricingTaken = document.getElementById('pricing-slots-taken');
+  const pricingBar   = document.getElementById('pricing-bar');
+  const slotCount    = document.getElementById('slot-count');
+
+  if(heroLeft)      heroLeft.textContent      = remaining;
+  if(slotCount)     slotCount.textContent     = remaining;
+  if(pricingTaken)  pricingTaken.textContent  = TAKEN_SLOTS;
+
+  setTimeout(()=>{
+    if(heroBar)    heroBar.style.width    = pct + '%';
+    if(pricingBar) pricingBar.style.width = pct + '%';
+  }, 800);
+})();
+
 /* ── CURSOR ── */
 const co = document.getElementById('cur-outer');
 const ci = document.getElementById('cur-inner');
