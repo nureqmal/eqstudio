@@ -573,6 +573,33 @@ section { position:relative; z-index:2; }
 .tc-aname { font-family:var(--ff-ui); font-size:13px; font-weight:600; color:var(--text); }
 .tc-arole { font-size:11px; color:var(--text3); margin-top:2px; }
 
+/* Mobile testi carousel */
+.testi-carousel-wrap { display:none; }
+.testi-carousel {
+  display:flex; gap:16px;
+  overflow-x:auto; scroll-snap-type:x mandatory;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:none;
+  margin:0 -24px; padding:4px 24px 12px;
+}
+.testi-carousel::-webkit-scrollbar { display:none; }
+.testi-carousel .testi-card2 {
+  flex-shrink:0; width:80vw; max-width:320px;
+  scroll-snap-align:center;
+}
+.testi-dots {
+  display:flex; justify-content:center; gap:6px; margin-top:20px;
+}
+.testi-dots span {
+  width:20px; height:3px; border-radius:2px;
+  background:rgba(201,164,74,.15); transition:background .3s, width .3s;
+}
+.testi-dots span.active { background:var(--gold); width:32px; }
+@media(max-width:768px) {
+  .testi-grid { display:none !important; }
+  .testi-carousel-wrap { display:block; margin-top:40px; }
+}
+
 /* ── FAQ ── */
 .faq-section { background:var(--bg); }
 .faq-grid { display:grid; grid-template-columns:1fr 1fr; gap:0; margin-top:60px; }
@@ -1048,6 +1075,7 @@ footer {
           <div class="pkg-f yes"><span class="fmark" style="color:#4ade80">✓</span>RSVP via WhatsApp</div>
           <div class="pkg-f yes"><span class="fmark" style="color:#4ade80">✓</span>Navigasi Waze &amp; Maps</div>
           <div class="pkg-f yes"><span class="fmark" style="color:#4ade80">✓</span>Maklumat majlis</div>
+          <div class="pkg-f yes"><span class="fmark" style="color:#4ade80">✓</span>Pilih lagu sendiri</div>
           <div class="pkg-f yes"><span class="fmark" style="color:#4ade80">✓</span>Link seumur hidup</div>
           <div class="pkg-f no"><span class="fmark">—</span>Gambar pengantin</div>
           <div class="pkg-f no"><span class="fmark">—</span>Video pendek</div>
@@ -1068,7 +1096,7 @@ footer {
           <div class="pkg-f yes"><span class="fmark" style="color:#4ade80">✓</span>Countdown masa nyata</div>
           <div class="pkg-f yes"><span class="fmark" style="color:#4ade80">✓</span>RSVP via WhatsApp</div>
           <div class="pkg-f yes"><span class="fmark" style="color:#4ade80">✓</span>Navigasi Waze &amp; Maps</div>
-          <div class="pkg-f yes"><span class="fmark" style="color:#4ade80">✓</span>Nama tetamu peribadi</div>
+          <div class="pkg-f yes"><span class="fmark" style="color:#4ade80">✓</span>Pilih lagu sendiri</div>
           <div class="pkg-f yes"><span class="fmark" style="color:#4ade80">✓</span>Link seumur hidup</div>
           <div class="pkg-f new"><span class="fmark">✦</span>Gambar pengantin</div>
           <div class="pkg-f no"><span class="fmark">—</span>Video pendek</div>
@@ -1088,7 +1116,7 @@ footer {
           <div class="pkg-f yes"><span class="fmark" style="color:#4ade80">✓</span>Countdown masa nyata</div>
           <div class="pkg-f yes"><span class="fmark" style="color:#4ade80">✓</span>RSVP via WhatsApp</div>
           <div class="pkg-f yes"><span class="fmark" style="color:#4ade80">✓</span>Navigasi Waze &amp; Maps</div>
-          <div class="pkg-f yes"><span class="fmark" style="color:#4ade80">✓</span>Nama tetamu peribadi</div>
+          <div class="pkg-f yes"><span class="fmark" style="color:#4ade80">✓</span>Pilih lagu sendiri</div>
           <div class="pkg-f yes"><span class="fmark" style="color:#4ade80">✓</span>Gambar pengantin</div>
           <div class="pkg-f yes"><span class="fmark" style="color:#4ade80">✓</span>Link seumur hidup</div>
           <div class="pkg-f new"><span class="fmark">✦</span>1 video pendek</div>
@@ -1108,7 +1136,7 @@ footer {
           <div class="pkg-f yes"><span class="fmark" style="color:#4ade80">✓</span>Countdown masa nyata</div>
           <div class="pkg-f yes"><span class="fmark" style="color:#4ade80">✓</span>RSVP via WhatsApp</div>
           <div class="pkg-f yes"><span class="fmark" style="color:#4ade80">✓</span>Navigasi Waze &amp; Maps</div>
-          <div class="pkg-f yes"><span class="fmark" style="color:#4ade80">✓</span>Nama tetamu peribadi</div>
+          <div class="pkg-f yes"><span class="fmark" style="color:#4ade80">✓</span>Pilih lagu sendiri</div>
           <div class="pkg-f yes"><span class="fmark" style="color:#4ade80">✓</span>Gambar pengantin</div>
           <div class="pkg-f yes"><span class="fmark" style="color:#4ade80">✓</span>1 video pendek</div>
           <div class="pkg-f yes"><span class="fmark" style="color:#4ade80">✓</span>Link seumur hidup</div>
@@ -1179,10 +1207,65 @@ footer {
         </div>
       </div>
     </div>
+
+      <!-- Mobile carousel (hidden on desktop via CSS) -->
+      <div class="testi-carousel-wrap">
+        <div class="testi-carousel" id="testiCarousel">
+          <div class="testi-card2">
+            <p class="tc-stars2">★★★★★</p>
+            <p class="tc-quote2">Masa tetamu bukak kad tu, terus WhatsApp aku tanya 'eh mana dapat kad cantik macam ni?' Berbaloi sangat!</p>
+            <div class="tc-author2">
+              <div class="tc-av2" style="background:linear-gradient(135deg,#c9a44a,#0d6b52);">NF</div>
+              <div><p class="tc-aname">Nur Farhana</p><p class="tc-arole">Pengantin · Kuala Lumpur</p></div>
+            </div>
+          </div>
+          <div class="testi-card2">
+            <p class="tc-stars2">★★★★★</p>
+            <p class="tc-quote2">Siap dalam 24 jam! Lagi cepat dari yang dijanjikan. Design pun exactly macam yang aku nak. Memang recommend!</p>
+            <div class="tc-author2">
+              <div class="tc-av2" style="background:linear-gradient(135deg,#0d6b52,#4ade80);">AR</div>
+              <div><p class="tc-aname">Ahmad Razif</p><p class="tc-arole">Pengantin · Selangor</p></div>
+            </div>
+          </div>
+          <div class="testi-card2">
+            <p class="tc-stars2">★★★★★</p>
+            <p class="tc-quote2">Tetamu siap screenshot kad kitorang letak kat WhatsApp status dia. Tak sangka kad digital boleh jadi se-viral tu!</p>
+            <div class="tc-author2">
+              <div class="tc-av2" style="background:linear-gradient(135deg,#c9a44a,#e2c06a);">HI</div>
+              <div><p class="tc-aname">Hafizuddin &amp; Ira</p><p class="tc-arole">Pengantin · Johor</p></div>
+            </div>
+          </div>
+          <div class="testi-card2">
+            <p class="tc-stars2">★★★★★</p>
+            <p class="tc-quote2">Sebagai pengantin 2026, kad digital ni memang wajib. EQstudio buat yang terbaik — interaktif, cantik dan mudah kongsi!</p>
+            <div class="tc-author2">
+              <div class="tc-av2" style="background:linear-gradient(135deg,#7b6a4a,#c9a44a);">ZA</div>
+              <div><p class="tc-aname">Zahidah Aisyah</p><p class="tc-arole">Pengantin · Johor Bahru</p></div>
+            </div>
+          </div>
+          <div class="testi-card2">
+            <p class="tc-stars2">★★★★★</p>
+            <p class="tc-quote2">Proses senang, komunikasi cepat. Hantar info pagi, petang dah dapat draft. Malam tu terus approve. Terbaik!</p>
+            <div class="tc-author2">
+              <div class="tc-av2" style="background:linear-gradient(135deg,#0d6b52,#c9a44a);">SM</div>
+              <div><p class="tc-aname">Syafiq &amp; Mira</p><p class="tc-arole">Pengantin · Kedah</p></div>
+            </div>
+          </div>
+          <div class="testi-card2">
+            <p class="tc-stars2">★★★★★</p>
+            <p class="tc-quote2">EQstudio faham apa yang kami nak. Hasilnya melampaui jangkaan. Setiap tetamu puji kad kami sepanjang majlis!</p>
+            <div class="tc-author2">
+              <div class="tc-av2" style="background:linear-gradient(135deg,#4ade80,#0d6b52);">FN</div>
+              <div><p class="tc-aname">Fatin &amp; Nazmi</p><p class="tc-arole">Pengantin · Melaka</p></div>
+            </div>
+          </div>
+        </div>
+        <div class="testi-dots" id="testiDots">
+          <span class="active"></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+      </div>
   </div>
 </section>
-
-<!-- FAQ -->
 <section class="faq-section section-pad" id="faq">
   <div class="container">
     <div class="section-header reveal" style="text-align:center">
@@ -1429,6 +1512,18 @@ const revObs=new IntersectionObserver(entries=>{
 },{threshold:.08,rootMargin:'0px 0px -40px 0px'});
 document.querySelectorAll('.reveal').forEach(el=>revObs.observe(el));
 
+/* ── TESTIMONIAL CAROUSEL DOTS ── */
+(()=>{
+  const carousel = document.getElementById('testiCarousel');
+  const dots = document.querySelectorAll('#testiDots span');
+  if(!carousel || !dots.length) return;
+  carousel.addEventListener('scroll', ()=>{
+    const idx = Math.round(carousel.scrollLeft / carousel.offsetWidth * (dots.length / dots.length) * dots.length);
+    const active = Math.min(Math.round(carousel.scrollLeft / (carousel.scrollWidth / dots.length)), dots.length - 1);
+    dots.forEach((d,i) => d.classList.toggle('active', i === active));
+  }, {passive:true});
+})();
+
 /* ── LIVE COUNTS ── */
 function jitter(){
   const v=16+Math.floor(Math.random()*16);
@@ -1502,8 +1597,8 @@ function renderTemplates(registry){
       const prefillVal = name+' (— '+cat+') — RM'+price;
       const pv = prefillVal.replace(/'/g,"\\'");
       const thumbHTML = previewImg
-        ? `<div class="tc-thumb has-img"><img class="tc-preview-img" src="${PAGES_BASE}/${previewImg}" alt="${name}" loading="lazy"><div class="tc-overlay"><a href="#tempah" class="tc-ov-btn" onclick="prefill('${pv}')">Pilih Template<\/a>${demoUrl?`<a href="${demoUrl}" class="tc-ov-btn ghost" target="_blank">Live Demo →<\/a>`:''}<\/div><\/div>`
-        : `<div class="tc-thumb"><div class="tc-inner" style="background:linear-gradient(150deg,#0a0d0b,#0f1a15)"><span style="font-size:32px">${emoji}<\/span><p style="margin-top:12px;font-family:var(--ff-display);font-style:italic;color:var(--text2);font-size:14px">${name}<\/p><\/div><div class="tc-overlay"><a href="#tempah" class="tc-ov-btn" onclick="prefill('${pv}')">Pilih Template<\/a>${demoUrl?`<a href="${demoUrl}" class="tc-ov-btn ghost" target="_blank">Live Demo →<\/a>`:''}<\/div><\/div>`;
+        ? `<div class="tc-thumb has-img"><img class="tc-preview-img" src="${PAGES_BASE}/${previewImg}" alt="${name}" loading="lazy"><div class="tc-overlay"><a href="borang.html?template=${encodeURIComponent(name)}&cat=${encodeURIComponent(cat)}" class="tc-ov-btn">Pilih Template<\/a>${demoUrl?`<a href="${demoUrl}" class="tc-ov-btn ghost" target="_blank">Live Demo →<\/a>`:''}<\/div><\/div>`
+        : `<div class="tc-thumb"><div class="tc-inner" style="background:linear-gradient(150deg,#0a0d0b,#0f1a15)"><span style="font-size:32px">${emoji}<\/span><p style="margin-top:12px;font-family:var(--ff-display);font-style:italic;color:var(--text2);font-size:14px">${name}<\/p><\/div><div class="tc-overlay"><a href="borang.html?template=${encodeURIComponent(name)}&cat=${encodeURIComponent(cat)}" class="tc-ov-btn">Pilih Template<\/a>${demoUrl?`<a href="${demoUrl}" class="tc-ov-btn ghost" target="_blank">Live Demo →<\/a>`:''}<\/div><\/div>`;
       const popBadge = isPopular?'<span class="tc-badge2 badge-pop">Popular ❖<\/span>':'';
       const card=document.createElement('div');
       card.className='tmpl-card reveal';
