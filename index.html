@@ -1025,10 +1025,10 @@ footer {
     </div>
     <div class="filter-row reveal" style="transition-delay:.1s">
       <button class="f-btn on" onclick="filterT('all',this)">Semua</button>
-      <button class="f-btn" onclick="filterT('esential',this)">Esential <span class="f-price">RM29</span></button>
-      <button class="f-btn" onclick="filterT('potrait',this)">Potrait <span class="f-price">RM39</span></button>
-      <button class="f-btn" onclick="filterT('cinematic',this)">Cinematic <span class="f-price">RM59</span></button>
-      <button class="f-btn" onclick="filterT('prestige',this)">Prestige <span class="f-price">RM99</span></button>
+      <button class="f-btn" onclick="filterT('esential',this)">Esential <span class="f-price">RM39</span></button>
+      <button class="f-btn" onclick="filterT('potrait',this)">Potrait <span class="f-price">RM59</span></button>
+      <button class="f-btn" onclick="filterT('cinematic',this)">Cinematic <span class="f-price">RM79</span></button>
+      <button class="f-btn" onclick="filterT('prestige',this)">Prestige <span class="f-price">RM119</span></button>
     </div>
     <div class="tmpl-grid" id="tmplGrid">
       <div id="tmpl-loading" style="grid-column:1/-1;text-align:center;padding:80px 0;color:var(--text3);font-family:var(--ff-ui);font-size:11px;letter-spacing:.25em">
@@ -1051,6 +1051,10 @@ footer {
       <p class="s-tag" style="justify-content:center"><span class="s-tag-dot"></span>Pakej &amp; Harga</p>
       <h2 class="s-h2">Pilih yang sesuai<br><em>dengan impian anda</em></h2>
       <p class="s-sub" style="margin:0 auto;text-align:center">Setiap pakej termasuk semua feature pakej di bawahnya — makin tinggi, makin lengkap.</p>
+      <div style="display:inline-flex;align-items:center;gap:10px;background:rgba(201,164,74,0.08);border:1px solid rgba(201,164,74,0.25);border-radius:30px;padding:8px 20px;margin-top:16px;font-family:'Syne',sans-serif;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold2)">
+        <span style="width:7px;height:7px;border-radius:50%;background:var(--gold);animation:pulse 1.8s ease-in-out infinite;flex-shrink:0;display:inline-block"></span>
+        🎉 Launch Promo — terhad untuk <strong id="slot-count">20</strong> tempahan pertama sahaja
+      </div>
     </div>
     <div class="all-include reveal" style="transition-delay:.1s">
       <span class="all-include-label">Semua termasuk:</span>
@@ -1065,8 +1069,9 @@ footer {
       <div class="pkg" onclick="window.location.href='borang.html'">
         <div class="pkg-head">
           <p class="pkg-name">Esential</p>
-          <p class="pkg-amt"><sup>RM</sup>29</p>
-          <p class="pkg-note">Sekali bayar</p>
+          <p style="font-family:'Syne',sans-serif;font-size:12px;color:var(--text3);text-decoration:line-through;margin-bottom:2px">RM55</p>
+          <p class="pkg-amt"><sup>RM</sup>39</p>
+          <p class="pkg-note">Harga promo · Sekali bayar</p>
         </div>
         <div class="pkg-body">
           <div class="pkg-f yes"><span class="fmark" style="color:#4ade80">✓</span>Kad digital interaktif</div>
@@ -1087,8 +1092,9 @@ footer {
         <div class="pkg-top-ribbon">Paling Popular ✦</div>
         <div class="pkg-head">
           <p class="pkg-name">Potrait</p>
-          <p class="pkg-amt"><sup>RM</sup>39</p>
-          <p class="pkg-note">Sekali bayar</p>
+          <p style="font-family:'Syne',sans-serif;font-size:12px;color:var(--text3);text-decoration:line-through;margin-bottom:2px">RM85</p>
+          <p class="pkg-amt"><sup>RM</sup>59</p>
+          <p class="pkg-note">Harga promo · Sekali bayar</p>
         </div>
         <div class="pkg-body">
           <div class="pkg-f yes"><span class="fmark" style="color:#4ade80">✓</span>Kad digital interaktif</div>
@@ -1107,8 +1113,9 @@ footer {
       <div class="pkg" onclick="window.location.href='borang.html'">
         <div class="pkg-head">
           <p class="pkg-name">Cinematic</p>
-          <p class="pkg-amt"><sup>RM</sup>59</p>
-          <p class="pkg-note">Sekali bayar</p>
+          <p style="font-family:'Syne',sans-serif;font-size:12px;color:var(--text3);text-decoration:line-through;margin-bottom:2px">RM109</p>
+          <p class="pkg-amt"><sup>RM</sup>79</p>
+          <p class="pkg-note">Harga promo · Sekali bayar</p>
         </div>
         <div class="pkg-body">
           <div class="pkg-f yes"><span class="fmark" style="color:#4ade80">✓</span>Kad digital interaktif</div>
@@ -1127,8 +1134,9 @@ footer {
       <div class="pkg" onclick="window.location.href='borang.html'">
         <div class="pkg-head">
           <p class="pkg-name">Prestige</p>
-          <p class="pkg-amt"><sup>RM</sup>99</p>
-          <p class="pkg-note">Sekali bayar</p>
+          <p style="font-family:'Syne',sans-serif;font-size:12px;color:var(--text3);text-decoration:line-through;margin-bottom:2px">RM149</p>
+          <p class="pkg-amt"><sup>RM</sup>119</p>
+          <p class="pkg-note">Harga promo · Sekali bayar</p>
         </div>
         <div class="pkg-body">
           <div class="pkg-f yes"><span class="fmark" style="color:#4ade80">✓</span>Kad digital interaktif</div>
@@ -1300,7 +1308,7 @@ footer {
         <span><strong id="fomo-n">18</strong> orang tengok borang ini sekarang &nbsp;·&nbsp; Slot tinggal <strong>3</strong> untuk Jun 2026</span>
       </div>
       <div class="countdown-row reveal" style="transition-delay:.15s">
-        <span>Harga sedia ada tamat dalam</span>
+        <span>Harga promo sedia ada tamat dalam</span>
         <div class="ctd-block"><span class="ctd-num" id="ch">23</span><span class="ctd-unit">jam</span></div>
         <span class="ctd-sep">:</span>
         <div class="ctd-block"><span class="ctd-num" id="cm">59</span><span class="ctd-unit">minit</span></div>
@@ -1364,7 +1372,7 @@ footer {
     <span class="sb-dot"></span>
     <span class="sb-text">Slot Jun hampir penuh — <strong>3 slot tinggal</strong></span>
   </div>
-  <span class="sb-price">✦ dari RM29</span>
+  <span class="sb-price">✦ promo dari RM39</span>
   <button class="sb-btn" onclick="window.location.href='borang.html'">Tempah Sekarang</button>
 </div>
 
@@ -1520,7 +1528,7 @@ jitter();
 /* ── REGISTRY LOADER ── */
 const REGISTRY_URL = 'https://raw.githubusercontent.com/nureqmal/eqstudio-cards/main/templates/registry.json';
 const PAGES_BASE   = 'https://nureqmal.github.io/eqstudio-cards';
-const PRICE_MAP    = { Essential:29, Portrait:39, Potrait:39, Light:39, Cinematic:59, Prestige:99 };
+const PRICE_MAP    = { Essential:39, Portrait:59, Potrait:59, Light:59, Cinematic:79, Prestige:119 };
 const CAT_SLUG     = { Essential:'esential', Portrait:'potrait', Potrait:'potrait', Light:'potrait', Cinematic:'cinematic', Prestige:'prestige' };
 const CAT_BADGE    = { Essential:'badge-essential', Portrait:'badge-potrait', Potrait:'badge-potrait', Light:'badge-potrait', Cinematic:'badge-cinematic', Prestige:'badge-prestige' };
 
