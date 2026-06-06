@@ -203,16 +203,39 @@ body.mode-portrait .essential-only { display:none; }
   margin-bottom:4px;
 }
 
-/* ── DRESSCODE SWATCHES ── */
-.swatch-row { display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; }
-.swatch-item { display:flex; flex-direction:column; align-items:center; gap:6px; }
-.swatch-circle {
-  width:40px; height:40px; border-radius:50%;
-  border:2px solid var(--border); cursor:pointer;
-  transition:transform .2s, border-color .2s;
+/* ── FILE UPLOAD ── */
+.file-upload-wrap {
+  position:relative;
 }
-.swatch-circle:hover { transform:scale(1.1); border-color:rgba(201,164,74,0.5); }
-.swatch-name { font-size:9px; color:var(--text3); text-align:center; max-width:50px; }
+.file-upload-label {
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:10px; padding:28px 20px;
+  border:1px dashed rgba(201,164,74,0.25);
+  border-radius:4px; background:#060f0c;
+  cursor:pointer; transition:all .3s var(--ease);
+  text-align:center;
+}
+.file-upload-label:hover {
+  border-color:rgba(201,164,74,0.5);
+  background:rgba(201,164,74,0.04);
+}
+.file-upload-label.has-file {
+  border-color:rgba(13,107,82,0.5);
+  background:rgba(13,107,82,0.06);
+}
+.file-upload-icon { font-size:24px; opacity:0.5; }
+.file-upload-text {
+  font-family:var(--ff-ui); font-size:10px; font-weight:600;
+  letter-spacing:0.15em; text-transform:uppercase; color:var(--text3);
+}
+.file-upload-label.has-file .file-upload-text { color:#4ade80; }
+.file-upload-sub { font-size:11px; color:var(--text3); }
+input[type="file"] { display:none; }
+.file-preview {
+  width:100%; max-height:160px; object-fit:cover;
+  border-radius:3px; margin-top:8px; display:none;
+}
+.file-preview.show { display:block; }
 
 /* ── SUBMIT ── */
 .submit-wrap { margin-top:48px; text-align:center; }
@@ -334,9 +357,29 @@ input.error, textarea.error, select.error {
     </div>
     <div class="section-body">
       <div class="field">
-        <label>Nama Template yang Dipilih <span class="req">*</span></label>
-        <input type="text" id="template_name" placeholder="cth: Rose Gold Essential" required>
-        <div class="hint">Rujuk nama template dalam katalog / whatsapp booking kamu</div>
+        <label>Pilih Template <span class="req">*</span></label>
+        <select id="template_name" onchange="updateProgress()" required>
+          <option value="">— Pilih template kamu —</option>
+          <optgroup label="⭐ Essential (Tanpa Gambar)" id="optgroup-essential">
+            <option value="Rose Gold">🌹 Rose Gold</option>
+            <option value="Sage Green">🌿 Sage Green</option>
+            <option value="Champagne Gold">🥂 Champagne Gold</option>
+            <option value="Dark Olive">🫒 Dark Olive</option>
+            <option value="Dusty Blue">🔵 Dusty Blue</option>
+            <option value="Emerald Green">💎 Emerald Green</option>
+            <option value="Navy">🫐 Navy</option>
+            <option value="Terracotta">🏺 Terracotta</option>
+            <option value="Blush Pink">🌸 Blush Pink</option>
+            <option value="Mauve">💜 Mauve</option>
+            <option value="Charcoal">⚫ Charcoal</option>
+            <option value="Dark Brown">🤎 Dark Brown</option>
+            <option value="Chocolate Brown">🍫 Chocolate Brown</option>
+          </optgroup>
+          <optgroup label="📸 Portrait (Dengan Gambar)" id="optgroup-portrait">
+            <option value="Dusty Blue Portrait">📸 Dusty Blue Portrait</option>
+          </optgroup>
+        </select>
+        <div class="hint">Senarai template dikemaskini mengikut kategori yang kamu pilih di atas</div>
       </div>
     </div>
   </div>
@@ -663,13 +706,13 @@ input.error, textarea.error, select.error {
     <div class="section-body">
       <div class="grid-2">
         <div class="field">
-          <label>Nama Lagu</label>
+          <label>Nama Lagu & Artis</label>
           <input type="text" id="music_label" placeholder="cth: Beautiful In White — Westlife">
         </div>
         <div class="field">
-          <label>Link MP3 Direct (Dropbox)</label>
-          <input type="url" id="music_url" placeholder="https://dl.dropbox.com/...">
-          <div class="hint">Guna Dropbox → kanan klik → Share → Copy Link, tukar ?dl=0 → ?raw=1</div>
+          <label>Link YouTube</label>
+          <input type="url" id="music_url" placeholder="https://www.youtube.com/watch?v=...">
+          <div class="hint">Copy link dari YouTube je — kami akan uruskan selebihnya ✦</div>
         </div>
       </div>
     </div>
@@ -681,7 +724,7 @@ input.error, textarea.error, select.error {
       <div class="section-num">8</div>
       <div>
         <div class="section-title">Kisah Cinta (Love Story)</div>
-        <div class="section-subtitle">Cerita perjalanan hubungan kamu — pilihan</div>
+        <div class="section-subtitle">Cerita perjalanan hubungan kamu</div>
       </div>
     </div>
     <div class="section-body">
@@ -724,14 +767,22 @@ input.error, textarea.error, select.error {
       <div class="section-num">9</div>
       <div>
         <div class="section-title">QR Code Salam Kaut</div>
-        <div class="section-subtitle">Maybank2U / Touch 'n Go / DuitNow — pilihan</div>
+        <div class="section-subtitle">Maybank2U / Touch 'n Go / DuitNow</div>
       </div>
     </div>
     <div class="section-body">
       <div class="field">
-        <label>Link URL QR Code</label>
-        <input type="url" id="qr_code_url" placeholder="https://... (link gambar QR)">
-        <div class="hint">Upload QR ke Google Drive / Dropbox, share link public, paste di sini</div>
+        <label>Upload Gambar QR Code</label>
+        <div class="file-upload-wrap">
+          <label class="file-upload-label" id="lbl-qr" for="qr_file">
+            <span class="file-upload-icon">💸</span>
+            <span class="file-upload-text">Tekan untuk pilih gambar QR</span>
+            <span class="file-upload-sub">PNG / JPG — screenshot dari app banking kamu</span>
+          </label>
+          <input type="file" id="qr_file" accept="image/*" onchange="handleFile('qr_file','lbl-qr','prev-qr','qr_b64')">
+          <img id="prev-qr" class="file-preview" alt="QR Preview">
+        </div>
+        <input type="hidden" id="qr_b64">
       </div>
     </div>
   </div>
@@ -748,17 +799,33 @@ input.error, textarea.error, select.error {
     <div class="section-body">
       <div class="grid-2">
         <div class="field">
-          <label>🖼️ Gambar Hero (URL)</label>
-          <input type="url" id="photo1_url" placeholder="https://... (gambar potret)">
-          <div class="hint">Nisbah potret (portrait) — saiz 3:4</div>
+          <label>🖼️ Gambar Hero (Portrait)</label>
+          <div class="file-upload-wrap">
+            <label class="file-upload-label" id="lbl-photo1" for="photo1_file">
+              <span class="file-upload-icon">🖼️</span>
+              <span class="file-upload-text">Pilih gambar hero</span>
+              <span class="file-upload-sub">Nisbah 3:4 — potret (portrait)</span>
+            </label>
+            <input type="file" id="photo1_file" accept="image/*" onchange="handleFile('photo1_file','lbl-photo1','prev-photo1','photo1_b64')">
+            <img id="prev-photo1" class="file-preview" alt="Hero Preview">
+          </div>
+          <input type="hidden" id="photo1_b64">
         </div>
         <div class="field">
-          <label>🎬 Gambar Cinematic (URL)</label>
-          <input type="url" id="photo2_url" placeholder="https://... (gambar landscape)">
-          <div class="hint">Nisbah landscape — saiz 16:9</div>
+          <label>🎬 Gambar Cinematic (Landscape)</label>
+          <div class="file-upload-wrap">
+            <label class="file-upload-label" id="lbl-photo2" for="photo2_file">
+              <span class="file-upload-icon">🎬</span>
+              <span class="file-upload-text">Pilih gambar cinematic</span>
+              <span class="file-upload-sub">Nisbah 16:9 — landscape</span>
+            </label>
+            <input type="file" id="photo2_file" accept="image/*" onchange="handleFile('photo2_file','lbl-photo2','prev-photo2','photo2_b64')">
+            <img id="prev-photo2" class="file-preview" alt="Cinematic Preview">
+          </div>
+          <input type="hidden" id="photo2_b64">
         </div>
       </div>
-      <div class="hint" style="margin-top:8px">💡 Upload gambar ke Google Drive → Share → Anyone with link → Copy link</div>
+      <div class="hint" style="margin-top:12px">💡 Kami akan proses dan optimise gambar kamu sebelum masuk dalam kad</div>
     </div>
   </div>
 
@@ -786,19 +853,62 @@ input.error, textarea.error, select.error {
 
 <script>
 // ── CONFIG ──
-const WA_NUMBER = '601154151433'; // no. WA kau
+const WA_NUMBER = '601154151433';
+
+// ── TEMPLATE LIST BY CATEGORY ──
+const TEMPLATES = {
+  essential: [
+    '🌹 Rose Gold','🌿 Sage Green','🥂 Champagne Gold','🫒 Dark Olive',
+    '🔵 Dusty Blue','💎 Emerald Green','🫐 Navy','🏺 Terracotta',
+    '🌸 Blush Pink','💜 Mauve','⚫ Charcoal','🤎 Dark Brown','🍫 Chocolate Brown'
+  ],
+  portrait: [
+    '📸 Dusty Blue Portrait'
+  ]
+};
 
 // ── CATEGORY ──
 function setCategory(cat) {
   document.body.className = 'mode-' + cat;
   document.getElementById('btn-essential').classList.toggle('active', cat === 'essential');
   document.getElementById('btn-portrait').classList.toggle('active', cat === 'portrait');
+
+  // Update template dropdown
+  const sel = document.getElementById('template_name');
+  sel.innerHTML = '<option value="">— Pilih template kamu —</option>';
+  const list = TEMPLATES[cat] || [];
+  list.forEach(name => {
+    const opt = document.createElement('option');
+    const cleanName = name.replace(/^[\S]+\s/, ''); // buang emoji
+    opt.value = cleanName;
+    opt.textContent = name;
+    sel.appendChild(opt);
+  });
   updateProgress();
+}
+
+// ── FILE UPLOAD ──
+function handleFile(inputId, labelId, previewId, hiddenId) {
+  const file = document.getElementById(inputId).files[0];
+  if (!file) return;
+  const label = document.getElementById(labelId);
+  const preview = document.getElementById(previewId);
+
+  label.classList.add('has-file');
+  label.querySelector('.file-upload-text').textContent = file.name;
+  label.querySelector('.file-upload-sub').textContent = (file.size / 1024).toFixed(0) + ' KB';
+
+  const reader = new FileReader();
+  reader.onload = e => {
+    if (hiddenId) document.getElementById(hiddenId).value = e.target.result;
+    if (preview) { preview.src = e.target.result; preview.classList.add('show'); }
+  };
+  reader.readAsDataURL(file);
 }
 
 // ── PROGRESS ──
 function updateProgress() {
-  const required = ['template_name','groom_name','bride_name','event_date','time_start','venue_name','host_side'];
+  const required = ['template_name','groom_name','bride_name','event_date','time_start','venue_name'];
   let filled = required.filter(id => {
     const el = document.getElementById(id);
     return el && el.value.trim();
@@ -809,6 +919,7 @@ function updateProgress() {
 
 document.querySelectorAll('input, textarea, select').forEach(el => {
   el.addEventListener('input', updateProgress);
+  el.addEventListener('change', updateProgress);
 });
 
 // ── HELPERS ──
@@ -816,7 +927,6 @@ function v(id) {
   const el = document.getElementById(id);
   return el ? el.value.trim() : '';
 }
-
 function formatWALine(label, val) {
   if (!val) return '';
   return `\n*${label}:* ${val}`;
@@ -825,7 +935,7 @@ function formatWALine(label, val) {
 // ── VALIDATE ──
 function validate() {
   const required = [
-    { id: 'template_name', label: 'Nama template' },
+    { id: 'template_name', label: 'Template' },
     { id: 'groom_name',    label: 'Nama panggilan pengantin lelaki' },
     { id: 'bride_name',    label: 'Nama panggilan pengantin perempuan' },
     { id: 'event_date',    label: 'Tarikh majlis' },
@@ -833,7 +943,6 @@ function validate() {
     { id: 'venue_name',    label: 'Nama dewan / tempat' },
   ];
   let ok = true;
-  // clear
   document.querySelectorAll('.err-msg').forEach(e => e.remove());
   document.querySelectorAll('input.error, select.error, textarea.error').forEach(e => e.classList.remove('error'));
 
@@ -853,7 +962,7 @@ function validate() {
 }
 
 // ── SUBMIT ──
-function handleSubmit() {
+async function handleSubmit() {
   if (!validate()) return;
 
   const isPortrait = document.body.classList.contains('mode-portrait');
@@ -921,8 +1030,8 @@ function handleSubmit() {
   const colors = [1,2,3,4,5].map(i => {
     const hex = v('color'+i+'_hex');
     const name = v('color'+i+'_name');
-    if (!name && hex === '') return '';
-    return `${name || '-'} (${hex})`;
+    if (!name) return '';
+    return `${name} (${hex})`;
   }).filter(Boolean);
   if (colors.length) msg += formatWALine('Warna tema', colors.join(', '));
 
@@ -930,7 +1039,7 @@ function handleSubmit() {
   if (musicLabel || musicUrl) {
     msg += `\n\n🎵 *MUZIK LATAR*`;
     msg += formatWALine('Lagu', musicLabel);
-    msg += formatWALine('Link MP3', musicUrl);
+    msg += formatWALine('YouTube', musicUrl);
   }
 
   const l1 = v('love_year_1'), l2 = v('love_year_2'), l3 = v('love_year_3');
@@ -942,15 +1051,22 @@ function handleSubmit() {
     msg += formatWALine('Tahun kahwin', v('love_year_4'));
   }
 
-  if (v('qr_code_url')) {
+  // QR — note je, gambar hantar berasingan
+  const qrFile = document.getElementById('qr_file');
+  const hasQR = qrFile && qrFile.files.length > 0;
+  if (hasQR) {
     msg += `\n\n💸 *QR SALAM KAUT*`;
-    msg += formatWALine('Link QR', v('qr_code_url'));
+    msg += `\n_(Gambar QR disertakan berasingan dalam WA ini)_`;
   }
 
+  // Portrait — note
   if (isPortrait) {
+    const p1 = document.getElementById('photo1_file');
+    const p2 = document.getElementById('photo2_file');
     msg += `\n\n📸 *GAMBAR (PORTRAIT)*`;
-    msg += formatWALine('Hero URL', v('photo1_url'));
-    msg += formatWALine('Cinematic URL', v('photo2_url'));
+    if (p1 && p1.files.length > 0) msg += `\n✅ Hero: ${p1.files[0].name}`;
+    if (p2 && p2.files.length > 0) msg += `\n✅ Cinematic: ${p2.files[0].name}`;
+    msg += `\n_(Sila hantar gambar-gambar di atas dalam WA ini)_`;
   }
 
   msg += `\n\n━━━━━━━━━━━━━━━━━━━━\nTerima kasih EQStudio! 🙏`;
@@ -958,7 +1074,6 @@ function handleSubmit() {
   const waUrl = 'https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(msg);
   window.open(waUrl, '_blank');
 
-  // Show success
   document.querySelector('.submit-wrap').style.display = 'none';
   const s = document.getElementById('success');
   s.style.display = 'block';
@@ -966,8 +1081,8 @@ function handleSubmit() {
   document.getElementById('progressBar').style.width = '100%';
 }
 
-// init progress
-updateProgress();
+// Init — set essential sebagai default
+setCategory('essential');
 </script>
 </body>
 </html>
