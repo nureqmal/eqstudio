@@ -503,6 +503,40 @@ section { position:relative; z-index:2; }
 .f-btn.on { background:var(--gold-g); border-color:transparent; color:#060b0a; }
 .f-price { font-size:9px; color:inherit; opacity:.7; margin-left:2px; }
 
+/* ── STYLE SUBCATEGORY FILTER ── */
+.style-filter-row {
+  display:flex; align-items:center; gap:8px; flex-wrap:wrap;
+  padding:14px 0 0;
+  max-height:0; overflow:hidden;
+  opacity:0;
+  transition:max-height .45s cubic-bezier(0.25,0,0,1), opacity .35s ease, padding .45s;
+}
+.style-filter-row.visible {
+  max-height:200px;
+  opacity:1;
+  padding:14px 0 4px;
+}
+.style-filter-label {
+  font-family:var(--ff-ui); font-size:9px; font-weight:700;
+  letter-spacing:.3em; text-transform:uppercase; color:var(--text3);
+  flex-shrink:0; padding-right:4px;
+}
+.sf-btn {
+  padding:6px 16px;
+  background:transparent;
+  border:1px solid rgba(255,255,255,.07);
+  font-family:var(--ff-ui); font-size:9px; font-weight:600;
+  letter-spacing:.18em; text-transform:uppercase; color:var(--text3);
+  cursor:pointer; border-radius:20px; transition:all .25s;
+  white-space:nowrap;
+}
+.sf-btn:hover { border-color:rgba(201,164,74,.35); color:var(--gold); }
+.sf-btn.on {
+  background:rgba(201,164,74,.12);
+  border-color:rgba(201,164,74,.45);
+  color:var(--gold2);
+}
+
 /* TEMPLATE CARDS */
 .tmpl-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
 .tmpl-card {
@@ -597,6 +631,23 @@ section { position:relative; z-index:2; }
 .tc-cname { font-family:var(--ff-ui); font-size:15px; font-weight:700; color:var(--text); margin-bottom:3px; }
 .tc-feat { font-size:11px; color:var(--text3); }
 .tc-price2 { font-family:var(--ff-display); font-size:22px; color:var(--gold); font-style:italic; }
+
+/* Style & portrait tags row */
+.tc-meta2-tags { display:flex; align-items:center; gap:6px; flex-wrap:wrap; margin-top:10px; }
+.tc-style-pill {
+  font-family:var(--ff-ui); font-size:8px; font-weight:700;
+  letter-spacing:.18em; text-transform:uppercase;
+  padding:3px 10px; border-radius:20px;
+  background:rgba(139,92,246,.12); border:1px solid rgba(139,92,246,.3);
+  color:rgba(196,181,253,.8);
+}
+.tc-portrait-badge {
+  font-family:var(--ff-ui); font-size:8px; font-weight:700;
+  letter-spacing:.12em; text-transform:uppercase;
+  padding:3px 10px; border-radius:20px;
+  background:rgba(180,80,70,.12); border:1px solid rgba(180,80,70,.35);
+  color:rgba(253,200,180,.8);
+}
 .tc-badge2 {
   display:inline-block;
   padding:4px 10px; font-family:var(--ff-ui); font-size:8px;
@@ -1216,12 +1267,17 @@ footer {
       <p class="s-tag"><span class="s-tag-dot"></span>Koleksi Template</p>
       <h2 class="s-h2">Pilih yang paling<br><em>mencuri hati anda</em></h2>
     </div>
-    <div class="filter-row reveal" style="transition-delay:.1s">
-      <button class="f-btn on" onclick="filterT('all',this)">Semua</button>
-      <button class="f-btn" onclick="filterT('esential',this)">Esential <span class="f-price">RM39</span></button>
-      <button class="f-btn" onclick="filterT('potrait',this)">Potrait <span class="f-price">RM59</span></button>
-      <button class="f-btn" onclick="filterT('cinematic',this)">Cinematic <span class="f-price">RM79</span></button>
-      <button class="f-btn" onclick="filterT('prestige',this)">Prestige <span class="f-price">RM119</span></button>
+    <div class="filter-row reveal" style="transition-delay:.1s" id="pkgFilterRow">
+      <button class="f-btn on" onclick="selectPkg('all',this)">Semua</button>
+      <button class="f-btn" onclick="selectPkg('esential',this)">Essential <span class="f-price">RM39</span></button>
+      <button class="f-btn" onclick="selectPkg('potrait',this)">Potrait <span class="f-price">RM59</span></button>
+      <button class="f-btn" onclick="selectPkg('cinematic',this)">Cinematic <span class="f-price">RM79</span></button>
+      <button class="f-btn" onclick="selectPkg('prestige',this)">Prestige <span class="f-price">RM119</span></button>
+    </div>
+    <!-- STYLE SUBCATEGORY ROW — muncul bila package dipilih -->
+    <div class="style-filter-row" id="styleFilterRow">
+      <span class="style-filter-label">✦ Style</span>
+      <button class="sf-btn on" onclick="selectStyle('all',this)">Semua Style</button>
     </div>
     <div class="tmpl-grid" id="tmplGrid">
       <div id="tmpl-loading" style="grid-column:1/-1;text-align:center;padding:80px 0;color:var(--text3);font-family:var(--ff-ui);font-size:11px;letter-spacing:.25em">
@@ -1802,19 +1858,24 @@ function renderTemplates(registry){
       const demoFile   = info.file         || '';
       const isPopular    = info.popular      || false;
       const isMarkedNew  = info.mark_new     || false;
+      const styleLabel   = info.style        || '';
+      const isPortrait   = info.has_portrait_photo || false;
       const demoUrl    = demoFile ? PAGES_BASE+'/demo.html?t='+demoFile : '';
       const prefillVal = name+' (— '+cat+') — RM'+price;
       const pv = prefillVal.replace(/'/g,"\\'");
       const thumbHTML = previewImg
         ? `<div class="tc-thumb has-img"><img class="tc-preview-img" src="${PAGES_BASE}/${previewImg}" alt="${name}" loading="lazy"><div class="tc-overlay"><a href="borang.html?template=${encodeURIComponent(name)}&cat=${encodeURIComponent(cat)}" class="tc-ov-btn">Pilih Template<\/a>${demoUrl?`<a href="${demoUrl}" class="tc-ov-btn ghost" target="_blank">Live Demo →<\/a>`:''}<\/div><\/div>`
         : `<div class="tc-thumb"><div class="tc-inner" style="background:linear-gradient(150deg,#0a0d0b,#0f1a15)"><span style="font-size:32px">${emoji}<\/span><p style="margin-top:12px;font-family:var(--ff-display);font-style:italic;color:var(--text2);font-size:14px">${name}<\/p><\/div><div class="tc-overlay"><a href="borang.html?template=${encodeURIComponent(name)}&cat=${encodeURIComponent(cat)}" class="tc-ov-btn">Pilih Template<\/a>${demoUrl?`<a href="${demoUrl}" class="tc-ov-btn ghost" target="_blank">Live Demo →<\/a>`:''}<\/div><\/div>`;
-      const popBadge    = isPopular   ? '<span class="tc-badge2 badge-pop">Popular ❖<\/span>' : '';
-      const newRibbon   = isMarkedNew ? '<span class="badge-new-ribbon"><\/span>' : '';
+      const popBadge      = isPopular   ? '<span class="tc-badge2 badge-pop">Popular ❖<\/span>' : '';
+      const newRibbon     = isMarkedNew ? '<span class="badge-new-ribbon"><\/span>' : '';
+      const stylePill     = styleLabel  ? `<span class="tc-style-pill">${styleLabel}<\/span>` : '';
+      const portraitBadge = isPortrait  ? '<span class="tc-portrait-badge">📸 2 Foto<\/span>' : '';
       const card=document.createElement('div');
       card.className='tmpl-card reveal';
       card.dataset.cat=catSlug;
+      card.dataset.style=styleLabel;
       card.style.transitionDelay=delay+'s';
-      card.innerHTML=`${popBadge}${newRibbon}<span class="tc-catbadge ${badgeCls}">${cat}<\/span>${thumbHTML}<div class="tc-meta2"><div class="tc-meta2-top"><div><p class="tc-cname">${name}<\/p><p class="tc-feat">${desc}<\/p><\/div><p class="tc-price2">RM${price}<\/p><\/div><\/div>`;
+      card.innerHTML=`${popBadge}${newRibbon}<span class="tc-catbadge ${badgeCls}">${cat}<\/span>${thumbHTML}<div class="tc-meta2"><div class="tc-meta2-top"><div><p class="tc-cname">${name}<\/p><p class="tc-feat">${desc}<\/p><\/div><p class="tc-price2">RM${price}<\/p><\/div><div class="tc-meta2-tags">${stylePill}${portraitBadge}<\/div><\/div>`;
       grid.appendChild(card);
       revObs.observe(card);
       delay=(delay+0.05)%0.3;
@@ -1830,13 +1891,71 @@ function renderTemplates(registry){
   applyMobileViewMore();
 }
 
-/* ── FILTER ── */
-function filterT(cat,btn){
-  document.querySelectorAll('.f-btn').forEach(b=>b.classList.remove('on'));
+/* ── FILTER STATE ── */
+let _activePkg   = 'all';
+let _activeStyle = 'all';
+
+/* ── PKG FILTER (Level 1) ── */
+function selectPkg(pkg, btn){
+  _activePkg   = pkg;
+  _activeStyle = 'all';
+
+  // Update pkg buttons
+  document.querySelectorAll('#pkgFilterRow .f-btn').forEach(b=>b.classList.remove('on'));
   btn.classList.add('on');
+
+  // Build & show style chips for chosen package
+  const styleRow = document.getElementById('styleFilterRow');
+  if(pkg === 'all'){
+    styleRow.classList.remove('visible');
+  } else {
+    // Collect all unique styles for this package
+    const styles = new Set();
+    document.querySelectorAll('#tmplGrid .tmpl-card').forEach(c=>{
+      if(c.dataset.cat === pkg && c.dataset.style){
+        styles.add(c.dataset.style);
+      }
+    });
+    // Rebuild style chips
+    styleRow.innerHTML = '<span class="style-filter-label">✦ Style</span>';
+    const allBtn = document.createElement('button');
+    allBtn.className = 'sf-btn on';
+    allBtn.textContent = 'Semua Style';
+    allBtn.onclick = ()=>selectStyle('all', allBtn);
+    styleRow.appendChild(allBtn);
+    styles.forEach(s=>{
+      const b = document.createElement('button');
+      b.className = 'sf-btn';
+      b.textContent = s;
+      b.onclick = ()=>selectStyle(s, b);
+      styleRow.appendChild(b);
+    });
+    // Only show row if there are style chips
+    if(styles.size > 0){
+      styleRow.classList.add('visible');
+    } else {
+      styleRow.classList.remove('visible');
+    }
+  }
+  _applyFilters();
+}
+
+/* ── STYLE FILTER (Level 2) ── */
+function selectStyle(style, btn){
+  _activeStyle = style;
+  document.querySelectorAll('#styleFilterRow .sf-btn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  _applyFilters();
+}
+
+/* ── APPLY BOTH FILTERS ── */
+function _applyFilters(){
   document.querySelectorAll('#tmplGrid .tmpl-card').forEach(c=>{
-    c.classList.toggle('hide',cat!=='all'&&c.dataset.cat!==cat);
+    const pkgMatch   = _activePkg   === 'all' || c.dataset.cat   === _activePkg;
+    const styleMatch = _activeStyle === 'all' || c.dataset.style === _activeStyle;
+    c.classList.toggle('hide', !(pkgMatch && styleMatch));
   });
+  applyMobileViewMore();
 }
 
 loadTemplates();
