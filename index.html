@@ -1267,17 +1267,14 @@ footer {
       <p class="s-tag"><span class="s-tag-dot"></span>Koleksi Template</p>
       <h2 class="s-h2">Pilih yang paling<br><em>mencuri hati anda</em></h2>
     </div>
-    <div class="filter-row reveal" style="transition-delay:.1s" id="pkgFilterRow">
-      <button class="f-btn on" onclick="selectPkg('all',this)">Semua</button>
-      <button class="f-btn" onclick="selectPkg('esential',this)">Essential <span class="f-price">RM39</span></button>
-      <button class="f-btn" onclick="selectPkg('potrait',this)">Potrait <span class="f-price">RM59</span></button>
-      <button class="f-btn" onclick="selectPkg('cinematic',this)">Cinematic <span class="f-price">RM79</span></button>
-      <button class="f-btn" onclick="selectPkg('prestige',this)">Prestige <span class="f-price">RM119</span></button>
+    <!-- STYLE FILTER (Level 1) — primary -->
+    <div class="filter-row reveal" style="transition-delay:.1s" id="styleFilterRow">
+      <button class="f-btn on" onclick="selectStyle('all',this)">Semua</button>
     </div>
-    <!-- STYLE SUBCATEGORY ROW — muncul bila package dipilih -->
-    <div class="style-filter-row" id="styleFilterRow">
-      <span class="style-filter-label">✦ Style</span>
-      <button class="sf-btn on" onclick="selectStyle('all',this)">Semua Style</button>
+    <!-- PKG SUBCATEGORY ROW — optional, muncul bila style dipilih -->
+    <div class="style-filter-row" id="pkgFilterRow">
+      <span class="style-filter-label">✦ Pakej</span>
+      <button class="sf-btn on" onclick="selectPkg('all',this)">Semua Pakej</button>
     </div>
     <div class="tmpl-grid" id="tmplGrid">
       <div id="tmpl-loading" style="grid-column:1/-1;text-align:center;padding:80px 0;color:var(--text3);font-family:var(--ff-ui);font-size:11px;letter-spacing:.25em">
@@ -1831,8 +1828,7 @@ async function loadTemplates(){
 function renderTemplates(registry){
   const grid   = document.getElementById('tmplGrid');
   if(!grid) return;
-  grid.innerHTML = '';
-  let delay=0;
+  grid.innerHTML = '';  let delay=0;
   // Sort: popular templates dari semua kategori dikumpul dulu
   const allTemplates = [];
   for(const [cat, templates] of Object.entries(registry)){
@@ -1888,6 +1884,8 @@ function renderTemplates(registry){
   cs.style.transitionDelay=delay+'s';
   cs.innerHTML=`<div class="coming-soon-inner"><span class="cs-icon">✦</span><span>Akan Datang</span><span style="font-size:11px;font-family:'Syne',sans-serif;letter-spacing:.2em;opacity:.4;font-style:normal;">Coming Soon</span></div><div style="padding:18px 20px;border-top:1px solid rgba(255,255,255,.05);"><p style="font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:rgba(240,237,230,.2);">Template Baharu</p><p style="font-size:11px;color:rgba(240,237,230,.1);margin-top:3px;">Dalam Proses</p></div>`;
   grid.appendChild(cs);
+  // Build style chips from registry data
+  buildStyleChips(registry);
   // Apply mobile view-more after render
   applyMobileViewMore();
 }
@@ -1896,65 +1894,88 @@ function renderTemplates(registry){
 let _activePkg   = 'all';
 let _activeStyle = 'all';
 
-/* ── PKG FILTER (Level 1) ── */
-function selectPkg(pkg, btn){
-  _activePkg   = pkg;
-  _activeStyle = 'all';
+/* ── STYLE FILTER (Level 1 — primary) ── */
+function selectStyle(style, btn){
+  _activeStyle = style;
+  _activePkg   = 'all';
 
-  // Update pkg buttons
-  document.querySelectorAll('#pkgFilterRow .f-btn').forEach(b=>b.classList.remove('on'));
+  // Update style buttons
+  document.querySelectorAll('#styleFilterRow .f-btn').forEach(b=>b.classList.remove('on'));
   btn.classList.add('on');
 
-  // Build & show style chips for chosen package
-  const styleRow = document.getElementById('styleFilterRow');
-  if(pkg === 'all'){
-    styleRow.classList.remove('visible');
+  // Build & show pkg chips for chosen style
+  const pkgRow = document.getElementById('pkgFilterRow');
+  if(style === 'all'){
+    pkgRow.classList.remove('visible');
   } else {
-    // Collect all unique styles for this package
-    const styles = new Set();
+    // Collect unique pkgs for this style
+    const pkgs = new Set();
     document.querySelectorAll('#tmplGrid .tmpl-card').forEach(c=>{
-      if(c.dataset.cat === pkg && c.dataset.style){
-        styles.add(c.dataset.style);
+      if(c.dataset.style === style && c.dataset.cat){
+        pkgs.add(c.dataset.cat);
       }
     });
-    // Rebuild style chips
-    styleRow.innerHTML = '<span class="style-filter-label">✦ Style</span>';
+    // Rebuild pkg chips
+    pkgRow.innerHTML = '<span class="style-filter-label">✦ Pakej</span>';
     const allBtn = document.createElement('button');
     allBtn.className = 'sf-btn on';
-    allBtn.textContent = 'Semua Style';
-    allBtn.onclick = ()=>selectStyle('all', allBtn);
-    styleRow.appendChild(allBtn);
-    styles.forEach(s=>{
+    allBtn.textContent = 'Semua Pakej';
+    allBtn.onclick = ()=>selectPkg('all', allBtn);
+    pkgRow.appendChild(allBtn);
+    // Map slug back to display label + price
+    const PKG_LABEL = { esential:'Essential RM39', potrait:'Portrait RM59', cinematic:'Cinematic RM79', prestige:'Prestige RM119' };
+    pkgs.forEach(p=>{
       const b = document.createElement('button');
       b.className = 'sf-btn';
-      b.textContent = s;
-      b.onclick = ()=>selectStyle(s, b);
-      styleRow.appendChild(b);
+      b.textContent = PKG_LABEL[p] || p;
+      b.onclick = ()=>selectPkg(p, b);
+      pkgRow.appendChild(b);
     });
-    // Only show row if there are style chips
-    if(styles.size > 0){
-      styleRow.classList.add('visible');
+    if(pkgs.size > 0){
+      pkgRow.classList.add('visible');
     } else {
-      styleRow.classList.remove('visible');
+      pkgRow.classList.remove('visible');
     }
   }
   _applyFilters();
 }
 
-/* ── STYLE FILTER (Level 2) ── */
-function selectStyle(style, btn){
-  _activeStyle = style;
-  document.querySelectorAll('#styleFilterRow .sf-btn').forEach(b=>b.classList.remove('on'));
+/* ── PKG FILTER (Level 2 — optional) ── */
+function selectPkg(pkg, btn){
+  _activePkg = pkg;
+  document.querySelectorAll('#pkgFilterRow .sf-btn').forEach(b=>b.classList.remove('on'));
   btn.classList.add('on');
   _applyFilters();
+}
+
+/* ── BUILD STYLE CHIPS FROM REGISTRY ── */
+function buildStyleChips(registry){
+  const styleRow = document.getElementById('styleFilterRow');
+  if(!styleRow) return;
+  // Collect all unique styles across all templates
+  const styles = new Set();
+  for(const [cat, templates] of Object.entries(registry)){
+    if(!templates || typeof templates !== 'object' || Array.isArray(templates)) continue;
+    for(const [key, info] of Object.entries(templates)){
+      if(info.style) styles.add(info.style);
+    }
+  }
+  // Keep "Semua" button, append style chips
+  styles.forEach(s=>{
+    const b = document.createElement('button');
+    b.className = 'f-btn';
+    b.textContent = s;
+    b.onclick = ()=>selectStyle(s, b);
+    styleRow.appendChild(b);
+  });
 }
 
 /* ── APPLY BOTH FILTERS ── */
 function _applyFilters(){
   document.querySelectorAll('#tmplGrid .tmpl-card').forEach(c=>{
-    const pkgMatch   = _activePkg   === 'all' || c.dataset.cat   === _activePkg;
     const styleMatch = _activeStyle === 'all' || c.dataset.style === _activeStyle;
-    c.classList.toggle('hide', !(pkgMatch && styleMatch));
+    const pkgMatch   = _activePkg   === 'all' || c.dataset.cat   === _activePkg;
+    c.classList.toggle('hide', !(styleMatch && pkgMatch));
   });
   applyMobileViewMore();
 }
