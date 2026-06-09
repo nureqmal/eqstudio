@@ -620,6 +620,24 @@ section { position:relative; z-index:2; }
 .badge-cinematic { background:rgba(201,164,74,.8); color:#1a1200; }
 .badge-prestige  { background:linear-gradient(90deg,#c9a44a,#e2c06a); color:#060b0a; }
 
+/* NEW badge — corner ribbon, beza dari popular pill */
+.badge-new-ribbon {
+  position:absolute; top:0; left:0; z-index:4;
+  width:0; height:0;
+  border-style:solid;
+  border-width:48px 48px 0 0;
+  border-color:#4ade80 transparent transparent transparent;
+  filter:drop-shadow(0 2px 4px rgba(74,222,128,.3));
+}
+.badge-new-ribbon::after {
+  content:'NEW';
+  position:absolute; top:-44px; left:3px;
+  font-family:var(--ff-ui); font-size:7px; font-weight:800;
+  letter-spacing:.12em; color:#060b0a;
+  transform:rotate(-45deg);
+  white-space:nowrap;
+}
+
 /* coming soon card */
 .coming-soon-card {
   background:var(--bg3); border:1px solid var(--border); border-radius:2px;
@@ -1778,19 +1796,21 @@ function renderTemplates(registry){
       const emoji      = info.preview_emoji|| '✨';
       const previewImg = info.preview_img  || '';
       const demoFile   = info.file         || '';
-      const isPopular  = info.popular      || false;
+      const isPopular    = info.popular      || false;
+      const isMarkedNew  = info.mark_new     || false;
       const demoUrl    = demoFile ? PAGES_BASE+'/demo.html?t='+demoFile : '';
       const prefillVal = name+' (— '+cat+') — RM'+price;
       const pv = prefillVal.replace(/'/g,"\\'");
       const thumbHTML = previewImg
         ? `<div class="tc-thumb has-img"><img class="tc-preview-img" src="${PAGES_BASE}/${previewImg}" alt="${name}" loading="lazy"><div class="tc-overlay"><a href="borang.html?template=${encodeURIComponent(name)}&cat=${encodeURIComponent(cat)}" class="tc-ov-btn">Pilih Template<\/a>${demoUrl?`<a href="${demoUrl}" class="tc-ov-btn ghost" target="_blank">Live Demo →<\/a>`:''}<\/div><\/div>`
         : `<div class="tc-thumb"><div class="tc-inner" style="background:linear-gradient(150deg,#0a0d0b,#0f1a15)"><span style="font-size:32px">${emoji}<\/span><p style="margin-top:12px;font-family:var(--ff-display);font-style:italic;color:var(--text2);font-size:14px">${name}<\/p><\/div><div class="tc-overlay"><a href="borang.html?template=${encodeURIComponent(name)}&cat=${encodeURIComponent(cat)}" class="tc-ov-btn">Pilih Template<\/a>${demoUrl?`<a href="${demoUrl}" class="tc-ov-btn ghost" target="_blank">Live Demo →<\/a>`:''}<\/div><\/div>`;
-      const popBadge = isPopular?'<span class="tc-badge2 badge-pop">Popular ❖<\/span>':'';
+      const popBadge    = isPopular   ? '<span class="tc-badge2 badge-pop">Popular ❖<\/span>' : '';
+      const newRibbon   = isMarkedNew ? '<span class="badge-new-ribbon"><\/span>' : '';
       const card=document.createElement('div');
       card.className='tmpl-card reveal';
       card.dataset.cat=catSlug;
       card.style.transitionDelay=delay+'s';
-      card.innerHTML=`${popBadge}<span class="tc-catbadge ${badgeCls}">${cat}<\/span>${thumbHTML}<div class="tc-meta2"><div class="tc-meta2-top"><div><p class="tc-cname">${name}<\/p><p class="tc-feat">${desc}<\/p><\/div><p class="tc-price2">RM${price}<\/p><\/div><\/div>`;
+      card.innerHTML=`${popBadge}${newRibbon}<span class="tc-catbadge ${badgeCls}">${cat}<\/span>${thumbHTML}<div class="tc-meta2"><div class="tc-meta2-top"><div><p class="tc-cname">${name}<\/p><p class="tc-feat">${desc}<\/p><\/div><p class="tc-price2">RM${price}<\/p><\/div><\/div>`;
       grid.appendChild(card);
       revObs.observe(card);
       delay=(delay+0.05)%0.3;
