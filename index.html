@@ -1784,7 +1784,11 @@ function renderTemplates(registry){
       allTemplates.push({cat, key, info});
     }
   }
-  allTemplates.sort((a,b) => (b.info.popular?1:0) - (a.info.popular?1:0));
+  allTemplates.sort((a,b) => {
+    const aScore = (b.info.mark_new?2:0) + (b.info.popular?1:0);
+    const bScore = (a.info.mark_new?2:0) + (a.info.popular?1:0);
+    return bScore - aScore;
+  });
 
   for(const {cat, key, info} of allTemplates){
     const price    = PRICE_MAP[cat]  || 29;
