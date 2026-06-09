@@ -1836,6 +1836,7 @@ function renderTemplates(registry){
   // Sort: popular templates dari semua kategori dikumpul dulu
   const allTemplates = [];
   for(const [cat, templates] of Object.entries(registry)){
+    if(!templates || typeof templates !== 'object' || Array.isArray(templates)) continue;
     for(const [key, info] of Object.entries(templates)){
       allTemplates.push({cat, key, info});
     }
@@ -2033,6 +2034,7 @@ function closeNewPopup(){
   // Kumpul semua template yg ada flag "new": true
   const newTemplates = [];
   for(const [cat, templates] of Object.entries(registry)){
+    if(!templates || typeof templates !== 'object' || Array.isArray(templates)) continue;
     for(const [key, info] of Object.entries(templates)){
       if(info.new){
         newTemplates.push({ cat, key, info });
