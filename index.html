@@ -1785,8 +1785,8 @@ function renderTemplates(registry){
     }
   }
   allTemplates.sort((a,b) => {
-    const aScore = (b.info.mark_new?2:0) + (b.info.popular?1:0);
-    const bScore = (a.info.mark_new?2:0) + (a.info.popular?1:0);
+    const aScore = (a.info.mark_new?2:0) + (a.info.popular?1:0);
+    const bScore = (b.info.mark_new?2:0) + (b.info.popular?1:0);
     return bScore - aScore;
   });
 
