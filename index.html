@@ -50,6 +50,89 @@ body::before {
 ::-webkit-scrollbar-track { background:var(--bg); }
 ::-webkit-scrollbar-thumb { background:var(--emerald); border-radius:2px; }
 
+/* ── NEW TEMPLATE POPUP ── */
+#newPopup {
+  position:fixed; inset:0; z-index:9000;
+  display:flex; align-items:center; justify-content:center;
+  padding:20px;
+  opacity:0; pointer-events:none;
+  transition:opacity .5s var(--ease-silk);
+}
+#newPopup.show { opacity:1; pointer-events:all; }
+#newPopup-backdrop {
+  position:absolute; inset:0;
+  background:rgba(6,11,10,0.88);
+  backdrop-filter:blur(12px) saturate(160%);
+}
+#newPopup-box {
+  position:relative; z-index:1;
+  background:var(--bg3);
+  border:1px solid rgba(201,164,74,0.22);
+  border-radius:4px;
+  max-width:520px; width:100%;
+  box-shadow:0 40px 100px rgba(0,0,0,0.7), 0 0 0 1px rgba(201,164,74,0.06);
+  transform:translateY(20px) scale(.97);
+  transition:transform .5s var(--ease-silk);
+  overflow:hidden;
+}
+#newPopup.show #newPopup-box { transform:translateY(0) scale(1); }
+.np-header { padding:28px 32px 0; display:flex; align-items:flex-start; justify-content:space-between; gap:16px; }
+.np-badge {
+  display:inline-flex; align-items:center; gap:8px;
+  background:rgba(13,107,82,0.15); border:1px solid rgba(13,107,82,0.4);
+  border-radius:2px; padding:5px 14px;
+  font-family:var(--ff-ui); font-size:9px; font-weight:700;
+  letter-spacing:0.3em; text-transform:uppercase; color:#4ade80;
+  margin-bottom:16px;
+}
+.np-badge-dot { width:5px; height:5px; border-radius:50%; background:#4ade80; animation:pulse 1.5s ease-in-out infinite; }
+.np-close {
+  width:32px; height:32px; border-radius:50%;
+  border:1px solid var(--border); background:none; cursor:pointer;
+  color:var(--text2); font-size:16px; line-height:1;
+  display:flex; align-items:center; justify-content:center;
+  transition:all .3s; flex-shrink:0;
+}
+.np-close:hover { border-color:var(--gold); color:var(--gold); background:rgba(201,164,74,0.06); }
+.np-title { font-family:var(--ff-display); font-size:26px; font-weight:700; line-height:1.15; color:var(--text); margin-bottom:8px; }
+.np-title em { font-style:italic; color:var(--gold); }
+.np-subtitle { font-size:13px; color:var(--text2); line-height:1.7; margin-bottom:24px; }
+.np-cards { display:flex; gap:12px; flex-wrap:wrap; padding:0 32px 24px; }
+.np-card {
+  flex:1; min-width:130px;
+  background:rgba(255,255,255,0.03); border:1px solid var(--border);
+  border-radius:3px; padding:16px 18px;
+  transition:border-color .3s, background .3s; cursor:default;
+}
+.np-card:hover { border-color:rgba(201,164,74,0.25); background:rgba(201,164,74,0.04); }
+.np-card-emoji { font-size:24px; display:block; margin-bottom:10px; }
+.np-card-name { font-family:var(--ff-ui); font-size:12px; font-weight:700; color:var(--text); letter-spacing:0.05em; }
+.np-card-cat { font-size:11px; color:var(--text3); margin-top:3px; letter-spacing:0.08em; }
+.np-card-new { font-size:9px; color:#4ade80; font-family:var(--ff-ui); letter-spacing:0.2em; text-transform:uppercase; margin-top:6px; }
+.np-footer {
+  padding:20px 32px 28px; border-top:1px solid var(--border);
+  display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+}
+.np-btn-main {
+  flex:1; min-width:160px; padding:13px 24px;
+  background:var(--gold-g); color:#060b0a;
+  font-family:var(--ff-ui); font-size:10px; font-weight:700;
+  letter-spacing:0.25em; text-transform:uppercase;
+  border:none; border-radius:1px; cursor:pointer;
+  transition:opacity .3s, transform .3s;
+}
+.np-btn-main:hover { opacity:.88; transform:translateY(-2px); }
+.np-btn-skip {
+  font-family:var(--ff-ui); font-size:10px; letter-spacing:0.15em; text-transform:uppercase;
+  color:var(--text3); background:none; border:none; cursor:pointer; transition:color .3s; padding:4px;
+}
+.np-btn-skip:hover { color:var(--text2); }
+@media(max-width:560px){
+  .np-header,.np-cards,.np-footer { padding-left:20px; padding-right:20px; }
+  .np-title { font-size:21px; }
+}
+
+
 /* ── CURSOR ── */
 #cur-outer { position:fixed; width:36px; height:36px; border:1px solid rgba(201,164,74,0.4); border-radius:50%; pointer-events:none; z-index:9999; transform:translate(-50%,-50%); transition:width .4s var(--ease-silk), height .4s var(--ease-silk), border-color .4s, opacity .4s; }
 #cur-inner { position:fixed; width:5px; height:5px; background:var(--gold); border-radius:50%; pointer-events:none; z-index:9999; transform:translate(-50%,-50%); transition:transform .1s; }
@@ -906,7 +989,28 @@ footer {
 </head>
 <body>
 
-<!-- Custom Cursor -->
+<!-- ══ NEW TEMPLATE POPUP ══ -->
+<div id="newPopup">
+  <div id="newPopup-backdrop" onclick="closeNewPopup()"></div>
+  <div id="newPopup-box">
+    <div class="np-header">
+      <div style="flex:1">
+        <div class="np-badge"><span class="np-badge-dot"></span> Baru Dilancarkan</div>
+        <div class="np-title">Template <em>Terbaru</em><br>Dah Tiba ✦</div>
+        <div class="np-subtitle">Koleksi reka bentuk baharu — sedia untuk kad digital perkahwinan kamu.</div>
+      </div>
+      <button class="np-close" onclick="closeNewPopup()" aria-label="Tutup">✕</button>
+    </div>
+    <div class="np-cards" id="npCards">
+      <!-- Diisi oleh JS -->
+    </div>
+    <div class="np-footer">
+      <button class="np-btn-main" onclick="closeNewPopup();document.getElementById('templates').scrollIntoView({behavior:'smooth'})">Lihat Semua Template →</button>
+      <button class="np-btn-skip" onclick="closeNewPopup()">Mungkin Lain Kali</button>
+    </div>
+  </div>
+</div>
+
 <div id="cur-outer"></div>
 <div id="cur-inner"></div>
 
@@ -1751,6 +1855,61 @@ setTimeout(()=>{
   const el=document.getElementById('slot-n');
   if(el&&slots>1){slots--;el.textContent=slots;}
 },Math.random()*90000+60000);
+
+/* ── NEW TEMPLATE POPUP ── */
+function closeNewPopup(){
+  const p=document.getElementById('newPopup');
+  if(p){ p.classList.remove('show'); }
+  try{ sessionStorage.setItem('eq_new_popup_seen','1'); }catch(e){}
+}
+
+(async function initNewPopup(){
+  // Jangan tunjuk lagi kalau dah tengok dalam sesi yang sama
+  try{ if(sessionStorage.getItem('eq_new_popup_seen')) return; }catch(e){}
+
+  // Fetch registry — sama macam loadTemplates() dah buat, guna cache kalau ada
+  let registry;
+  try{
+    const res = await fetch(REGISTRY_URL+'?v='+Date.now());
+    if(!res.ok) return;
+    registry = await res.json();
+  }catch(e){ return; }
+
+  // Kumpul semua template yg ada flag "new": true
+  const newTemplates = [];
+  for(const [cat, templates] of Object.entries(registry)){
+    for(const [key, info] of Object.entries(templates)){
+      if(info.new){
+        newTemplates.push({ cat, key, info });
+      }
+    }
+  }
+
+  if(!newTemplates.length) return; // Takde template baru? Popup tak keluar
+
+  // Render cards
+  const container = document.getElementById('npCards');
+  if(!container) return;
+  container.innerHTML = newTemplates.map(({cat, info})=>{
+    const emoji = info.preview_emoji || '✨';
+    const name  = info.name || key;
+    return `<div class="np-card">
+      <span class="np-card-emoji">${emoji}</span>
+      <div class="np-card-name">${name}</div>
+      <div class="np-card-cat">${cat}</div>
+      <div class="np-card-new">✦ Baru</div>
+    </div>`;
+  }).join('');
+
+  // Tunjuk popup lepas 1.8s (bagi page load dulu)
+  setTimeout(()=>{
+    const p = document.getElementById('newPopup');
+    if(p) p.classList.add('show');
+  }, 1800);
+
+  // Close on Escape key
+  document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeNewPopup(); });
+})();
 </script>
 </body>
 </html>
