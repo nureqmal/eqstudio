@@ -231,76 +231,102 @@ section { padding: 100px 40px; }
 
 /* ── TEMPLATE SECTION ── */
 .template-section { background: var(--cream); }
-.template-filter-wrap { margin-top: 40px; margin-bottom: 40px; display: flex; gap: 8px; flex-wrap: wrap; }
-.filter-btn {
-  font-family: var(--ff-body); font-size: 13px; font-weight: 400;
-  color: var(--ink2); background: var(--white);
-  border: 1px solid var(--rose); border-radius: 20px;
-  padding: 7px 18px; cursor: pointer;
-  transition: all .2s;
+.filter-row { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin:40px 0 28px; }
+.f-btn {
+  padding:8px 20px; background:transparent;
+  border:1px solid var(--rose); border-radius:20px;
+  font-family:var(--ff-body); font-size:12px; font-weight:400;
+  letter-spacing:.04em; color:var(--ink3);
+  cursor:pointer; transition:all .25s;
 }
-.filter-btn:hover { border-color: var(--rose-drk); color: var(--ink); }
-.filter-btn.active { background: var(--ink); color: var(--cream); border-color: var(--ink); }
-.template-grid {
-  display: grid; grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
+.f-btn:hover { border-color:var(--rose-drk); color:var(--ink); }
+.f-btn.on { background:var(--ink); border-color:var(--ink); color:var(--cream); }
+.style-filter-row {
+  display:flex; align-items:center; gap:8px; flex-wrap:wrap;
+  max-height:0; overflow:hidden; opacity:0;
+  transition:max-height .45s ease, opacity .35s ease, padding .45s;
 }
-.template-card {
-  border-radius: 8px; overflow: hidden;
-  border: 1px solid var(--rose);
-  transition: transform .3s ease, box-shadow .3s ease;
-  cursor: pointer; background: var(--white);
+.style-filter-row.visible { max-height:200px; opacity:1; padding:0 0 16px; }
+.style-filter-label { font-size:10px; font-weight:500; letter-spacing:.2em; text-transform:uppercase; color:var(--ink3); flex-shrink:0; }
+.sf-btn {
+  padding:5px 14px; background:transparent;
+  border:1px solid var(--rose); border-radius:20px;
+  font-family:var(--ff-body); font-size:11px; color:var(--ink3);
+  cursor:pointer; transition:all .2s; white-space:nowrap;
 }
-.template-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 24px 60px rgba(44,44,42,0.1);
+.sf-btn:hover { border-color:var(--rose-drk); color:var(--ink); }
+.sf-btn.on { background:var(--rose); border-color:var(--rose-mid); color:var(--ink); }
+.tmpl-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+.tmpl-card {
+  background:var(--white); border:1px solid var(--rose);
+  border-radius:8px; overflow:hidden; cursor:pointer;
+  transition:transform .4s ease, box-shadow .4s ease, border-color .3s;
+  position:relative;
 }
-.template-card.hidden { display: none; }
-.template-thumb {
-  height: 300px;
-  display: flex; align-items: center; justify-content: center;
-  position: relative; overflow: hidden;
-  background: var(--cream2);
+.tmpl-card:hover { border-color:var(--rose-mid); box-shadow:0 24px 60px rgba(44,44,42,0.12); transform:translateY(-8px); }
+.tmpl-card.hide { display:none; }
+.tc-thumb {
+  aspect-ratio:3/4; position:relative; overflow:hidden;
+  display:flex; align-items:center; justify-content:center; background:var(--cream2);
 }
-.template-thumb-emoji { font-size: 40px; margin-bottom: 12px; }
-.template-thumb-name {
-  font-family: var(--ff-display); font-size: 18px; font-style: italic;
-  font-weight: 300; line-height: 1.4; text-align: center;
-  color: var(--ink2);
+.tc-inner {
+  width:100%; height:100%; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; padding:28px 20px;
+  font-family:var(--ff-display); text-align:center; transition:transform .5s ease;
 }
-.template-thumb-inner { text-align: center; padding: 32px; }
-.template-info { padding: 18px 20px; }
-.template-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 6px; }
-.template-meta { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-.template-tag {
-  display: inline-block; font-size: 11px; font-weight: 400;
-  color: var(--rose-drk); background: var(--cream2);
-  padding: 3px 10px; border-radius: 20px;
+.tmpl-card:hover .tc-inner { transform:scale(1.04); }
+.tc-overlay {
+  position:absolute; inset:0; background:rgba(250,247,244,0.93);
+  backdrop-filter:blur(4px);
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px;
+  opacity:0; transition:opacity .35s;
 }
-.template-preview-link {
-  font-size: 12px; font-weight: 500; color: var(--ink3);
-  text-decoration: none; letter-spacing: 0.02em;
-  transition: color .2s;
+.tmpl-card:hover .tc-overlay { opacity:1; }
+.tc-ov-btn {
+  padding:11px 28px; background:var(--ink); color:var(--cream);
+  font-family:var(--ff-body); font-size:11px; font-weight:500;
+  letter-spacing:.1em; text-transform:uppercase;
+  border:none; cursor:pointer; border-radius:2px;
+  text-decoration:none; display:inline-block; transition:background .2s, transform .2s;
 }
-.template-preview-link:hover { color: var(--rose-drk); }
-.template-loading {
-  grid-column: 1/-1; text-align: center;
-  padding: 80px 0; color: var(--ink3); font-size: 14px;
+.tc-ov-btn:hover { background:var(--rose-drk); transform:scale(1.02); }
+.tc-ov-btn.ghost { background:transparent; border:1px solid var(--ink2); color:var(--ink2); }
+.tc-ov-btn.ghost:hover { border-color:var(--ink); color:var(--ink); }
+.tc-thumb img.tc-preview-img { width:100%; height:100%; object-fit:cover; transition:transform .5s ease; display:block; }
+.tmpl-card:hover .tc-preview-img { transform:scale(1.04); }
+.tc-thumb.has-img { background:var(--cream2); }
+.tc-meta2 { padding:16px 20px; border-top:1px solid var(--rose); }
+.tc-meta2-top { display:flex; align-items:flex-start; justify-content:space-between; }
+.tc-cname { font-family:var(--ff-body); font-size:14px; font-weight:500; color:var(--ink); margin-bottom:3px; }
+.tc-feat { font-size:11px; color:var(--ink3); line-height:1.5; }
+.tc-price2 { font-family:var(--ff-display); font-size:20px; color:var(--rose-drk); font-style:italic; white-space:nowrap; }
+.tc-meta2-tags { display:flex; align-items:center; gap:6px; flex-wrap:wrap; margin-top:8px; }
+.tc-style-pill { font-size:10px; padding:3px 10px; border-radius:20px; background:var(--sage-lt); border:1px solid rgba(138,158,140,.3); color:var(--sage); }
+.tc-portrait-badge { font-size:10px; padding:3px 10px; border-radius:20px; background:var(--cream2); border:1px solid var(--rose-mid); color:var(--rose-drk); }
+.tc-catbadge { position:absolute; top:12px; right:12px; z-index:3; padding:3px 10px; font-size:9px; font-weight:500; letter-spacing:.1em; text-transform:uppercase; border-radius:20px; }
+.tc-badge2 { display:inline-block; padding:3px 10px; font-size:9px; font-weight:600; letter-spacing:.15em; text-transform:uppercase; border-radius:2px; margin-bottom:6px; }
+.badge-essential { background:rgba(138,158,140,.15); color:var(--sage); border:1px solid rgba(138,158,140,.3); }
+.badge-potrait   { background:rgba(160,112,104,.12); color:var(--rose-drk); border:1px solid rgba(160,112,104,.25); }
+.badge-cinematic { background:rgba(44,44,42,.08); color:var(--ink2); border:1px solid rgba(44,44,42,.15); }
+.badge-prestige  { background:var(--ink); color:var(--cream); }
+.badge-pop       { background:var(--rose-drk); color:var(--cream); }
+.badge-new-ribbon {
+  position:absolute; top:0; left:0; z-index:4; width:0; height:0;
+  border-style:solid; border-width:44px 44px 0 0;
+  border-color:var(--sage) transparent transparent transparent;
 }
-.template-loading-spinner {
-  width: 24px; height: 24px; border-radius: 50%;
-  border: 2px solid var(--rose); border-top-color: var(--rose-drk);
-  animation: spin .7s linear infinite;
-  margin: 0 auto 16px;
+.badge-new-ribbon::after {
+  content:'NEW'; position:absolute; top:-40px; left:3px;
+  font-size:7px; font-weight:700; letter-spacing:.1em;
+  color:var(--white); transform:rotate(-45deg); white-space:nowrap;
 }
-@keyframes spin { to { transform: rotate(360deg); } }
-.template-empty {
-  grid-column: 1/-1; text-align: center;
-  padding: 60px 0; color: var(--ink3); font-size: 14px;
-}
-.template-coming { margin-top: 40px; text-align: center; }
-.template-coming p { font-size: 14px; color: var(--ink3); }
-.template-coming a { color: var(--rose-drk); text-decoration: none; font-weight: 500; }
+.coming-soon-card { background:var(--cream2); border:1px solid var(--rose); border-radius:8px; opacity:.4; pointer-events:none; }
+.coming-soon-inner { aspect-ratio:3/4; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; color:var(--ink3); font-family:var(--ff-display); font-style:italic; font-size:18px; }
+.cs-icon { font-size:28px; opacity:.4; }
+.view-more-wrap { text-align:center; margin-top:40px; }
+.view-more-btn { display:inline-flex; align-items:center; gap:8px; background:transparent; border:1px solid var(--rose); color:var(--ink2); padding:12px 28px; border-radius:2px; font-family:var(--ff-body); font-size:13px; cursor:pointer; transition:all .2s; }
+.view-more-btn:hover { border-color:var(--ink); color:var(--ink); }
+#tmpl-loading { grid-column:1/-1; text-align:center; padding:80px 0; color:var(--ink3); font-size:12px; letter-spacing:.2em; }
 
 /* ── PAKEJ ── */
 .pakej-section { background: var(--cream2); }
@@ -484,7 +510,7 @@ footer {
   .kad-float-front { width: 190px; height: 290px; }
   section { padding: 72px 24px; }
   .cara-grid { grid-template-columns: 1fr 1fr; }
-  .template-grid { grid-template-columns: 1fr 1fr; }
+  .tmpl-grid { grid-template-columns: 1fr 1fr; }
   .pakej-grid { grid-template-columns: 1fr 1fr; }
   .kenapa-grid { grid-template-columns: 1fr; }
   .sticky-bar { display: flex; }
@@ -494,7 +520,7 @@ footer {
 @media (max-width: 580px) {
   .hero h1 { font-size: 36px; }
   .cara-grid { grid-template-columns: 1fr; }
-  .template-grid { grid-template-columns: 1fr; }
+  .tmpl-grid { grid-template-columns: 1fr; }
   .pakej-grid { grid-template-columns: 1fr; }
   .section-heading { font-size: 30px; }
 }
@@ -527,7 +553,7 @@ footer {
     <div class="hero-text">
       <div class="hero-eyebrow">Kad Digital Perkahwinan</div>
       <h1>Kad kahwin digital.<br><em>Siap esok.<br>Dikongsi selama-lamanya.</em></h1>
-      <p class="hero-sub">Hantar maklumat hari ini — kami siapkan dalam 48 jam. Link terus ke WhatsApp anda, sedia dikongsi kepada semua tetamu. Tanpa app, tanpa kerumitan.</p>
+      <p class="hero-sub">Hantar maklumat hari ini — kami siapkan dalam 48 jam. Link terus ke WhatsApp kamu, sedia dikongsi kepada semua tetamu. Tanpa app, tanpa kerumitan.</p>
       <div class="hero-actions">
         <a href="borang.html" class="btn-primary">Tempah Sekarang — dari RM39</a>
         <a href="#template" class="btn-ghost">Lihat template</a>
@@ -563,14 +589,14 @@ footer {
   <div class="container">
     <div class="fade-in">
       <div class="section-label">Proses</div>
-      <h2 class="section-heading">Dari pilihan hingga<br><em>link di tangan anda</em></h2>
+      <h2 class="section-heading">Dari pilihan hingga<br><em>link di tangan kamu</em></h2>
       <p class="section-sub">Empat langkah mudah. Tiada prosedur panjang, tiada kerumitan teknikal.</p>
     </div>
     <div class="cara-grid fade-in">
       <div class="cara-step">
         <div class="cara-num">1</div>
         <div class="cara-title">Pilih template</div>
-        <div class="cara-desc">Terokai koleksi kami dan pilih gaya yang paling kena dengan suasana majlis anda.</div>
+        <div class="cara-desc">Terokai koleksi kami dan pilih gaya yang paling kena dengan suasana majlis kamu.</div>
       </div>
       <div class="cara-step">
         <div class="cara-num">2</div>
@@ -585,7 +611,7 @@ footer {
       <div class="cara-step">
         <div class="cara-num">4</div>
         <div class="cara-title">Terima link</div>
-        <div class="cara-desc">48 jam — kad digital anda siap. Semak, luluskan, dan terus kongsi kepada tetamu.</div>
+        <div class="cara-desc">48 jam — kad digital kamu siap. Semak, luluskan, dan terus kongsi kepada tetamu.</div>
       </div>
     </div>
   </div>
@@ -599,17 +625,21 @@ footer {
       <h2 class="section-heading">Template yang <em>mencuri hati</em></h2>
       <p class="section-sub">Setiap template dibina dengan teliti — bukan sekadar cantik, tapi berfungsi dengan baik di semua peranti.</p>
     </div>
-    <div class="template-filter-wrap fade-in" id="filterWrap">
-      <button class="filter-btn active" data-filter="Semua">Semua</button>
+    <div class="filter-row fade-in" id="styleFilterRow">
+      <button class="f-btn on" onclick="selectStyle('all',this)">Semua</button>
     </div>
-    <div class="template-grid fade-in" id="templateGrid">
-      <div class="template-loading">
-        <div class="template-loading-spinner"></div>
-        Memuatkan koleksi template...
-      </div>
+    <div class="style-filter-row" id="pkgFilterRow">
+      <span class="style-filter-label">✦ Pakej</span>
+      <button class="sf-btn on" onclick="selectPkg('all',this)">Semua Pakej</button>
     </div>
-    <div class="template-coming fade-in">
-      <p>Lebih banyak template sedang dibina. <a href="https://wa.me/601154151433">Hubungi kami</a> jika ada gaya tertentu yang anda impikan.</p>
+    <div class="tmpl-grid fade-in" id="tmplGrid">
+      <div id="tmpl-loading">✦ &nbsp; MEMUATKAN KOLEKSI TEMPLATE &nbsp; ✦</div>
+    </div>
+    <div class="view-more-wrap fade-in" id="viewMoreWrap" style="display:none">
+      <button class="view-more-btn" id="viewMoreBtn" onclick="showMoreTemplates()">
+        <span>Lihat Semua Template</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
     </div>
   </div>
 </section>
@@ -619,7 +649,7 @@ footer {
   <div class="container">
     <div class="fade-in">
       <div class="section-label">Harga</div>
-      <h2 class="section-heading">Pilih yang sesuai<br><em>dengan impian anda</em></h2>
+      <h2 class="section-heading">Pilih yang sesuai<br><em>dengan impian kamu</em></h2>
       <p class="section-sub">Harga tetap, tanpa bayaran tahunan. Link aktif seumur hidup.</p>
     </div>
     <div class="pakej-grid fade-in">
@@ -713,29 +743,29 @@ footer {
         <div class="proses-item">
           <div class="proses-icon">✎</div>
           <div>
-            <div class="proses-title">Dibina dari awal untuk anda</div>
-            <div class="proses-desc">Setiap kad dikustomisasi mengikut maklumat anda — bukan template kosong yang di-copy paste tanpa usul periksa.</div>
+            <div class="proses-title">Dibina dari awal untuk kamu</div>
+            <div class="proses-desc">Setiap kad dikustomisasi mengikut maklumat kamu — bukan template kosong yang di-copy paste tanpa usul periksa.</div>
           </div>
         </div>
         <div class="proses-item">
           <div class="proses-icon">✓</div>
           <div>
             <div class="proses-title">Semak sebelum siap</div>
-            <div class="proses-desc">Kami hantar draft untuk kelulusan anda. Kalau ada yang tak kena — ejaan, tarikh, lokasi — kami betulkan tanpa caj tambahan.</div>
+            <div class="proses-desc">Kami hantar draft untuk kelulusan kamu. Kalau ada yang tak kena — ejaan, tarikh, lokasi — kami betulkan tanpa caj tambahan.</div>
           </div>
         </div>
         <div class="proses-item">
           <div class="proses-icon">∞</div>
           <div>
             <div class="proses-title">Link aktif seumur hidup</div>
-            <div class="proses-desc">Tiada hosting fee tahunan. Link kad kahwin anda kekal aktif selama-lamanya — simpan sebagai kenangan digital.</div>
+            <div class="proses-desc">Tiada hosting fee tahunan. Link kad kahwin kamu kekal aktif selama-lamanya — simpan sebagai kenangan digital.</div>
           </div>
         </div>
       </div>
       <div class="kenapa-points">
         <div class="kenapa-point">
-          <div class="kenapa-point-title">Majlis anda bermula dari saat tetamu bukak link tu</div>
-          <div class="kenapa-point-desc">Bukan sekadar kad — ia pengalaman pertama tetamu sebelum tiba di majlis anda. Interaktif, cantik, dan tak perlu didownload.</div>
+          <div class="kenapa-point-title">Majlis kamu bermula dari saat tetamu bukak link tu</div>
+          <div class="kenapa-point-desc">Bukan sekadar kad — ia pengalaman pertama tetamu sebelum tiba di majlis kamu. Interaktif, cantik, dan tak perlu didownload.</div>
         </div>
         <div class="kenapa-point">
           <div class="kenapa-point-title">Mudah dikongsi di mana-mana</div>
@@ -760,7 +790,7 @@ footer {
     <div class="testi-coming fade-in">
       <div class="testi-coming-icon">🌸</div>
       <div class="testi-coming-title">Bahagian ini masih kosong — buat masa ini.</div>
-      <div class="testi-coming-desc">Kami baru bermula dan sedang membina portfolio kami dengan penuh kesungguhan. Jika anda jadi antara pelanggan terawal, kami amat menghargai maklum balas anda setelah kad siap.</div>
+      <div class="testi-coming-desc">Kami baru bermula dan sedang membina portfolio kami dengan penuh kesungguhan. Jika kamu jadi antara pelanggan terawal, kami amat menghargai maklum balas kamu setelah kad siap.</div>
       <a href="https://wa.me/601154151433" class="testi-coming-cta">Jadi pelanggan pertama kami →</a>
     </div>
   </div>
@@ -776,7 +806,7 @@ footer {
     <div class="faq-list fade-in">
       <div class="faq-item">
         <button class="faq-q">Berapa lama masa untuk siap? <span class="faq-icon">+</span></button>
-        <div class="faq-a">Dalam 48 jam selepas bayaran dan maklumat lengkap diterima. anda akan terima link terus ke WhatsApp untuk disemak sebelum diluluskan.</div>
+        <div class="faq-a">Dalam 48 jam selepas bayaran dan maklumat lengkap diterima. Kamu akan terima link terus ke WhatsApp untuk disemak sebelum diluluskan.</div>
       </div>
       <div class="faq-item">
         <button class="faq-q">Boleh buat semakan selepas siap? <span class="faq-icon">+</span></button>
@@ -784,18 +814,18 @@ footer {
       </div>
       <div class="faq-item">
         <button class="faq-q">Macam mana nak kongsi kad? <span class="faq-icon">+</span></button>
-        <div class="faq-a">anda dapat satu link URL. Kongsi terus melalui WhatsApp, Telegram, Instagram atau apa-apa platform. Tetamu hanya perlu klik link — tiada app perlu didownload.</div>
+        <div class="faq-a">Kamu dapat satu link URL. Kongsi terus melalui WhatsApp, Telegram, Instagram atau apa-apa platform. Tetamu hanya perlu klik link — tiada app perlu didownload.</div>
       </div>
       <div class="faq-item">
         <button class="faq-q">Berapa lama link aktif? <span class="faq-icon">+</span></button>
-        <div class="faq-a">Link aktif seumur hidup — tiada kos hosting tahunan atau bayaran tambahan untuk mengekalkan kad anda.</div>
+        <div class="faq-a">Link aktif seumur hidup — tiada kos hosting tahunan atau bayaran tambahan untuk mengekalkan kad kamu.</div>
       </div>
       <div class="faq-item">
         <button class="faq-q">Adakah kad ini mobile-friendly? <span class="faq-icon">+</span></button>
         <div class="faq-a">Ya, 100%. Semua template dioptimumkan untuk telefon pintar. Ia juga berfungsi sempurna di desktop dan tablet.</div>
       </div>
       <div class="faq-item">
-        <button class="faq-q">Kalau majlis anda kurang dari 2 minggu? <span class="faq-icon">+</span></button>
+        <button class="faq-q">Kalau majlis kamu kurang dari 2 minggu? <span class="faq-icon">+</span></button>
         <div class="faq-a">Hubungi kami terus melalui WhatsApp sebelum isi borang supaya kami boleh urus keutamaan. Kami faham tarikh majlis tidak boleh ditangguh.</div>
       </div>
     </div>
@@ -808,7 +838,7 @@ footer {
     <div class="fade-in">
       <div class="section-label">Mulakan sekarang</div>
       <h2 class="section-heading">Isi borang dalam <em>2 minit</em></h2>
-      <p class="section-sub">Nama anda, tarikh majlis, template pilihan — itu sahaja yang kami perlukan. Kami akan WhatsApp dalam 2 jam.</p>
+      <p class="section-sub">Nama kamu, tarikh majlis, template pilihan — itu sahaja yang kami perlukan. Kami akan WhatsApp dalam 2 jam.</p>
       <a href="borang.html" class="btn-primary" style="font-size:15px; padding: 16px 40px;">Tempah Sekarang — dari RM39</a>
       <div class="cta-notes">
         <div class="cta-note">Tiada bayaran diperlukan sekarang</div>
@@ -840,7 +870,10 @@ footer {
 <script>
 // ── CONFIG ──
 const REGISTRY_URL = 'https://raw.githubusercontent.com/nureqmal/eqstudio-cards/main/templates/registry.json';
-const DEMO_BASE    = 'https://eqstudio.nreqmal.workers.dev/demo.html?t=';
+const PAGES_BASE   = 'https://nureqmal.github.io/eqstudio-cards';
+const PRICE_MAP    = { Essential:39, Portrait:59, Potrait:59, Light:59, Cinematic:79, Prestige:119 };
+const CAT_SLUG     = { Essential:'esential', Portrait:'potrait', Potrait:'potrait', Light:'potrait', Cinematic:'cinematic', Prestige:'prestige' };
+const CAT_BADGE    = { Essential:'badge-essential', Portrait:'badge-potrait', Potrait:'badge-potrait', Light:'badge-potrait', Cinematic:'badge-cinematic', Prestige:'badge-prestige' };
 
 // ── NAV SCROLL ──
 const navbar = document.getElementById('navbar');
@@ -864,9 +897,7 @@ const observer = new IntersectionObserver((entries) => {
     if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
   });
 }, { threshold: 0.12 });
-function observeAll() {
-  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-}
+function observeAll() { document.querySelectorAll('.fade-in').forEach(el => observer.observe(el)); }
 observeAll();
 
 // ── STICKY BAR ──
@@ -877,129 +908,156 @@ window.addEventListener('scroll', () => {
   }
 });
 
-// ── TEMPLATE REGISTRY FETCH ──
-(async function loadTemplates() {
-  const grid       = document.getElementById('templateGrid');
-  const filterWrap = document.getElementById('filterWrap');
-
-  // Collect all templates from registry
-  let allTemplates = [];
-  let styleCategories = [];
-
+// ── TEMPLATE REGISTRY ──
+async function loadTemplates() {
   try {
     const res = await fetch(REGISTRY_URL + '?v=' + Date.now());
-    if (!res.ok) throw new Error('registry fetch failed');
+    if (!res.ok) throw new Error('fetch failed');
     const registry = await res.json();
+    renderTemplates(registry);
+  } catch(e) {
+    const el = document.getElementById('tmpl-loading');
+    if (el) el.innerHTML = '<span style="color:var(--ink3)">Tidak dapat memuatkan template. <a href=\'#tempah\' style=\'color:var(--rose-drk)\'>Hubungi kami</a> untuk lihat katalog.</span>';
+  }
+}
 
-    // Extract style categories list
-    if (Array.isArray(registry._style_categories)) {
-      styleCategories = registry._style_categories;
+function renderTemplates(registry) {
+  const grid = document.getElementById('tmplGrid');
+  if (!grid) return;
+  grid.innerHTML = '';
+  let delay = 0;
+
+  // Flatten + sort: mark_new > popular > normal
+  const allTemplates = [];
+  for (const [cat, templates] of Object.entries(registry)) {
+    if (!templates || typeof templates !== 'object' || Array.isArray(templates)) continue;
+    for (const [key, info] of Object.entries(templates)) {
+      allTemplates.push({ cat, key, info });
     }
-
-    // Flatten all packages + templates into one list
-    const PACKAGES = ['Essential', 'Portrait', 'Light', 'Potrait', 'Cinematic', 'Prestige'];
-    PACKAGES.forEach(pkg => {
-      const pkgData = registry[pkg];
-      if (!pkgData || typeof pkgData !== 'object') return;
-      Object.entries(pkgData).forEach(([key, info]) => {
-        if (!info || typeof info !== 'object') return;
-        allTemplates.push({
-          key,
-          pkg,
-          name:  info.name  || key,
-          file:  info.file  || '',
-          emoji: info.preview_emoji || '✦',
-          desc:  info.desc  || '',
-          style: info.style || '',
-        });
-      });
-    });
-
-  } catch (e) {
-    grid.innerHTML = `<div class="template-empty">Gagal memuatkan template. Sila <a href="https://wa.me/601154151433" style="color:var(--rose-drk)">hubungi kami</a> terus.</div>`;
-    return;
   }
-
-  if (!allTemplates.length) {
-    grid.innerHTML = `<div class="template-empty">Tiada template tersedia buat masa ini. Kami sedang menambah koleksi baru!</div>`;
-    return;
-  }
-
-  // ── BUILD FILTER BUTTONS ──
-  // Collect unique styles actually used in registry
-  const usedStyles = [...new Set(allTemplates.map(t => t.style).filter(Boolean))];
-  // Order: follow _style_categories order, then append any extras
-  const orderedStyles = [
-    ...styleCategories.filter(s => usedStyles.includes(s)),
-    ...usedStyles.filter(s => !styleCategories.includes(s))
-  ];
-
-  orderedStyles.forEach(style => {
-    const btn = document.createElement('button');
-    btn.className = 'filter-btn';
-    btn.dataset.filter = style;
-    btn.textContent = style;
-    filterWrap.appendChild(btn);
+  allTemplates.sort((a, b) => {
+    const aScore = (a.info.mark_new ? 2 : 0) + (a.info.popular ? 1 : 0);
+    const bScore = (b.info.mark_new ? 2 : 0) + (b.info.popular ? 1 : 0);
+    return bScore - aScore;
   });
 
-  // ── RENDER CARDS ──
-  function renderCards(filterStyle) {
-    grid.innerHTML = '';
-    const filtered = filterStyle === 'Semua'
-      ? allTemplates
-      : allTemplates.filter(t => t.style === filterStyle);
+  for (const { cat, key, info } of allTemplates) {
+    const price      = PRICE_MAP[cat]  || 39;
+    const catSlug    = CAT_SLUG[cat]   || 'esential';
+    const badgeCls   = CAT_BADGE[cat]  || 'badge-essential';
+    const name       = info.name          || key;
+    const desc       = info.desc          || '';
+    const emoji      = info.preview_emoji || '✨';
+    const previewImg = info.preview_img   || '';
+    const demoFile   = info.file          || '';
+    const isPopular  = info.popular       || false;
+    const isNew      = info.mark_new      || false;
+    const styleLabel = info.style         || '';
+    const isPortrait = info.has_portrait_photo || false;
+    const demoUrl    = demoFile ? PAGES_BASE + '/demo.html?t=' + demoFile : '';
 
-    if (!filtered.length) {
-      grid.innerHTML = `<div class="template-empty">Tiada template dalam kategori ini buat masa ini.</div>`;
-      return;
-    }
+    const thumbHTML = previewImg
+      ? `<div class="tc-thumb has-img"><img class="tc-preview-img" src="${PAGES_BASE}/${previewImg}" alt="${name}" loading="lazy"><div class="tc-overlay"><a href="borang.html?template=${encodeURIComponent(name)}&cat=${encodeURIComponent(cat)}" class="tc-ov-btn">Pilih Template</a>${demoUrl ? `<a href="${demoUrl}" class="tc-ov-btn ghost" target="_blank">Live Demo →</a>` : ''}</div></div>`
+      : `<div class="tc-thumb"><div class="tc-inner"><span style="font-size:32px">${emoji}</span><p style="margin-top:12px;font-family:var(--ff-display);font-style:italic;color:var(--ink3);font-size:14px">${name}</p></div><div class="tc-overlay"><a href="borang.html?template=${encodeURIComponent(name)}&cat=${encodeURIComponent(cat)}" class="tc-ov-btn">Pilih Template</a>${demoUrl ? `<a href="${demoUrl}" class="tc-ov-btn ghost" target="_blank">Live Demo →</a>` : ''}</div></div>`;
 
-    filtered.forEach(t => {
-      const demoUrl = t.file ? DEMO_BASE + encodeURIComponent(t.file) : 'borang.html';
-      const card = document.createElement('div');
-      card.className = 'template-card';
-      card.innerHTML = `
-        <div class="template-thumb">
-          <div class="template-thumb-inner">
-            <div class="template-thumb-emoji">${t.emoji}</div>
-            <div class="template-thumb-name">${t.name}</div>
-            ${t.desc ? `<div style="font-size:11px;color:var(--ink3);margin-top:8px;line-height:1.5">${t.desc}</div>` : ''}
-          </div>
-        </div>
-        <div class="template-info">
-          <div class="template-name">${t.name}</div>
-          <div class="template-meta">
-            <span class="template-tag">${t.style || t.pkg}</span>
-            ${t.file ? `<a class="template-preview-link" href="${demoUrl}" target="_blank">Lihat demo →</a>` : ''}
-          </div>
-        </div>`;
+    const popBadge      = isPopular  ? '<span class="tc-badge2 badge-pop">Popular ❖</span>' : '';
+    const newRibbon     = isNew      ? '<span class="badge-new-ribbon"></span>' : '';
+    const stylePill     = styleLabel ? `<span class="tc-style-pill">${styleLabel}</span>` : '';
+    const portraitBadge = isPortrait ? '<span class="tc-portrait-badge">📸 2 Foto</span>' : '';
 
-      // Clicking card body (not the link) also opens demo
-      card.addEventListener('click', (e) => {
-        if (e.target.tagName === 'A') return;
-        if (t.file) window.open(demoUrl, '_blank');
-        else window.location.href = 'borang.html';
-      });
-
-      grid.appendChild(card);
-    });
-
-    observeAll();
+    const card = document.createElement('div');
+    card.className = 'tmpl-card fade-in';
+    card.dataset.cat = catSlug;
+    card.dataset.style = styleLabel;
+    card.style.transitionDelay = delay + 's';
+    card.innerHTML = `${popBadge}${newRibbon}<span class="tc-catbadge ${badgeCls}">${cat}</span>${thumbHTML}<div class="tc-meta2"><div class="tc-meta2-top"><div><p class="tc-cname">${name}</p><p class="tc-feat">${desc}</p></div><p class="tc-price2">RM${price}</p></div><div class="tc-meta2-tags">${stylePill}${portraitBadge}</div></div>`;
+    grid.appendChild(card);
+    delay = (delay + 0.05) % 0.3;
   }
 
-  // Initial render
-  renderCards('Semua');
+  // Coming soon card
+  const cs = document.createElement('div');
+  cs.className = 'coming-soon-card fade-in';
+  cs.style.transitionDelay = delay + 's';
+  cs.innerHTML = `<div class="coming-soon-inner"><span class="cs-icon">✦</span><span>Akan Datang</span><span style="font-size:11px;letter-spacing:.2em;opacity:.4;font-style:normal">Coming Soon</span></div><div style="padding:16px 20px;border-top:1px solid var(--rose)"><p style="font-size:13px;font-weight:500;color:var(--ink3)">Template Baharu</p><p style="font-size:11px;color:var(--ink3);margin-top:3px;opacity:.6">Dalam Proses</p></div>`;
+  grid.appendChild(cs);
 
-  // ── FILTER CLICK ──
-  filterWrap.addEventListener('click', e => {
-    const btn = e.target.closest('.filter-btn');
-    if (!btn) return;
-    filterWrap.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    renderCards(btn.dataset.filter);
+  buildStyleChips(registry);
+  observeAll();
+}
+
+// ── FILTER STATE ──
+let _activePkg = 'all', _activeStyle = 'all';
+
+function selectStyle(style, btn) {
+  _activeStyle = style; _activePkg = 'all';
+  document.querySelectorAll('#styleFilterRow .f-btn').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+  const pkgRow = document.getElementById('pkgFilterRow');
+  if (style === 'all') {
+    pkgRow.classList.remove('visible');
+  } else {
+    const pkgs = new Set();
+    document.querySelectorAll('#tmplGrid .tmpl-card').forEach(c => {
+      if (c.dataset.style === style && c.dataset.cat) pkgs.add(c.dataset.cat);
+    });
+    pkgRow.innerHTML = '<span class="style-filter-label">✦ Pakej</span>';
+    const allBtn = document.createElement('button');
+    allBtn.className = 'sf-btn on'; allBtn.textContent = 'Semua Pakej';
+    allBtn.onclick = () => selectPkg('all', allBtn);
+    pkgRow.appendChild(allBtn);
+    const PKG_LABEL = { esential:'Essential RM39', potrait:'Portrait RM59', cinematic:'Cinematic RM79', prestige:'Prestige RM119' };
+    pkgs.forEach(p => {
+      const b = document.createElement('button');
+      b.className = 'sf-btn'; b.textContent = PKG_LABEL[p] || p;
+      b.onclick = () => selectPkg(p, b);
+      pkgRow.appendChild(b);
+    });
+    pkgRow.classList.toggle('visible', pkgs.size > 0);
+  }
+  _applyFilters();
+}
+
+function selectPkg(pkg, btn) {
+  _activePkg = pkg;
+  document.querySelectorAll('#pkgFilterRow .sf-btn').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+  _applyFilters();
+}
+
+function buildStyleChips(registry) {
+  const styleRow = document.getElementById('styleFilterRow');
+  if (!styleRow) return;
+  const styles = new Set();
+  for (const [cat, templates] of Object.entries(registry)) {
+    if (!templates || typeof templates !== 'object' || Array.isArray(templates)) continue;
+    for (const [key, info] of Object.entries(templates)) {
+      if (info.style) styles.add(info.style);
+    }
+  }
+  styles.forEach(s => {
+    const b = document.createElement('button');
+    b.className = 'f-btn'; b.textContent = s;
+    b.onclick = () => selectStyle(s, b);
+    styleRow.appendChild(b);
   });
+}
 
-})();
+function _applyFilters() {
+  document.querySelectorAll('#tmplGrid .tmpl-card').forEach(c => {
+    const styleMatch = _activeStyle === 'all' || c.dataset.style === _activeStyle;
+    const pkgMatch   = _activePkg   === 'all' || c.dataset.cat   === _activePkg;
+    c.classList.toggle('hide', !(styleMatch && pkgMatch));
+  });
+}
+
+function showMoreTemplates() {
+  document.querySelectorAll('.tmpl-card.tmpl-hidden-mobile').forEach(c => c.classList.add('tmpl-revealed'));
+  const w = document.getElementById('viewMoreWrap');
+  if (w) w.style.display = 'none';
+}
+
+loadTemplates();
 </script>
 </body>
 </html>
