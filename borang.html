@@ -542,27 +542,9 @@ input.error, textarea.error, select.error {
       <div class="field">
         <label>Pilih Template <span class="req">*</span></label>
         <select id="template_name" onchange="updateProgress()" required>
-          <option value="">— Pilih template anda —</option>
-          <optgroup label="⭐ Essential (Tanpa Gambar)" id="optgroup-essential">
-            <option value="Rose Gold">🌹 Rose Gold</option>
-            <option value="Sage Green">🌿 Sage Green</option>
-            <option value="Champagne Gold">🥂 Champagne Gold</option>
-            <option value="Dark Olive">🫒 Dark Olive</option>
-            <option value="Dusty Blue">🔵 Dusty Blue</option>
-            <option value="Emerald Green">💎 Emerald Green</option>
-            <option value="Navy">🫐 Navy</option>
-            <option value="Terracotta">🏺 Terracotta</option>
-            <option value="Blush Pink">🌸 Blush Pink</option>
-            <option value="Mauve">💜 Mauve</option>
-            <option value="Charcoal">⚫ Charcoal</option>
-            <option value="Dark Brown">🤎 Dark Brown</option>
-            <option value="Chocolate Brown">🍫 Chocolate Brown</option>
-          </optgroup>
-          <optgroup label="📸 Portrait (Dengan Gambar)" id="optgroup-portrait">
-            <option value="Dusty Blue Portrait">📸 Dusty Blue Portrait</option>
-          </optgroup>
+          <option value="">— Memuatkan senarai template... —</option>
         </select>
-        <div class="hint">Senarai template dikemaskini mengikut kategori yang anda pilih di atas</div>
+        <div class="hint">Senarai template dikemaskini secara automatik dari koleksi terkini kami</div>
       </div>
     </div>
   </div>
@@ -1111,50 +1093,86 @@ function applyCoupon() {
 }
 
 // ── TEMPLATE LIST BY CATEGORY ──
-const TEMPLATES = {
-  essential: [
-    'Ivory Teracotta',
-    'Blush Rose Gold',
-    'Dusty Blue',
-    'Beige',
-    'Sage Green Cream',
-    'Forrest Copper',
-    'Gold Luxury',
-    'Midnight Navy',
-    'Emerald Royal',
-    'Burgundy Velvet',
-  ],
-  portrait: [
-    'Butter Yellow Ivory',
-    'Blush Pink Lavender',
-    'Sky Blue Lemon',
-    'Mint Cream',
-    'Peach Apricot',
-    'Chocolate Copper',
-    'Burgundy Velvet',
-    'Midnight Sapphire Gold',
-    'Obsidian Black Gold',
-    'Emerald Imperial Gold',
-  ]
+// ── REGISTRY ──
+const REGISTRY_URL = 'https://raw.githubusercontent.com/nureqmal/eqstudio-cards/main/templates/registry.json';
+const PAGES_BASE   = 'https://nureqmal.github.io/eqstudio-cards';
+
+// Map pakej key → label & emoji untuk optgroup
+const PKG_LABEL = {
+  Essential: '⭐ Essential',
+  Portrait:  '📸 Portrait',
+  Light:     '☀️ Light',
+  Cinematic: '🎬 Cinematic',
+  Prestige:  '👑 Prestige',
+  Potrait:   '📸 Portrait',
 };
 
-// ── CATEGORY ──
+// Cache registry selepas load
+let _registry = null;
+
+async function loadRegistry() {
+  try {
+    const res = await fetch(REGISTRY_URL + '?v=' + Date.now());
+    if (!res.ok) throw new Error('fetch failed');
+    _registry = await res.json();
+  } catch(e) {
+    _registry = null;
+  }
+  populateTemplateDropdown();
+}
+
+function populateTemplateDropdown() {
+  const sel = document.getElementById('template_name');
+  const _pTemplate = new URLSearchParams(window.location.search).get('template') || '';
+
+  if (!_registry) {
+    sel.innerHTML = '<option value="">— Gagal load. Refresh atau hubungi kami. —</option>';
+    return;
+  }
+
+  sel.innerHTML = '<option value="">— Pilih template anda —</option>';
+
+  const PACKAGES = ['Essential', 'Portrait', 'Light', 'Cinematic', 'Prestige', 'Potrait'];
+  PACKAGES.forEach(pkg => {
+    const pkgData = _registry[pkg];
+    if (!pkgData || typeof pkgData !== 'object' || Array.isArray(pkgData)) return;
+    const entries = Object.values(pkgData).filter(info => info && info.name);
+    if (!entries.length) return;
+
+    const group = document.createElement('optgroup');
+    group.label = PKG_LABEL[pkg] || pkg;
+
+    entries.forEach(info => {
+      const opt = document.createElement('option');
+      opt.value = info.name;
+      opt.textContent = (info.preview_emoji ? info.preview_emoji + ' ' : '') + info.name;
+      if (info.file) opt.dataset.file = info.file;
+      if (info.has_portrait_photo) opt.dataset.portrait = '1';
+      group.appendChild(opt);
+    });
+
+    sel.appendChild(group);
+  });
+
+  // Auto-select dari URL param
+  if (_pTemplate) {
+    for (let i = 0; i < sel.options.length; i++) {
+      if (sel.options[i].value.toLowerCase() === _pTemplate.toLowerCase()) {
+        sel.selectedIndex = i;
+        break;
+      }
+    }
+  }
+
+  updateProgress();
+}
+
+// ── CATEGORY (kekal untuk compatibility — button still toggle UI mode) ──
 function setCategory(cat) {
   currentCat = cat;
   document.body.className = 'mode-' + cat;
   document.getElementById('btn-essential').classList.toggle('active', cat === 'essential');
   document.getElementById('btn-portrait').classList.toggle('active', cat === 'portrait');
-
-  // Update template dropdown
-  const sel = document.getElementById('template_name');
-  sel.innerHTML = '<option value="">— Pilih template anda —</option>';
-  const list = TEMPLATES[cat] || [];
-  list.forEach(name => {
-    const opt = document.createElement('option');
-    opt.value = name;
-    opt.textContent = name;
-    sel.appendChild(opt);
-  });
   updateProgress();
   updatePriceDisplay();
 }
@@ -1434,24 +1452,12 @@ function fireToast() {
 }
 setTimeout(fireToast, randInt(3000, 7000));
 
-// Init — baca URL params dulu, then set category
+// Init — baca URL params dulu, then load registry
 const _params = new URLSearchParams(window.location.search);
 const _pCat = (_params.get('cat') || 'essential').toLowerCase();
-const _pTemplate = _params.get('template') || '';
 
 setCategory(_pCat === 'portrait' ? 'portrait' : 'essential');
-
-// Auto-select template kalau ada dalam URL
-if (_pTemplate) {
-  const sel = document.getElementById('template_name');
-  for (let i = 0; i < sel.options.length; i++) {
-    if (sel.options[i].value.toLowerCase() === _pTemplate.toLowerCase()) {
-      sel.selectedIndex = i;
-      break;
-    }
-  }
-  updateProgress();
-}
+loadRegistry();
 </script>
 <!-- WA Float -->
 <div class="wa-float-tip">Ada soalan? Tanya kami!</div>
