@@ -229,6 +229,43 @@ section { padding: 100px 40px; }
 .cara-title { font-size: 15px; font-weight: 500; color: var(--ink); margin-bottom: 10px; }
 .cara-desc { font-size: 14px; font-weight: 300; color: var(--ink2); line-height: 1.65; }
 
+/* ── CARA CAROUSEL (mobile only) ── */
+.cara-dots {
+  display: none;
+  justify-content: center; gap: 6px;
+  margin-top: 20px;
+}
+.cara-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--rose-mid); border: none; padding: 0; cursor: pointer;
+  transition: all .25s; flex-shrink: 0;
+}
+.cara-dot.active { width: 20px; border-radius: 3px; background: var(--rose-drk); }
+
+@media (max-width: 580px) {
+  .cara-grid {
+    display: flex;
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 0; background: transparent;
+    border: none; border-radius: 0;
+    margin-top: 40px;
+  }
+  .cara-grid::-webkit-scrollbar { display: none; }
+  .cara-step {
+    flex: 0 0 100%;
+    scroll-snap-align: start;
+    border: 1px solid var(--rose);
+    border-radius: 8px;
+    margin-right: 12px;
+    padding: 32px 28px;
+  }
+  .cara-step:last-child { margin-right: 0; }
+  .cara-dots { display: flex; }
+}
+
 /* ── TEMPLATE SECTION ── */
 .template-section { background: var(--cream); }
 .filter-row { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin:40px 0 28px; }
@@ -509,7 +546,6 @@ footer {
   .kad-float-back { width: 190px; height: 290px; }
   .kad-float-front { width: 190px; height: 290px; }
   section { padding: 72px 24px; }
-  .cara-grid { grid-template-columns: 1fr 1fr; }
   .tmpl-grid { grid-template-columns: 1fr 1fr; }
   .pakej-grid { grid-template-columns: 1fr 1fr; }
   .kenapa-grid { grid-template-columns: 1fr; }
@@ -519,7 +555,6 @@ footer {
 }
 @media (max-width: 580px) {
   .hero h1 { font-size: 36px; }
-  .cara-grid { grid-template-columns: 1fr; }
   .tmpl-grid { grid-template-columns: 1fr; }
   .pakej-grid { grid-template-columns: 1fr; }
   .section-heading { font-size: 30px; }
@@ -610,7 +645,7 @@ footer {
       <h2 class="section-heading">Dari pilihan hingga<br><em>link di tangan anda</em></h2>
       <p class="section-sub">Empat langkah mudah. Tiada prosedur panjang, tiada kerumitan teknikal.</p>
     </div>
-    <div class="cara-grid fade-in">
+    <div class="cara-grid fade-in" id="caraGrid">
       <div class="cara-step">
         <div class="cara-num">1</div>
         <div class="cara-title">Pilih template</div>
@@ -631,6 +666,12 @@ footer {
         <div class="cara-title">Terima link</div>
         <div class="cara-desc">48 jam — kad digital anda siap. Semak, luluskan, dan terus kongsi kepada tetamu.</div>
       </div>
+    </div>
+    <div class="cara-dots" id="caraDots">
+      <button class="cara-dot active" data-idx="0"></button>
+      <button class="cara-dot" data-idx="1"></button>
+      <button class="cara-dot" data-idx="2"></button>
+      <button class="cara-dot" data-idx="3"></button>
     </div>
   </div>
 </section>
@@ -1091,6 +1132,27 @@ function showMoreTemplates() {
   tmplViewMoreActive = true;
   applyMobileViewMore();
 }
+
+// ── CARA CAROUSEL (mobile) ──
+(function() {
+  const grid = document.getElementById('caraGrid');
+  const dots = document.querySelectorAll('#caraDots .cara-dot');
+  if (!grid || !dots.length) return;
+
+  // Dot click → scroll to step
+  dots.forEach(dot => {
+    dot.addEventListener('click', () => {
+      const idx = parseInt(dot.dataset.idx);
+      grid.scrollTo({ left: grid.offsetWidth * idx, behavior: 'smooth' });
+    });
+  });
+
+  // Scroll → update active dot
+  grid.addEventListener('scroll', () => {
+    const idx = Math.round(grid.scrollLeft / grid.offsetWidth);
+    dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+  }, { passive: true });
+})();
 
 loadTemplates();
 </script>
