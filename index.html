@@ -839,7 +839,7 @@ footer {
 
 <script>
 // ── CONFIG ──
-const REGISTRY_URL = 'https://raw.githubusercontent.com/nureqmal/eqstudio-cards/main/registry.json';
+const REGISTRY_URL = 'https://raw.githubusercontent.com/nureqmal/eqstudio-cards/main/templates/registry.json';
 const DEMO_BASE    = 'https://eqstudio.nreqmal.workers.dev/demo.html?t=';
 
 // ── NAV SCROLL ──
@@ -887,7 +887,7 @@ window.addEventListener('scroll', () => {
   let styleCategories = [];
 
   try {
-    const res = await fetch(REGISTRY_URL);
+    const res = await fetch(REGISTRY_URL + '?v=' + Date.now());
     if (!res.ok) throw new Error('registry fetch failed');
     const registry = await res.json();
 
@@ -897,7 +897,7 @@ window.addEventListener('scroll', () => {
     }
 
     // Flatten all packages + templates into one list
-    const PACKAGES = ['Essential', 'Potrait', 'Cinematic', 'Prestige'];
+    const PACKAGES = ['Essential', 'Portrait', 'Light', 'Potrait', 'Cinematic', 'Prestige'];
     PACKAGES.forEach(pkg => {
       const pkgData = registry[pkg];
       if (!pkgData || typeof pkgData !== 'object') return;
