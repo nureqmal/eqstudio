@@ -1042,14 +1042,27 @@ const BASE_PRICE = { essential: 39, portrait: 59 };
 let currentCat = 'essential';
 let appliedCoupon = null;
 
-// ── KOD KUPON — tambah/buang kod di sini ──
-const COUPONS = {
-  'AIMH10':  { discount: 10, owner: 'AIMH Wedding Event' },
-  'SASES10':   { discount: 10, owner: 'Saiful & Syukri Event Stylist' },
-  'JAJA10':    { discount: 10, owner: 'Jaja Touch Wedding Planner' },
-  'SYOORGA10': { discount: 10, owner: 'Syoorga Mawar' },
-  'WONDER10':   { discount: 10, owner: 'Wonder Studio' },
-};
+// ── KOD KUPON — diload dari promo_codes.json ──
+const PROMO_URL = 'https://raw.githubusercontent.com/nureqmal/eqstudio-cards/main/promo_codes.json';
+let COUPONS = {};
+
+async function loadPromos() {
+  try {
+    const res = await fetch(PROMO_URL + '?v=' + Date.now());
+    if (!res.ok) throw new Error('fetch failed');
+    const data = await res.json();
+    const today = new Date().toISOString().split('T')[0];
+    // Filter: aktif sahaja + belum expired
+    COUPONS = {};
+    for (const [code, info] of Object.entries(data)) {
+      if (!info.active) continue;
+      if (info.expiry && info.expiry < today) continue;
+      COUPONS[code] = { discount: info.discount, owner: info.desc || '' };
+    }
+  } catch(e) {
+    COUPONS = {};
+  }
+}
 
 function getBasePrice() {
   return BASE_PRICE[currentCat] || 39;
@@ -1458,6 +1471,7 @@ const _pCat = (_params.get('cat') || 'essential').toLowerCase();
 
 setCategory(_pCat === 'portrait' ? 'portrait' : 'essential');
 loadRegistry();
+loadPromos();
 </script>
 <!-- WA Float -->
 <div class="wa-float-tip">Ada soalan? Tanya kami!</div>
