@@ -372,6 +372,12 @@ section { padding: 100px 40px; }
 #tmpl-loading { grid-column:1/-1; text-align:center; padding:80px 0; color:var(--ink3); font-size:12px; letter-spacing:.2em; }
 
 /* ── MOBILE LIST VIEW (template catalog) ── */
+  .coming-soon-card { display:none; }
+  .view-more-wrap { margin-top:16px; }
+}
+.tc-list-img, .tc-list-body { display:none; }
+
+/* ── MOBILE LIST VIEW (template catalog) ── */
 @media (max-width: 580px) {
   .tmpl-grid { display:flex; flex-direction:column; gap:10px; }
   .tmpl-card { border-radius:10px; }
@@ -428,13 +434,9 @@ section { padding: 100px 40px; }
     letter-spacing:0.04em; white-space:nowrap; margin-left:8px;
   }
   .tc-list-actions { display:flex; align-items:center; }
-
   .coming-soon-card { display:none; }
   .view-more-wrap { margin-top:16px; }
-  .tc-list-img { display:flex; }
-  .tc-list-body { display:flex; }
 }
-.tc-list-img, .tc-list-body { display:none; }
 
 .pakej-grid {
   display: grid; grid-template-columns: repeat(4, 1fr);
