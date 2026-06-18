@@ -1287,7 +1287,7 @@ function selectStyle(style, btn) {
     allBtn.className = 'sf-btn on'; allBtn.textContent = 'Semua Pakej';
     allBtn.onclick = () => selectPkg('all', allBtn);
     pkgRow.appendChild(allBtn);
-    const PKG_LABEL = { esential:'Essential RM77', potrait:'Portrait RM89', cinematic:'Cinematic RM77', prestige:'Prestige RM139' };
+    const PKG_LABEL = { esential:'Essential RM77', potrait:'Portrait RM89', cinematic:'Cinematic RM109', prestige:'Prestige RM139' };
     pkgs.forEach(p => {
       const b = document.createElement('button');
       b.className = 'sf-btn'; b.textContent = PKG_LABEL[p] || p;
