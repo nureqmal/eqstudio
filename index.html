@@ -761,7 +761,7 @@ footer {
       <h1>Kad kahwin digital.<br><em>Siap esok.</em><br>Kongsi terus ke semua orang.</h1>
       <p class="hero-sub">Anda isi borang, kami siapkan dalam 48 jam. Dapat satu link — terus blast ke semua tetamu. No app, no fuss.</p>
       <div class="hero-actions">
-        <a href="borang.html" class="btn-primary">Tempah Sekarang · dari RM39</a>
+        <a href="borang.html" class="btn-primary">Tempah Sekarang · dari RM77</a>
         <a href="#template" class="btn-ghost">Tengok template dulu</a>
       </div>
     </div>
@@ -912,8 +912,8 @@ footer {
     <div class="pakej-grid fade-in">
       <div class="pakej-card">
         <div class="pakej-name">Esential</div>
-        <div class="pakej-price"><span>RM</span>39</div>
-        <div class="pakej-original">RM55</div>
+        <div class="pakej-price"><span>RM</span>77</div>
+        <div class="pakej-original">RM89</div>
         <div class="pakej-promo-note">Harga pelancaran</div>
         <div class="pakej-for">Perfect untuk yang nak simple tapi still nampak class. Semua yang penting, ada.</div>
         <ul class="pakej-features">
@@ -931,8 +931,8 @@ footer {
       <div class="pakej-card popular">
         <div class="pakej-popular-badge">Paling Popular</div>
         <div class="pakej-name">Potrait</div>
-        <div class="pakej-price"><span>RM</span>59</div>
-        <div class="pakej-original">RM85</div>
+        <div class="pakej-price"><span>RM</span>89</div>
+        <div class="pakej-original">RM99</div>
         <div class="pakej-promo-note">Harga pelancaran</div>
         <div class="pakej-for">Tetamu bukak link terus nampak muka anda. Personal touch yang memang ramai suka.</div>
         <ul class="pakej-features">
@@ -949,8 +949,8 @@ footer {
       </div>
       <div class="pakej-card">
         <div class="pakej-name">Cinematic</div>
-        <div class="pakej-price"><span>RM</span>79</div>
-        <div class="pakej-original">RM109</div>
+        <div class="pakej-price"><span>RM</span>77</div>
+        <div class="pakej-original">RM119</div>
         <div class="pakej-promo-note">Harga pelancaran</div>
         <div class="pakej-for">Ada video highlight atau clip pre-wedding? Masukkan terus dalam kad. Tetamu mesti impressed.</div>
         <ul class="pakej-features">
@@ -967,8 +967,8 @@ footer {
       </div>
       <div class="pakej-card">
         <div class="pakej-name">Prestige</div>
-        <div class="pakej-price"><span>RM</span>119</div>
-        <div class="pakej-original">RM149</div>
+        <div class="pakej-price"><span>RM</span>139</div>
+        <div class="pakej-original">RM199</div>
         <div class="pakej-promo-note">Harga pelancaran</div>
         <div class="pakej-for">Full experience dalam satu link — video, gallery, RSVP, semua ada. For the ones who want it all.</div>
         <ul class="pakej-features">
@@ -1096,7 +1096,7 @@ footer {
       <div class="section-label">Mulakan sekarang</div>
       <h2 class="section-heading">Dah decide? Jom <em>get it done.</em></h2>
       <p class="section-sub">Isi dalam 2 minit. Kami WhatsApp anda dalam 2 jam untuk confirm. Tak payah bayar dulu pun.</p>
-      <a href="borang.html" class="btn-primary" style="font-size:15px; padding: 16px 40px;">Tempah Sekarang · dari RM39</a>
+      <a href="borang.html" class="btn-primary" style="font-size:15px; padding: 16px 40px;">Tempah Sekarang · dari RM77</a>
       <div class="cta-notes">
         <div class="cta-note">No upfront payment</div>
         <div class="cta-note">Free revision</div>
@@ -1120,7 +1120,7 @@ footer {
 
 <!-- STICKY BAR (mobile) -->
 <div class="sticky-bar" id="stickyBar">
-  <div class="sticky-bar-text">Kad kahwin digital <strong>dari RM39</strong></div>
+  <div class="sticky-bar-text">Kad kahwin digital <strong>dari RM77</strong></div>
   <a href="borang.html">Tempah Sekarang →</a>
 </div>
 
@@ -1128,7 +1128,7 @@ footer {
 // ── CONFIG ──
 const REGISTRY_URL = 'https://raw.githubusercontent.com/nureqmal/eqstudio-cards/main/templates/registry.json';
 const PAGES_BASE   = 'https://nureqmal.github.io/eqstudio-cards';
-const PRICE_MAP    = { Essential:39, Portrait:59, Potrait:59, Light:59, Cinematic:79, Prestige:119 };
+const PRICE_MAP    = { Essential:77, Portrait:89, Potrait:89, Light:89, Cinematic:109, Prestige:139 };
 const CAT_SLUG     = { Essential:'esential', Portrait:'potrait', Potrait:'potrait', Light:'potrait', Cinematic:'cinematic', Prestige:'prestige' };
 const CAT_BADGE    = { Essential:'badge-essential', Portrait:'badge-potrait', Potrait:'badge-potrait', Light:'badge-potrait', Cinematic:'badge-cinematic', Prestige:'badge-prestige' };
 
@@ -1199,7 +1199,7 @@ function renderTemplates(registry) {
   });
 
   for (const { cat, key, info } of allTemplates) {
-    const price      = PRICE_MAP[cat]  || 39;
+    const price      = PRICE_MAP[cat]  || 77;
     const catSlug    = CAT_SLUG[cat]   || 'esential';
     const badgeCls   = CAT_BADGE[cat]  || 'badge-essential';
     const name       = info.name          || key;
@@ -1287,7 +1287,7 @@ function selectStyle(style, btn) {
     allBtn.className = 'sf-btn on'; allBtn.textContent = 'Semua Pakej';
     allBtn.onclick = () => selectPkg('all', allBtn);
     pkgRow.appendChild(allBtn);
-    const PKG_LABEL = { esential:'Essential RM39', potrait:'Portrait RM59', cinematic:'Cinematic RM79', prestige:'Prestige RM119' };
+    const PKG_LABEL = { esential:'Essential RM77', potrait:'Portrait RM89', cinematic:'Cinematic RM77', prestige:'Prestige RM139' };
     pkgs.forEach(p => {
       const b = document.createElement('button');
       b.className = 'sf-btn'; b.textContent = PKG_LABEL[p] || p;
