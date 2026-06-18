@@ -7,1477 +7,565 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;500;600;700&family=Lato:wght@300;400&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg:       #060b0a;
-  --bg2:      #0d1a17;
-  --bg3:      #091210;
-  --border:   rgba(255,255,255,0.08);
-  --emerald:  #0d6b52;
-  --gold:     #c9a44a;
-  --gold2:    #e2c06a;
-  --gold-g:   linear-gradient(135deg,#c9a44a,#e2c06a,#c9a44a);
-  --text:     #f0ede6;
-  --text2:    rgba(240,237,230,0.55);
-  --text3:    rgba(240,237,230,0.25);
-  --ff-d:    'Playfair Display', serif;
-  --ff-ui:   'Syne', sans-serif;
-  --ff-b:    'Lato', sans-serif;
-  --ease:    cubic-bezier(0.25,0,0,1);
-}
-
-*,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
-html { scroll-behavior:smooth; -webkit-font-smoothing:antialiased; }
-body {
-  background:var(--bg);
-  color:var(--text);
-  font-family:var(--ff-b);
-  font-weight:300;
-  line-height:1.6;
-  min-height:100vh;
-}
-
-/* noise */
-body::before {
-  content:''; position:fixed; inset:0; z-index:0; pointer-events:none;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-  opacity:0.35;
-}
-
-/* glow */
-body::after {
-  content:''; position:fixed; top:-200px; right:-200px; width:600px; height:600px;
-  border-radius:50%; background:rgba(13,107,82,0.12); filter:blur(120px);
-  pointer-events:none; z-index:0;
-}
-
-.wrap {
-  position:relative; z-index:1;
-  max-width:720px; margin:0 auto;
-  padding:60px 24px 100px;
-}
-
-/* ── HEADER ── */
-.header { text-align:center; margin-bottom:56px; }
-.header-logo {
-  font-family:var(--ff-ui); font-size:18px; font-weight:800;
-  letter-spacing:0.12em; text-transform:uppercase; color:var(--text);
-  margin-bottom:32px; display:inline-block;
-  text-decoration:none; transition:opacity .3s;
-}
-.header-logo:hover { opacity:.75; }
-
-/* ── WA FLOAT ── */
-.wa-float {
-  position:fixed; bottom:28px; right:24px; z-index:200;
-  width:56px; height:56px; border-radius:50%;
-  background:linear-gradient(135deg,#25d366,#128c7e);
-  display:flex; align-items:center; justify-content:center;
-  box-shadow:0 8px 32px rgba(37,211,102,0.4);
-  text-decoration:none;
-  transition:transform .3s var(--ease), box-shadow .3s;
-  animation:waPop .6s var(--ease) 2s both;
-}
-.wa-float:hover {
-  transform:scale(1.1) translateY(-3px);
-  box-shadow:0 16px 48px rgba(37,211,102,0.5);
-}
-.wa-float svg { width:28px; height:28px; fill:#fff; }
-.wa-float-tip {
-  position:fixed; bottom:36px; right:90px; z-index:199;
-  background:rgba(13,26,23,0.95); border:1px solid rgba(37,211,102,0.25);
-  border-radius:20px; padding:8px 16px;
-  font-family:var(--ff-ui); font-size:11px; color:rgba(240,237,230,0.8);
-  letter-spacing:0.05em; white-space:nowrap;
-  backdrop-filter:blur(12px);
-  animation:waPop .6s var(--ease) 2.2s both;
-  pointer-events:none;
-}
-.wa-float-tip::after {
-  content:''; position:absolute; right:-6px; top:50%; transform:translateY(-50%);
-  border:6px solid transparent; border-left-color:rgba(13,26,23,0.95);
-  border-right:none;
-}
-@media(max-width:560px) {
-  .wa-float-tip { display:none; }
-}
-.header-logo span { color:var(--gold); }
-.header-tag {
-  display:inline-flex; align-items:center; gap:10px;
-  font-family:var(--ff-ui); font-size:10px; font-weight:600;
-  letter-spacing:0.35em; text-transform:uppercase; color:var(--gold);
-  margin-bottom:20px;
-}
-.header-tag-line { width:24px; height:1px; background:var(--gold); }
-.header h1 {
-  font-family:var(--ff-d); font-size:clamp(32px,5vw,52px);
-  font-weight:700; line-height:1.05; letter-spacing:-0.02em;
-  margin-bottom:16px;
-}
-.header h1 em { font-style:italic; color:var(--gold); }
-.header p { font-size:14px; color:var(--text2); line-height:1.8; max-width:440px; margin:0 auto; }
-
-/* ── CATEGORY TOGGLE ── */
-.cat-toggle {
-  display:grid; grid-template-columns:1fr 1fr;
-  gap:12px; margin-bottom:48px;
-}
-.cat-btn {
-  padding:20px 16px; border:1px solid var(--border);
-  background:var(--bg2); border-radius:4px; cursor:pointer;
-  transition:all .35s var(--ease); text-align:left;
-}
-.cat-btn:hover { border-color:rgba(201,164,74,0.3); }
-.cat-btn.active {
-  border-color:var(--gold);
-  background:rgba(201,164,74,0.06);
-  box-shadow:0 0 0 1px rgba(201,164,74,0.15), inset 0 1px 0 rgba(201,164,74,0.1);
-}
-.cat-btn-emoji { font-size:22px; margin-bottom:8px; display:block; }
-.cat-btn-name {
-  font-family:var(--ff-ui); font-size:13px; font-weight:700;
-  color:var(--text); margin-bottom:4px;
-}
-.cat-btn.active .cat-btn-name { color:var(--gold2); }
-.cat-btn-desc { font-size:11px; color:var(--text3); line-height:1.5; }
-.cat-btn-badge {
-  display:inline-block; margin-top:8px;
-  padding:3px 10px; border-radius:2px; font-family:var(--ff-ui);
-  font-size:9px; font-weight:600; letter-spacing:0.2em; text-transform:uppercase;
-}
-.badge-essential { background:rgba(13,107,82,.7); color:#a8f0d4; }
-.badge-portrait   { background:rgba(180,80,70,.7); color:#fde0d0; }
-
-/* ── SECTION ── */
-.section {
-  margin-bottom:40px;
-  background:var(--bg2);
-  border:1px solid var(--border);
-  border-radius:4px;
-  overflow:hidden;
-}
-.section-head {
-  padding:20px 24px 18px;
-  border-bottom:1px solid var(--border);
-  display:flex; align-items:center; gap:14px;
-}
-.section-num {
-  width:32px; height:32px; border-radius:50%;
-  border:1px solid rgba(201,164,74,0.25);
-  display:flex; align-items:center; justify-content:center;
-  font-family:var(--ff-d); font-size:14px; font-style:italic; color:var(--gold);
-  flex-shrink:0;
-}
-.section-title {
-  font-family:var(--ff-ui); font-size:13px; font-weight:700;
-  letter-spacing:0.08em; text-transform:uppercase; color:var(--text);
-}
-.section-subtitle { font-size:11px; color:var(--text3); margin-top:2px; }
-.section-body { padding:24px; }
-
-/* ── GRID ── */
-.grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
-.grid-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; }
-@media(max-width:560px) {
-  .grid-2 { grid-template-columns:1fr; }
-  .grid-3 { grid-template-columns:1fr 1fr; }
-}
-
-/* ── FIELD ── */
-.field { display:flex; flex-direction:column; gap:6px; }
-.field + .field { margin-top:16px; }
-.grid-2 .field, .grid-3 .field { margin-top:0; }
-label {
-  font-family:var(--ff-ui); font-size:10px; font-weight:600;
-  letter-spacing:0.2em; text-transform:uppercase; color:var(--text2);
-}
-label .req { color:var(--gold); margin-left:2px; }
-input, textarea, select {
-  background:#0a1512; color:var(--text);
-  border:1px solid var(--border);
-  border-radius:3px; padding:11px 14px;
-  font-family:var(--ff-b); font-size:14px; font-weight:300;
-  outline:none; transition:border-color .25s, box-shadow .25s;
-  width:100%;
-}
-input::placeholder, textarea::placeholder { color:var(--text3); }
-input:focus, textarea:focus, select:focus {
-  border-color:rgba(201,164,74,0.45);
-  box-shadow:0 0 0 3px rgba(201,164,74,0.08);
-}
-select { cursor:pointer; }
-select option { background:#0a1512; }
-textarea { resize:vertical; min-height:80px; }
-.hint { font-size:11px; color:var(--text3); margin-top:4px; }
-
-/* divider */
-.field-divider {
-  border:none; border-top:1px solid var(--border);
-  margin:20px 0;
-}
-
-/* side-label */
-.side-label {
-  font-family:var(--ff-ui); font-size:11px; font-weight:600;
-  letter-spacing:0.15em; text-transform:uppercase;
-  color:var(--gold); margin-bottom:16px; display:block;
-}
-
-/* ── PORTRAIT SECTION ── */
-.portrait-only { display:none; }
-body.mode-portrait .portrait-only { display:block; }
-body.mode-portrait .essential-only { display:none; }
-
-/* ── ATURCARA ROW ── */
-.aturcara-row {
-  display:grid; grid-template-columns:auto 1fr;
-  gap:10px 16px; align-items:center;
-  margin-bottom:12px;
-}
-.aturcara-icon { font-size:16px; line-height:1; color:var(--text2); }
-.aturcara-label {
-  font-family:var(--ff-ui); font-size:10px; font-weight:600;
-  letter-spacing:0.15em; text-transform:uppercase; color:var(--text3);
-  margin-bottom:4px;
-}
-
-/* ── FILE UPLOAD ── */
-.file-upload-wrap {
-  position:relative;
-}
-.file-upload-label {
-  display:flex; flex-direction:column; align-items:center; justify-content:center;
-  gap:10px; padding:28px 20px;
-  border:1px dashed rgba(201,164,74,0.25);
-  border-radius:4px; background:#060f0c;
-  cursor:pointer; transition:all .3s var(--ease);
-  text-align:center;
-}
-.file-upload-label:hover {
-  border-color:rgba(201,164,74,0.5);
-  background:rgba(201,164,74,0.04);
-}
-.file-upload-label.has-file {
-  border-color:rgba(13,107,82,0.5);
-  background:rgba(13,107,82,0.06);
-}
-.file-upload-icon { font-size:24px; opacity:0.5; }
-.file-upload-text {
-  font-family:var(--ff-ui); font-size:10px; font-weight:600;
-  letter-spacing:0.15em; text-transform:uppercase; color:var(--text3);
-}
-.file-upload-label.has-file .file-upload-text { color:#4ade80; }
-.file-upload-sub { font-size:11px; color:var(--text3); }
-input[type="file"] { display:none; }
-.file-preview {
-  width:100%; max-height:160px; object-fit:cover;
-  border-radius:3px; margin-top:8px; display:none;
-}
-.file-preview.show { display:block; }
-
-/* ── SUBMIT ── */
-.submit-wrap { margin-top:48px; text-align:center; }
-.submit-wrap p { font-size:13px; color:var(--text3); margin-bottom:20px; line-height:1.7; }
-.btn-submit {
-  display:inline-flex; align-items:center; gap:12px;
-  padding:18px 48px;
-  background:var(--gold-g); color:#060b0a;
-  font-family:var(--ff-ui); font-size:12px; font-weight:700;
-  letter-spacing:0.25em; text-transform:uppercase;
-  border:none; border-radius:2px; cursor:pointer;
-  transition:transform .3s var(--ease), box-shadow .3s, opacity .3s;
-  position:relative; overflow:hidden;
-}
-.btn-submit::before {
-  content:''; position:absolute; inset:0;
-  background:linear-gradient(135deg,rgba(255,255,255,.25),transparent);
-  opacity:0; transition:opacity .3s;
-}
-.btn-submit:hover { transform:translateY(-3px); box-shadow:0 20px 60px rgba(201,164,74,0.35); }
-.btn-submit:hover::before { opacity:1; }
-.btn-submit svg { width:18px; height:18px; flex-shrink:0; }
-
-/* ── SUCCESS ── */
-#success {
-  display:none; text-align:center; padding:48px 24px;
-  background:var(--bg2); border:1px solid rgba(13,107,82,0.3);
-  border-radius:4px; margin-top:48px;
-}
-#success .s-icon { font-size:48px; margin-bottom:20px; display:block; }
-#success h2 { font-family:var(--ff-d); font-size:28px; font-style:italic; color:var(--gold); margin-bottom:12px; }
-#success p { font-size:14px; color:var(--text2); line-height:1.8; }
-
-/* ── VALIDATION ── */
-input.error, textarea.error, select.error {
-  border-color:rgba(220,80,60,0.6);
-  box-shadow:0 0 0 3px rgba(220,80,60,0.08);
-}
-.err-msg { font-size:11px; color:#e07060; margin-top:4px; }
-
-/* ── PROGRESS BAR ── */
-.progress-wrap {
-  position:fixed; top:0; left:0; right:0; z-index:100;
-  height:2px; background:rgba(255,255,255,0.05);
-}
-.progress-bar {
-  height:100%; background:var(--gold-g);
-  transition:width .4s var(--ease);
-  width:0%;
-}
-
-/* ── FOOTER ── */
-.footer {
-  text-align:center; margin-top:60px;
-  font-family:var(--ff-ui); font-size:10px;
-  letter-spacing:0.2em; text-transform:uppercase; color:var(--text3);
-}
-.footer span { color:var(--gold); }
-
-/* ── SOCIAL PROOF ── */
-.live-bar {
-  display:flex; align-items:center; justify-content:center; gap:16px;
-  padding:10px 20px; margin-bottom:32px;
-  background:rgba(13,107,82,0.08);
-  border:1px solid rgba(13,107,82,0.2);
-  border-radius:40px; flex-wrap:wrap;
-}
-.live-dot-wrap { display:flex; align-items:center; gap:7px; }
-.live-dot { width:7px; height:7px; border-radius:50%; background:#4ade80; flex-shrink:0;
-  animation:livepulse 1.8s ease-in-out infinite; }
-@keyframes livepulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.6)} }
-.live-text { font-family:var(--ff-ui); font-size:10px; font-weight:600;
-  letter-spacing:0.15em; text-transform:uppercase; color:rgba(240,237,230,0.5); }
-.live-text strong { color:#4ade80; }
-.live-divider { width:1px; height:14px; background:rgba(255,255,255,0.08); }
-.live-activity { font-family:var(--ff-ui); font-size:10px; color:rgba(240,237,230,0.35);
-  letter-spacing:0.05em; }
-.live-activity span { color:var(--gold); }
-
-/* toast notif */
-.toast-wrap { position:fixed; bottom:28px; left:50%; transform:translateX(-50%);
-  z-index:999; display:flex; flex-direction:column; align-items:center; gap:10px;
-  pointer-events:none; }
-.toast {
-  display:flex; align-items:center; gap:10px;
-  padding:11px 18px;
-  background:rgba(13,26,23,0.95);
-  border:1px solid rgba(201,164,74,0.2);
-  border-radius:40px;
-  backdrop-filter:blur(12px);
-  font-family:var(--ff-ui); font-size:11px; color:rgba(240,237,230,0.7);
-  letter-spacing:0.05em;
-  box-shadow:0 8px 32px rgba(0,0,0,0.4);
-  opacity:0; transform:translateY(12px);
-  transition:opacity .4s, transform .4s;
-  white-space:nowrap;
-}
-.toast.show { opacity:1; transform:translateY(0); }
-.toast-avatar {
-  width:22px; height:22px; border-radius:50%;
-  display:flex; align-items:center; justify-content:center;
-  font-size:11px; font-weight:700; font-family:var(--ff-ui);
-  flex-shrink:0; color:#060b0a;
-}
-.toast em { font-style:normal; color:var(--gold2); }
-  from { opacity:0; transform:translateY(20px); }
-  to   { opacity:1; transform:translateY(0); }
-}
-.section { animation:fadeUp .6s var(--ease) both; }
-
-/* ── COUPON ── */
-.coupon-wrap {
-  margin-top: 32px;
-  padding: 24px;
-  border: 1px solid rgba(201,164,74,0.2);
-  border-radius: 4px;
-  background: rgba(201,164,74,0.04);
-}
-.coupon-label {
-  font-family: var(--ff-ui);
-  font-size: 10px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--text3);
-  margin-bottom: 12px;
-}
-.coupon-row {
-  display: flex;
-  gap: 10px;
-  align-items: stretch;
-}
-.coupon-input {
-  flex: 1;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 3px;
-  padding: 12px 16px;
-  color: var(--text);
-  font-family: var(--ff-ui);
-  font-size: 13px;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  outline: none;
-  transition: border-color .2s;
-}
-.coupon-input:focus { border-color: rgba(201,164,74,0.5); }
-.coupon-input::placeholder { text-transform: none; letter-spacing: 0.05em; color: var(--text3); }
-.coupon-btn {
-  background: rgba(201,164,74,0.12);
-  border: 1px solid rgba(201,164,74,0.3);
-  border-radius: 3px;
-  padding: 12px 20px;
-  color: var(--gold2);
-  font-family: var(--ff-ui);
-  font-size: 11px;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: all .2s;
-  white-space: nowrap;
-}
-.coupon-btn:hover { background: rgba(201,164,74,0.2); }
-.coupon-feedback {
-  margin-top: 12px;
-  font-family: var(--ff-ui);
-  font-size: 12px;
-  letter-spacing: 0.05em;
-  display: none;
-}
-.coupon-feedback.valid { color: #4ade80; display: block; }
-.coupon-feedback.invalid { color: #f87171; display: block; }
-.price-summary {
-  margin-top: 20px;
-  padding-top: 16px;
-  border-top: 1px solid rgba(255,255,255,0.06);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.price-summary-label {
-  font-family: var(--ff-ui);
-  font-size: 11px;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--text3);
-}
-.price-summary-amount {
-  font-family: var(--ff-d);
-  font-size: 22px;
-  color: var(--gold2);
-}
-.price-original {
-  font-family: var(--ff-ui);
-  font-size: 12px;
-  color: var(--text3);
-  text-decoration: line-through;
-  margin-right: 8px;
-}
-.section:nth-child(1) { animation-delay:.1s; }
-.section:nth-child(2) { animation-delay:.15s; }
-.section:nth-child(3) { animation-delay:.2s; }
-.section:nth-child(4) { animation-delay:.25s; }
-.section:nth-child(5) { animation-delay:.3s; }
-.section:nth-child(6) { animation-delay:.35s; }
-.section:nth-child(7) { animation-delay:.4s; }
-.section:nth-child(8) { animation-delay:.45s; }
+:root{--bg:#060b0a;--bg2:#0d1a17;--border:rgba(255,255,255,0.08);--gold:#c9a44a;--gold2:#e2c06a;--gold-g:linear-gradient(135deg,#c9a44a,#e2c06a,#c9a44a);--text:#f0ede6;--text2:rgba(240,237,230,0.55);--text3:rgba(240,237,230,0.25);--ff-d:'Playfair Display',serif;--ff-ui:'Syne',sans-serif;--ff-b:'Lato',sans-serif;--ease:cubic-bezier(0.25,0,0,1);--green:#0d6b52;}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;}
+body{background:var(--bg);color:var(--text);font-family:var(--ff-b);font-weight:300;line-height:1.6;min-height:100vh;}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");opacity:.35;}
+body::after{content:'';position:fixed;top:-200px;right:-200px;width:600px;height:600px;border-radius:50%;background:rgba(13,107,82,0.12);filter:blur(120px);pointer-events:none;z-index:0;}
+.wrap{position:relative;z-index:1;max-width:680px;margin:0 auto;padding:60px 24px 120px;}
+.header{text-align:center;margin-bottom:48px;}
+.header-logo{font-family:var(--ff-ui);font-size:18px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--text);margin-bottom:28px;display:inline-block;text-decoration:none;transition:opacity .3s;}
+.header-logo:hover{opacity:.75;}
+.header-logo span{color:var(--gold);}
+.header-tag{display:inline-flex;align-items:center;gap:10px;font-family:var(--ff-ui);font-size:10px;font-weight:600;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);margin-bottom:18px;}
+.header-tag-line{width:24px;height:1px;background:var(--gold);}
+.header h1{font-family:var(--ff-d);font-size:clamp(28px,5vw,46px);font-weight:700;line-height:1.08;letter-spacing:-.02em;margin-bottom:14px;}
+.header h1 em{font-style:italic;color:var(--gold);}
+.header p{font-size:13px;color:var(--text2);line-height:1.8;max-width:400px;margin:0 auto;}
+.stepper{display:flex;align-items:center;justify-content:center;margin-bottom:48px;}
+.step-item{display:flex;flex-direction:column;align-items:center;gap:6px;flex:1;max-width:100px;}
+.step-circle{width:32px;height:32px;border-radius:50%;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:var(--ff-ui);font-size:11px;font-weight:600;color:var(--text3);background:var(--bg2);transition:all .4s var(--ease);position:relative;z-index:2;}
+.step-item.active .step-circle{border-color:var(--gold);color:var(--gold);background:rgba(201,164,74,0.1);box-shadow:0 0 0 4px rgba(201,164,74,0.08);}
+.step-item.done .step-circle{border-color:var(--green);color:#4ade80;background:rgba(13,107,82,0.2);}
+.step-label{font-family:var(--ff-ui);font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);text-align:center;transition:color .3s;}
+.step-item.active .step-label{color:var(--gold2);}
+.step-item.done .step-label{color:rgba(74,222,128,0.7);}
+.step-line{flex:1;height:1px;background:var(--border);margin-top:-22px;position:relative;z-index:1;transition:background .4s;}
+.step-line.done{background:rgba(13,107,82,0.5);}
+@media(max-width:480px){.step-label{display:none;}.step-item{max-width:48px;}}
+.step-panel{display:none;animation:fadeUp .45s var(--ease) both;}
+.step-panel.active{display:block;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:4px;overflow:hidden;margin-bottom:20px;}
+.card-head{padding:18px 22px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;}
+.card-icon{width:30px;height:30px;border-radius:50%;border:1px solid rgba(201,164,74,.25);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;}
+.card-title{font-family:var(--ff-ui);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text);}
+.card-sub{font-size:11px;color:var(--text3);margin-top:1px;}
+.card-body{padding:22px;}
+.optional-toggle{display:flex;align-items:center;gap:10px;padding:14px 22px;cursor:pointer;border-top:1px solid var(--border);background:rgba(255,255,255,0.02);transition:background .2s;}
+.optional-toggle:hover{background:rgba(201,164,74,0.04);}
+.optional-toggle-label{font-family:var(--ff-ui);font-size:10px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--text3);flex:1;}
+.optional-toggle-arrow{font-size:12px;color:var(--text3);transition:transform .3s;}
+.optional-toggle.open .optional-toggle-arrow{transform:rotate(180deg);}
+.optional-body{display:none;padding:0 22px 22px;}
+.optional-body.open{display:block;}
+.cat-toggle{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px;}
+.cat-btn{padding:18px 16px;border:1px solid var(--border);background:var(--bg2);border-radius:4px;cursor:pointer;transition:all .35s var(--ease);text-align:left;}
+.cat-btn:hover{border-color:rgba(201,164,74,0.3);}
+.cat-btn.active{border-color:var(--gold);background:rgba(201,164,74,0.06);}
+.cat-btn-emoji{font-size:20px;margin-bottom:7px;display:block;}
+.cat-btn-name{font-family:var(--ff-ui);font-size:12px;font-weight:700;color:var(--text);margin-bottom:3px;}
+.cat-btn.active .cat-btn-name{color:var(--gold2);}
+.cat-btn-desc{font-size:11px;color:var(--text3);line-height:1.5;}
+.cat-btn-badge{display:inline-block;margin-top:7px;padding:2px 10px;border-radius:2px;font-family:var(--ff-ui);font-size:9px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;}
+.badge-essential{background:rgba(13,107,82,.7);color:#a8f0d4;}
+.badge-portrait{background:rgba(180,80,70,.7);color:#fde0d0;}
+.field{display:flex;flex-direction:column;gap:6px;}
+.field+.field{margin-top:16px;}
+.grid-2 .field,.grid-3 .field{margin-top:0;}
+label{font-family:var(--ff-ui);font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--text2);}
+label .req{color:var(--gold);margin-left:2px;}
+input,textarea,select{background:#0a1512;color:var(--text);border:1px solid var(--border);border-radius:3px;padding:11px 14px;font-family:var(--ff-b);font-size:14px;font-weight:300;outline:none;transition:border-color .25s,box-shadow .25s;width:100%;}
+input::placeholder,textarea::placeholder{color:var(--text3);}
+input:focus,textarea:focus,select:focus{border-color:rgba(201,164,74,.45);box-shadow:0 0 0 3px rgba(201,164,74,.08);}
+select{cursor:pointer;}
+select option{background:#0a1512;}
+textarea{resize:vertical;min-height:80px;}
+.hint{font-size:11px;color:var(--text3);margin-top:4px;}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;}
+@media(max-width:560px){.grid-2{grid-template-columns:1fr;}.grid-3{grid-template-columns:1fr 1fr;}}
+.side-label{font-family:var(--ff-ui);font-size:11px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;display:block;}
+.field-divider{border:none;border-top:1px solid var(--border);margin:18px 0;}
+.auto-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;background:rgba(13,107,82,0.15);border:1px solid rgba(13,107,82,0.35);border-radius:3px;color:#4ade80;font-family:var(--ff-ui);font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:all .2s;margin-top:8px;text-decoration:none;}
+.auto-btn:hover{background:rgba(13,107,82,0.25);}
+.hijri-auto{font-size:11px;color:rgba(74,222,128,0.8);margin-top:4px;display:none;}
+.aturcara-row{display:grid;grid-template-columns:auto 1fr;gap:8px 14px;align-items:center;margin-bottom:12px;}
+.aturcara-icon{font-size:15px;color:var(--text2);}
+.aturcara-label{font-family:var(--ff-ui);font-size:10px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--text3);margin-bottom:3px;}
+.file-upload-wrap{position:relative;}
+.file-upload-label{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:24px 16px;border:1px dashed rgba(201,164,74,.25);border-radius:4px;background:#060f0c;cursor:pointer;transition:all .3s var(--ease);text-align:center;}
+.file-upload-label:hover{border-color:rgba(201,164,74,.5);background:rgba(201,164,74,.04);}
+.file-upload-label.has-file{border-color:rgba(13,107,82,.5);background:rgba(13,107,82,.06);}
+.file-upload-icon{font-size:22px;opacity:.5;}
+.file-upload-text{font-family:var(--ff-ui);font-size:10px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--text3);}
+.file-upload-label.has-file .file-upload-text{color:#4ade80;}
+.file-upload-sub{font-size:11px;color:var(--text3);}
+input[type="file"]{display:none;}
+.file-preview{width:100%;max-height:140px;object-fit:cover;border-radius:3px;margin-top:8px;display:none;}
+.file-preview.show{display:block;}
+.portrait-only{display:none;}
+body.mode-portrait .portrait-only{display:block;}
+body.mode-portrait .essential-only{display:none;}
+.coupon-wrap{padding:20px 22px;border:1px solid rgba(201,164,74,.2);border-radius:4px;background:rgba(201,164,74,.04);margin-bottom:20px;}
+.coupon-label{font-family:var(--ff-ui);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--text3);margin-bottom:10px;}
+.coupon-row{display:flex;gap:10px;}
+.coupon-input{flex:1;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:3px;padding:11px 14px;color:var(--text);font-family:var(--ff-ui);font-size:13px;letter-spacing:.15em;text-transform:uppercase;outline:none;transition:border-color .2s;}
+.coupon-input:focus{border-color:rgba(201,164,74,.5);}
+.coupon-input::placeholder{text-transform:none;letter-spacing:.05em;color:var(--text3);}
+.coupon-btn{background:rgba(201,164,74,.12);border:1px solid rgba(201,164,74,.3);border-radius:3px;padding:11px 18px;color:var(--gold2);font-family:var(--ff-ui);font-size:11px;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;transition:all .2s;white-space:nowrap;}
+.coupon-btn:hover{background:rgba(201,164,74,.2);}
+.coupon-feedback{margin-top:10px;font-family:var(--ff-ui);font-size:12px;letter-spacing:.05em;display:none;}
+.coupon-feedback.valid{color:#4ade80;display:block;}
+.coupon-feedback.invalid{color:#f87171;display:block;}
+.price-summary{margin-top:16px;padding-top:14px;border-top:1px solid rgba(255,255,255,.06);display:flex;justify-content:space-between;align-items:center;}
+.price-summary-label{font-family:var(--ff-ui);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--text3);}
+.price-summary-amount{font-family:var(--ff-d);font-size:22px;color:var(--gold2);}
+.price-original{font-family:var(--ff-ui);font-size:12px;color:var(--text3);text-decoration:line-through;margin-right:8px;}
+.step-nav{display:flex;gap:12px;margin-top:32px;align-items:center;}
+.btn-next{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:16px 32px;background:var(--gold-g);color:#060b0a;font-family:var(--ff-ui);font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;border:none;border-radius:2px;cursor:pointer;transition:transform .3s var(--ease),box-shadow .3s;}
+.btn-next:hover{transform:translateY(-2px);box-shadow:0 16px 48px rgba(201,164,74,.3);}
+.btn-back{padding:16px 20px;background:transparent;border:1px solid var(--border);border-radius:2px;color:var(--text2);font-family:var(--ff-ui);font-size:12px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;transition:all .2s;}
+.btn-back:hover{border-color:rgba(201,164,74,.3);color:var(--text);}
+.btn-submit-final{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:16px 32px;background:var(--gold-g);color:#060b0a;font-family:var(--ff-ui);font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;border:none;border-radius:2px;cursor:pointer;transition:transform .3s var(--ease),box-shadow .3s;}
+.btn-submit-final:hover{transform:translateY(-2px);box-shadow:0 16px 48px rgba(201,164,74,.3);}
+.btn-submit-final svg{width:16px;height:16px;flex-shrink:0;}
+.progress-wrap{position:fixed;top:0;left:0;right:0;z-index:100;height:2px;background:rgba(255,255,255,.05);}
+.progress-bar{height:100%;background:var(--gold-g);transition:width .5s var(--ease);width:0%;}
+input.error,textarea.error,select.error{border-color:rgba(220,80,60,.6);box-shadow:0 0 0 3px rgba(220,80,60,.08);}
+.err-msg{font-size:11px;color:#e07060;margin-top:4px;}
+#success{display:none;text-align:center;padding:48px 24px;background:var(--bg2);border:1px solid rgba(13,107,82,.3);border-radius:4px;margin-top:32px;}
+#success .s-icon{font-size:48px;margin-bottom:20px;display:block;}
+#success h2{font-family:var(--ff-d);font-size:28px;font-style:italic;color:var(--gold);margin-bottom:12px;}
+#success p{font-size:14px;color:var(--text2);line-height:1.8;}
+.footer{text-align:center;margin-top:60px;font-family:var(--ff-ui);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--text3);}
+.footer span{color:var(--gold);}
+.wa-float{position:fixed;bottom:28px;right:24px;z-index:200;width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#25d366,#128c7e);display:flex;align-items:center;justify-content:center;box-shadow:0 8px 32px rgba(37,211,102,.4);text-decoration:none;transition:transform .3s var(--ease),box-shadow .3s;}
+.wa-float:hover{transform:scale(1.1) translateY(-3px);}
+.wa-float svg{width:26px;height:26px;fill:#fff;}
+@media(max-width:560px){.wa-float{bottom:80px;}}
 </style>
 </head>
 <body class="mode-essential">
-
-<!-- Progress -->
 <div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
-
 <div class="wrap">
 
-  <!-- Header -->
-  <div class="header">
-    <a href="https://eqstudio.nreqmal.workers.dev" class="header-logo"><span>EQ</span>studio</a>
-    <div class="header-tag">
-      <div class="header-tag-line"></div>
-      Borang Maklumat Kad Digital
-      <div class="header-tag-line"></div>
-    </div>
-    <h1>Cerita <em>cinta</em> anda<br>bermula di sini</h1>
-    <p>Isi maklumat kahwin anda dengan lengkap. Kami akan gunakan info ini untuk siapkan kad digital anda. ✦</p>
-  </div>
-
-  <!-- Live Bar -->
-  <div class="live-bar">
-    <div class="live-dot-wrap">
-      <div class="live-dot"></div>
-      <div class="live-text"><strong id="live-count">7</strong> sedang mengisi borang</div>
-    </div>
-    <div class="live-divider"></div>
-    <div class="live-activity">Terakhir submit: <span id="last-submit">3 minit lalu</span></div>
-  </div>
-
-  <!-- Toast container -->
-  <div class="toast-wrap" id="toastWrap"></div>
-
-  <!-- Category Toggle -->
-  <div class="cat-toggle">
-    <div class="cat-btn active" id="btn-essential" onclick="setCategory('essential')">
-      <span class="cat-btn-emoji">⭐</span>
-      <div class="cat-btn-name">Essential</div>
-      <div class="cat-btn-desc">Kad elegan tanpa gambar. Fokus pada tipografi & warna.</div>
-      <span class="cat-btn-badge badge-essential">Essential</span>
-    </div>
-    <div class="cat-btn" id="btn-portrait" onclick="setCategory('portrait')">
-      <span class="cat-btn-emoji">📸</span>
-      <div class="cat-btn-name">Portrait</div>
-      <div class="cat-btn-desc">Kad dengan 2 slot gambar. Hero portrait + banner cinematic.</div>
-      <span class="cat-btn-badge badge-portrait">Portrait</span>
-    </div>
-  </div>
-
-  <!-- Template yang dipilih -->
-  <div class="section">
-    <div class="section-head">
-      <div class="section-num">✦</div>
-      <div>
-        <div class="section-title">Template</div>
-        <div class="section-subtitle">Yang anda pilih semasa booking</div>
-      </div>
-    </div>
-    <div class="section-body">
-      <div class="field">
-        <label>Pilih Template <span class="req">*</span></label>
-        <select id="template_name" onchange="updateProgress()" required>
-          <option value="">— Memuatkan senarai template... —</option>
-        </select>
-        <div class="hint">Senarai template dikemaskini secara automatik dari koleksi terkini kami</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 1. Pengantin -->
-  <div class="section">
-    <div class="section-head">
-      <div class="section-num">1</div>
-      <div>
-        <div class="section-title">Maklumat Pengantin</div>
-        <div class="section-subtitle">Nama panggilan & nama penuh</div>
-      </div>
-    </div>
-    <div class="section-body">
-      <span class="side-label">🤵 Pengantin Lelaki</span>
-      <div class="grid-2">
-        <div class="field">
-          <label>Nama Panggilan <span class="req">*</span></label>
-          <input type="text" id="groom_name" placeholder="Ahmad" required>
-        </div>
-        <div class="field">
-          <label>Nama Penuh</label>
-          <input type="text" id="groom_full" placeholder="Ahmad bin Abdullah">
-        </div>
-        <div class="field">
-          <label>Nama Bapa</label>
-          <input type="text" id="groom_father" placeholder="Abdullah bin Salleh">
-        </div>
-        <div class="field">
-          <label>Nama Ibu</label>
-          <input type="text" id="groom_mother" placeholder="Siti binti Ahmad">
-        </div>
-      </div>
-
-      <hr class="field-divider">
-
-      <span class="side-label">👰 Pengantin Perempuan</span>
-      <div class="grid-2">
-        <div class="field">
-          <label>Nama Panggilan <span class="req">*</span></label>
-          <input type="text" id="bride_name" placeholder="Sarah" required>
-        </div>
-        <div class="field">
-          <label>Nama Penuh</label>
-          <input type="text" id="bride_full" placeholder="Sarah binti Ibrahim">
-        </div>
-        <div class="field">
-          <label>Nama Bapa</label>
-          <input type="text" id="bride_father" placeholder="Ibrahim bin Hassan">
-        </div>
-        <div class="field">
-          <label>Nama Ibu</label>
-          <input type="text" id="bride_mother" placeholder="Aminah binti Yusof">
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 2. Tuan Rumah & Mesej -->
-  <div class="section">
-    <div class="section-head">
-      <div class="section-num">2</div>
-      <div>
-        <div class="section-title">Tuan Rumah & Jemputan</div>
-        <div class="section-subtitle">Nama keluarga & mesej kad</div>
-      </div>
-    </div>
-    <div class="section-body">
-      <div class="field">
-        <label>Pihak Tuan Rumah <span class="req">*</span></label>
-        <select id="host_side">
-          <option value="perempuan">Pihak Perempuan</option>
-          <option value="lelaki">Pihak Lelaki</option>
-          <option value="kedua">Kedua-dua Pihak</option>
-        </select>
-      </div>
-      <div class="field">
-        <label>Nama Keluarga Tuan Rumah</label>
-        <input type="text" id="host_family" placeholder="cth: Keluarga Haji Ibrahim">
-        <div class="hint">Kosongkan jika nak auto-generate dari nama bapa</div>
-      </div>
-      <div class="field">
-        <label>Nama Penuh (untuk footer)</label>
-        <input type="text" id="host_family_full" placeholder="cth: Keluarga Haji Ibrahim & Keluarga Haji Salleh">
-      </div>
-      <div class="field">
-        <label>Mesej Jemputan (BM)</label>
-        <textarea id="host_message_bm" placeholder="Dengan penuh kerendahan hati, kami menjemput..."></textarea>
-      </div>
-      <div class="field">
-        <label>Mesej Jemputan (EN) — jika ada</label>
-        <textarea id="host_message_en" placeholder="With heartfelt gratitude, we invite..."></textarea>
-      </div>
-    </div>
-  </div>
-
-  <!-- 3. Tarikh & Masa -->
-  <div class="section">
-    <div class="section-head">
-      <div class="section-num">3</div>
-      <div>
-        <div class="section-title">Tarikh & Masa</div>
-        <div class="section-subtitle">Tarikh majlis dan waktu</div>
-      </div>
-    </div>
-    <div class="section-body">
-      <div class="grid-2">
-        <div class="field">
-          <label>Tarikh Majlis <span class="req">*</span></label>
-          <input type="date" id="event_date" required>
-        </div>
-        <div class="field">
-          <label>Tarikh Hijri</label>
-          <input type="text" id="date_hijri" placeholder="cth: 15 Safar 1448H">
-        </div>
-        <div class="field">
-          <label>Masa Mula <span class="req">*</span></label>
-          <input type="text" id="time_start" placeholder="cth: 11:00 PG" value="11:00 PG" required>
-        </div>
-        <div class="field">
-          <label>Masa Tamat</label>
-          <input type="text" id="time_end" placeholder="cth: 4:00 PTG" value="4:00 PTG">
-        </div>
-      </div>
-
-      <hr class="field-divider">
-      <span class="side-label">🕐 Aturcara Majlis</span>
-
-      <div class="aturcara-row">
-        <div class="aturcara-icon">🌅</div>
-        <div class="field">
-          <div class="aturcara-label">Ketibaan Tetamu</div>
-          <input type="text" id="time_arrival" placeholder="11:00 PG">
-        </div>
-      </div>
-      <div class="aturcara-row">
-        <div class="aturcara-icon">🌸</div>
-        <div class="field">
-          <div class="aturcara-label">Akad Nikah</div>
-          <input type="text" id="time_akad" placeholder="11:30 PG">
-        </div>
-      </div>
-      <div class="aturcara-row">
-        <div class="aturcara-icon">👑</div>
-        <div class="field">
-          <div class="aturcara-label">Persandingan</div>
-          <input type="text" id="time_bersanding" placeholder="12:30 TG">
-        </div>
-      </div>
-      <div class="aturcara-row">
-        <div class="aturcara-icon">🍽️</div>
-        <div class="field">
-          <div class="aturcara-label">Jamuan Makan</div>
-          <input type="text" id="time_makan" placeholder="1:00 PTG">
-        </div>
-      </div>
-      <div class="aturcara-row">
-        <div class="aturcara-icon">🌙</div>
-        <div class="field">
-          <div class="aturcara-label">Majlis Bersurai</div>
-          <input type="text" id="time_bersurai" placeholder="4:00 PTG">
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 4. Lokasi -->
-  <div class="section">
-    <div class="section-head">
-      <div class="section-num">4</div>
-      <div>
-        <div class="section-title">Lokasi Majlis</div>
-        <div class="section-subtitle">Dewan, alamat dan link navigasi</div>
-      </div>
-    </div>
-    <div class="section-body">
-      <div class="field">
-        <label>Nama Dewan / Tempat <span class="req">*</span></label>
-        <input type="text" id="venue_name" placeholder="cth: Dewan Belia Taman Jaya" required>
-      </div>
-      <div class="field">
-        <label>Nama Penuh Venue</label>
-        <input type="text" id="venue_fullname" placeholder="cth: Dewan Serbaguna Taman Jaya, Petaling Jaya">
-      </div>
-      <div class="field">
-        <label>Alamat Penuh</label>
-        <textarea id="venue_address" placeholder="No. 1, Jalan Taman Jaya,&#10;47500 Petaling Jaya, Selangor"></textarea>
-      </div>
-      <div class="field">
-        <label>Bandar / Negeri</label>
-        <input type="text" id="venue_city" placeholder="cth: Petaling Jaya, Selangor">
-      </div>
-      <div class="grid-2">
-        <div class="field">
-          <label>Link Waze (pilihan)</label>
-          <input type="url" id="waze_link" placeholder="https://waze.com/...">
-          <div class="hint">Kosongkan untuk auto-generate</div>
-        </div>
-        <div class="field">
-          <label>Link Google Maps (pilihan)</label>
-          <input type="url" id="gmap_link" placeholder="https://maps.google.com/...">
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 5. Contact Person -->
-  <div class="section">
-    <div class="section-head">
-      <div class="section-num">5</div>
-      <div>
-        <div class="section-title">Contact Person</div>
-        <div class="section-subtitle">Untuk tetamu hubungi jika perlu</div>
-      </div>
-    </div>
-    <div class="section-body">
-      <div class="grid-2">
-        <div>
-          <span class="side-label" style="font-size:10px">Contact 1</span>
-          <div class="field">
-            <label>Nama</label>
-            <input type="text" id="contact1_name" placeholder="Kak Lina">
-          </div>
-          <div class="field">
-            <label>No. Telefon / WhatsApp</label>
-            <input type="tel" id="contact1_phone" placeholder="0123456789">
-          </div>
-        </div>
-        <div>
-          <span class="side-label" style="font-size:10px">Contact 2 (pilihan)</span>
-          <div class="field">
-            <label>Nama</label>
-            <input type="text" id="contact2_name" placeholder="Abang Razi">
-          </div>
-          <div class="field">
-            <label>No. Telefon / WhatsApp</label>
-            <input type="tel" id="contact2_phone" placeholder="0129876543">
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 6. Dress Code -->
-  <div class="section">
-    <div class="section-head">
-      <div class="section-num">6</div>
-      <div>
-        <div class="section-title">Dress Code & Warna Tema</div>
-        <div class="section-subtitle">Pilihan warna untuk tetamu</div>
-      </div>
-    </div>
-    <div class="section-body">
-      <div class="grid-2">
-        <div class="field">
-          <label>Tema Dress Code (BM)</label>
-          <input type="text" id="dresscode_theme" placeholder="cth: Pastel & Nude">
-        </div>
-        <div class="field">
-          <label>Tema Dress Code (EN)</label>
-          <input type="text" id="dresscode_theme_en" placeholder="cth: Pastel & Nude Tones">
-        </div>
-      </div>
-      <div class="field">
-        <label>Nota Dress Code</label>
-        <input type="text" id="dresscode_note" placeholder="cth: Elakkan warna putih & hitam">
-      </div>
-
-      <hr class="field-divider">
-      <span class="side-label">🎨 Warna Tema (sehingga 5 warna)</span>
-      <div id="color-fields">
-        <div class="grid-3" style="margin-bottom:12px">
-          <div class="field">
-            <label>Warna 1</label>
-            <div style="display:flex;gap:8px;align-items:center">
-              <input type="color" id="color1_hex" value="#c9a44a" style="width:44px;height:38px;padding:2px;cursor:pointer;flex-shrink:0">
-              <input type="text" id="color1_name" placeholder="Gold" style="flex:1">
-            </div>
-          </div>
-          <div class="field">
-            <label>Warna 2</label>
-            <div style="display:flex;gap:8px;align-items:center">
-              <input type="color" id="color2_hex" value="#f0e8d8" style="width:44px;height:38px;padding:2px;cursor:pointer;flex-shrink:0">
-              <input type="text" id="color2_name" placeholder="Ivory" style="flex:1">
-            </div>
-          </div>
-          <div class="field">
-            <label>Warna 3</label>
-            <div style="display:flex;gap:8px;align-items:center">
-              <input type="color" id="color3_hex" value="#d4c5b2" style="width:44px;height:38px;padding:2px;cursor:pointer;flex-shrink:0">
-              <input type="text" id="color3_name" placeholder="Blush" style="flex:1">
-            </div>
-          </div>
-        </div>
-        <div class="grid-2">
-          <div class="field">
-            <label>Warna 4 (pilihan)</label>
-            <div style="display:flex;gap:8px;align-items:center">
-              <input type="color" id="color4_hex" value="#8b7355" style="width:44px;height:38px;padding:2px;cursor:pointer;flex-shrink:0">
-              <input type="text" id="color4_name" placeholder="Mocha" style="flex:1">
-            </div>
-          </div>
-          <div class="field">
-            <label>Warna 5 (pilihan)</label>
-            <div style="display:flex;gap:8px;align-items:center">
-              <input type="color" id="color5_hex" value="#4a3728" style="width:44px;height:38px;padding:2px;cursor:pointer;flex-shrink:0">
-              <input type="text" id="color5_name" placeholder="Espresso" style="flex:1">
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 7. Muzik -->
-  <div class="section">
-    <div class="section-head">
-      <div class="section-num">7</div>
-      <div>
-        <div class="section-title">Muzik Latar</div>
-        <div class="section-subtitle">Lagu yang nak dimainkan dalam kad</div>
-      </div>
-    </div>
-    <div class="section-body">
-      <div class="grid-2">
-        <div class="field">
-          <label>Nama Lagu & Artis</label>
-          <input type="text" id="music_label" placeholder="cth: Beautiful In White — Westlife">
-        </div>
-        <div class="field">
-          <label>Link YouTube</label>
-          <input type="url" id="music_url" placeholder="https://www.youtube.com/watch?v=...">
-          <div class="hint">Copy link dari YouTube je — kami akan uruskan selebihnya ✦</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 8. Kisah Cinta -->
-  <div class="section">
-    <div class="section-head">
-      <div class="section-num">8</div>
-      <div>
-        <div class="section-title">Kisah Cinta (Love Story)</div>
-        <div class="section-subtitle">Cerita perjalanan hubungan anda</div>
-      </div>
-    </div>
-    <div class="section-body">
-      <div class="grid-2">
-        <div class="field">
-          <label>Tahun 1</label>
-          <input type="text" id="love_year_1" placeholder="2020">
-        </div>
-        <div class="field">
-          <label>Cerita 1</label>
-          <input type="text" id="love_story_1" placeholder="Mula berkenalan...">
-        </div>
-        <div class="field">
-          <label>Tahun 2</label>
-          <input type="text" id="love_year_2" placeholder="2021">
-        </div>
-        <div class="field">
-          <label>Cerita 2</label>
-          <input type="text" id="love_story_2" placeholder="Mula bercinta...">
-        </div>
-        <div class="field">
-          <label>Tahun 3</label>
-          <input type="text" id="love_year_3" placeholder="2024">
-        </div>
-        <div class="field">
-          <label>Cerita 3</label>
-          <input type="text" id="love_story_3" placeholder="Bertunang...">
-        </div>
-      </div>
-      <div class="field" style="margin-top:16px">
-        <label>Tahun Kahwin (tahun 4)</label>
-        <input type="text" id="love_year_4" placeholder="2025">
-      </div>
-    </div>
-  </div>
-
-  <!-- 9. QR Code -->
-  <div class="section">
-    <div class="section-head">
-      <div class="section-num">9</div>
-      <div>
-        <div class="section-title">QR Code Salam Kaut</div>
-        <div class="section-subtitle">Maybank2U / Touch 'n Go / DuitNow</div>
-      </div>
-    </div>
-    <div class="section-body">
-      <div class="field">
-        <label>Upload Gambar QR Code</label>
-        <div class="file-upload-wrap">
-          <label class="file-upload-label" id="lbl-qr" for="qr_file">
-            <span class="file-upload-icon">💸</span>
-            <span class="file-upload-text">Tekan untuk pilih gambar QR</span>
-            <span class="file-upload-sub">PNG / JPG — screenshot dari app banking anda</span>
-          </label>
-          <input type="file" id="qr_file" accept="image/*" onchange="handleFile('qr_file','lbl-qr','prev-qr','qr_b64')">
-          <img id="prev-qr" class="file-preview" alt="QR Preview">
-        </div>
-        <input type="hidden" id="qr_b64">
-      </div>
-    </div>
-  </div>
-
-  <!-- 10. Gambar (Portrait only) -->
-  <div class="section portrait-only">
-    <div class="section-head">
-      <div class="section-num">10</div>
-      <div>
-        <div class="section-title">Gambar (Portrait Template)</div>
-        <div class="section-subtitle">2 slot gambar — hero portrait + banner cinematic</div>
-      </div>
-    </div>
-    <div class="section-body">
-      <div class="grid-2">
-        <div class="field">
-          <label>🖼️ Gambar Hero (Portrait)</label>
-          <div class="file-upload-wrap">
-            <label class="file-upload-label" id="lbl-photo1" for="photo1_file">
-              <span class="file-upload-icon">🖼️</span>
-              <span class="file-upload-text">Pilih gambar hero</span>
-              <span class="file-upload-sub">Nisbah 3:4 — potret (portrait)</span>
-            </label>
-            <input type="file" id="photo1_file" accept="image/*" onchange="handleFile('photo1_file','lbl-photo1','prev-photo1','photo1_b64')">
-            <img id="prev-photo1" class="file-preview" alt="Hero Preview">
-          </div>
-          <input type="hidden" id="photo1_b64">
-        </div>
-        <div class="field">
-          <label>🎬 Gambar Cinematic (Landscape)</label>
-          <div class="file-upload-wrap">
-            <label class="file-upload-label" id="lbl-photo2" for="photo2_file">
-              <span class="file-upload-icon">🎬</span>
-              <span class="file-upload-text">Pilih gambar cinematic</span>
-              <span class="file-upload-sub">Nisbah 16:9 — landscape</span>
-            </label>
-            <input type="file" id="photo2_file" accept="image/*" onchange="handleFile('photo2_file','lbl-photo2','prev-photo2','photo2_b64')">
-            <img id="prev-photo2" class="file-preview" alt="Cinematic Preview">
-          </div>
-          <input type="hidden" id="photo2_b64">
-        </div>
-      </div>
-      <div class="hint" style="margin-top:12px">💡 Kami akan proses dan optimise gambar anda sebelum masuk dalam kad</div>
-    </div>
-  </div>
-
-  <!-- Submit -->
-  <!-- Kupon & Ringkasan Harga -->
-  <div class="coupon-wrap">
-    <p class="coupon-label">✦ Kod Promosi / Kupon</p>
-    <div class="coupon-row">
-      <input type="text" class="coupon-input" id="coupon-input" placeholder="Masukkan kod (cth: MELISA10)" maxlength="20">
-      <button class="coupon-btn" onclick="applyCoupon()">Guna Kod</button>
-    </div>
-    <div class="coupon-feedback" id="coupon-feedback"></div>
-    <div class="price-summary">
-      <span class="price-summary-label">Jumlah Bayaran</span>
-      <span>
-        <span class="price-original" id="price-original" style="display:none"></span>
-        <span class="price-summary-amount" id="price-display">RM39</span>
-      </span>
-    </div>
-  </div>
-
-  <div class="submit-wrap">
-    <p>Semak semula maklumat di atas sebelum hantar.<br>Kami akan proses dalam masa <strong style="color:var(--gold)">1–3 hari bekerja</strong> ✦</p>
-    <button class="btn-submit" onclick="handleSubmit()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg>
-      Hantar Maklumat ke EQStudio
-    </button>
-  </div>
-
-  <!-- Success -->
-  <div id="success">
-    <span class="s-icon">💍</span>
-    <h2>Terima kasih!</h2>
-    <p>Maklumat anda telah dihantar ke EQStudio via WhatsApp.<br>Kami akan proses dan maklumkan dalam masa <strong style="color:var(--gold)">1–3 hari bekerja</strong>.<br><br>Sebarang pertanyaan, boleh WA kami terus. ✦</p>
-  </div>
-
-  <div class="footer">
-    <p>✦ <span>EQStudio</span> · Kad Digital Perkahwinan ✦</p>
-  </div>
-
+<div class="header">
+  <a href="https://eqstudio.nreqmal.workers.dev" class="header-logo"><span>EQ</span>studio</a>
+  <div class="header-tag"><div class="header-tag-line"></div>Borang Maklumat Kad Digital<div class="header-tag-line"></div></div>
+  <h1>Cerita <em>cinta</em> anda<br>bermula di sini</h1>
+  <p>5 langkah mudah. Habis dalam 5 minit. ✦</p>
 </div>
 
+<div class="stepper" id="stepper">
+  <div class="step-item active" id="si-1"><div class="step-circle" id="sc-1">1</div><div class="step-label">Template</div></div>
+  <div class="step-line" id="sl-1"></div>
+  <div class="step-item" id="si-2"><div class="step-circle" id="sc-2">2</div><div class="step-label">Pengantin</div></div>
+  <div class="step-line" id="sl-2"></div>
+  <div class="step-item" id="si-3"><div class="step-circle" id="sc-3">3</div><div class="step-label">Majlis</div></div>
+  <div class="step-line" id="sl-3"></div>
+  <div class="step-item" id="si-4"><div class="step-circle" id="sc-4">4</div><div class="step-label">Details</div></div>
+  <div class="step-line" id="sl-4"></div>
+  <div class="step-item" id="si-5"><div class="step-circle" id="sc-5">5</div><div class="step-label">Extras</div></div>
+</div>
+
+<!-- STEP 1 -->
+<div class="step-panel active" id="step-1">
+  <div class="cat-toggle">
+    <div class="cat-btn active" id="btn-essential" onclick="setCategory('essential')"><span class="cat-btn-emoji">⭐</span><div class="cat-btn-name">Essential</div><div class="cat-btn-desc">Kad elegan tanpa gambar. Fokus tipografi & warna.</div><span class="cat-btn-badge badge-essential">dari RM39</span></div>
+    <div class="cat-btn" id="btn-portrait" onclick="setCategory('portrait')"><span class="cat-btn-emoji">📸</span><div class="cat-btn-name">Portrait</div><div class="cat-btn-desc">Kad dengan 2 slot gambar — hero + cinematic.</div><span class="cat-btn-badge badge-portrait">dari RM59</span></div>
+  </div>
+  <div class="card">
+    <div class="card-head"><div class="card-icon">✦</div><div><div class="card-title">Pilih Template</div><div class="card-sub">Koleksi terkini dari registry kami</div></div></div>
+    <div class="card-body">
+      <div class="field">
+        <label>Template <span class="req">*</span></label>
+        <select id="template_name" onchange="onTemplateChange()" required><option value="">— Memuatkan senarai... —</option></select>
+        <div class="hint" id="template-hint">Pilih template untuk lihat demo</div>
+      </div>
+      <div id="template-demo-wrap" style="margin-top:12px;display:none;">
+        <a id="template-demo-link" href="#" target="_blank" class="auto-btn">🔍 Lihat Live Demo</a>
+      </div>
+    </div>
+  </div>
+  <div class="step-nav"><button class="btn-next" onclick="goNext(1)">Seterusnya — Pengantin →</button></div>
+</div>
+
+<!-- STEP 2 -->
+<div class="step-panel" id="step-2">
+  <div class="card">
+    <div class="card-head"><div class="card-icon">🤵</div><div><div class="card-title">Pengantin Lelaki</div></div></div>
+    <div class="card-body">
+      <div class="grid-2">
+        <div class="field"><label>Nama Panggilan <span class="req">*</span></label><input type="text" id="groom_name" placeholder="Ahmad" required></div>
+        <div class="field"><label>Nama Penuh</label><input type="text" id="groom_full" placeholder="Ahmad bin Abdullah"></div>
+        <div class="field"><label>Nama Bapa</label><input type="text" id="groom_father" placeholder="Abdullah bin Salleh"></div>
+        <div class="field"><label>Nama Ibu</label><input type="text" id="groom_mother" placeholder="Siti binti Ahmad"></div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-head"><div class="card-icon">👰</div><div><div class="card-title">Pengantin Perempuan</div></div></div>
+    <div class="card-body">
+      <div class="grid-2">
+        <div class="field"><label>Nama Panggilan <span class="req">*</span></label><input type="text" id="bride_name" placeholder="Sarah" required></div>
+        <div class="field"><label>Nama Penuh</label><input type="text" id="bride_full" placeholder="Sarah binti Ibrahim"></div>
+        <div class="field"><label>Nama Bapa</label><input type="text" id="bride_father" placeholder="Ibrahim bin Hassan"></div>
+        <div class="field"><label>Nama Ibu</label><input type="text" id="bride_mother" placeholder="Aminah binti Yusof"></div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-head"><div class="card-icon">🏠</div><div><div class="card-title">Tuan Rumah</div><div class="card-sub">Pihak yang menganjurkan majlis</div></div></div>
+    <div class="card-body">
+      <div class="field"><label>Pihak Tuan Rumah <span class="req">*</span></label><select id="host_side"><option value="perempuan">Pihak Perempuan</option><option value="lelaki">Pihak Lelaki</option><option value="kedua">Kedua-dua Pihak</option></select></div>
+      <div class="field" style="margin-top:14px"><label>Nama Keluarga Tuan Rumah</label><input type="text" id="host_family" placeholder="cth: Keluarga Haji Ibrahim"><div class="hint">Kosongkan untuk auto-generate dari nama bapa</div></div>
+      <div class="field"><label>Nama Penuh (untuk footer)</label><input type="text" id="host_family_full" placeholder="cth: Keluarga Hj Ibrahim & Keluarga Hj Salleh"></div>
+    </div>
+    <div class="optional-toggle" id="tog-mesej" onclick="toggleOptional('mesej')"><span class="optional-toggle-label">+ Mesej Jemputan (optional)</span><span class="optional-toggle-arrow">▾</span></div>
+    <div class="optional-body" id="opt-mesej">
+      <div class="field"><label>Mesej BM</label><textarea id="host_message_bm" placeholder="Dengan penuh kerendahan hati, kami menjemput..."></textarea></div>
+      <div class="field"><label>Mesej EN</label><textarea id="host_message_en" placeholder="With heartfelt gratitude, we invite..."></textarea></div>
+    </div>
+  </div>
+  <div class="step-nav"><button class="btn-back" onclick="goBack(2)">← Balik</button><button class="btn-next" onclick="goNext(2)">Seterusnya — Majlis →</button></div>
+</div>
+
+<!-- STEP 3 -->
+<div class="step-panel" id="step-3">
+  <div class="card">
+    <div class="card-head"><div class="card-icon">📅</div><div><div class="card-title">Tarikh & Masa</div></div></div>
+    <div class="card-body">
+      <div class="grid-2">
+        <div class="field"><label>Tarikh Majlis <span class="req">*</span></label><input type="date" id="event_date" onchange="autoHijri()" required></div>
+        <div class="field"><label>Tarikh Hijri</label><input type="text" id="date_hijri" placeholder="Auto-calculate atau isi manual"><div class="hijri-auto" id="hijri-auto">✓ Auto-dikira</div></div>
+        <div class="field"><label>Masa Mula <span class="req">*</span></label><input type="text" id="time_start" placeholder="11:00 PG" value="11:00 PG" required></div>
+        <div class="field"><label>Masa Tamat</label><input type="text" id="time_end" placeholder="4:00 PTG" value="4:00 PTG"></div>
+      </div>
+      <div class="optional-toggle" id="tog-aturcara" onclick="toggleOptional('aturcara')" style="margin:16px -22px -22px;border-top:1px solid var(--border);"><span class="optional-toggle-label">+ Aturcara Majlis (optional)</span><span class="optional-toggle-arrow">▾</span></div>
+      <div class="optional-body" id="opt-aturcara" style="margin:0 -22px;padding:16px 22px 0;">
+        <div class="aturcara-row"><div class="aturcara-icon">🌅</div><div class="field"><div class="aturcara-label">Ketibaan Tetamu</div><input type="text" id="time_arrival" placeholder="11:00 PG"></div></div>
+        <div class="aturcara-row"><div class="aturcara-icon">🌸</div><div class="field"><div class="aturcara-label">Akad Nikah</div><input type="text" id="time_akad" placeholder="11:30 PG"></div></div>
+        <div class="aturcara-row"><div class="aturcara-icon">👑</div><div class="field"><div class="aturcara-label">Persandingan</div><input type="text" id="time_bersanding" placeholder="12:30 TG"></div></div>
+        <div class="aturcara-row"><div class="aturcara-icon">🍽️</div><div class="field"><div class="aturcara-label">Jamuan Makan</div><input type="text" id="time_makan" placeholder="1:00 PTG"></div></div>
+        <div class="aturcara-row"><div class="aturcara-icon">🌙</div><div class="field"><div class="aturcara-label">Majlis Bersurai</div><input type="text" id="time_bersurai" placeholder="4:00 PTG"></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-head"><div class="card-icon">📍</div><div><div class="card-title">Lokasi Majlis</div></div></div>
+    <div class="card-body">
+      <div class="field"><label>Nama Dewan / Tempat <span class="req">*</span></label><input type="text" id="venue_name" placeholder="cth: Dewan Seri Kenanga" required></div>
+      <div class="field"><label>Nama Penuh Venue</label><input type="text" id="venue_fullname" placeholder="cth: Dewan Seri Kenanga, Kompleks PKNS"></div>
+      <div class="field"><label>Alamat Penuh</label><textarea id="venue_address" placeholder="No. 12, Jalan Kenanga, Taman Bunga..."></textarea></div>
+      <div class="field"><label>Bandar / Negeri</label><input type="text" id="venue_city" placeholder="cth: Shah Alam, Selangor"></div>
+      <div class="grid-2" style="margin-top:14px">
+        <div class="field"><label>Link Waze</label><input type="url" id="waze_link" placeholder="https://waze.com/ul/..."></div>
+        <div class="field"><label>Link Google Maps</label><input type="url" id="gmap_link" placeholder="https://maps.app.goo.gl/..."></div>
+      </div>
+      <button class="auto-btn" onclick="autoGenMaps()">🗺️ Jana Link Waze & Maps dari Alamat</button>
+      <div class="hint" id="maps-hint" style="display:none;color:rgba(74,222,128,0.8);margin-top:6px">✓ Link dijana — semak dan edit jika perlu</div>
+    </div>
+  </div>
+  <div class="step-nav"><button class="btn-back" onclick="goBack(3)">← Balik</button><button class="btn-next" onclick="goNext(3)">Seterusnya — Details →</button></div>
+</div>
+
+<!-- STEP 4 -->
+<div class="step-panel" id="step-4">
+  <div class="card">
+    <div class="card-head"><div class="card-icon">📞</div><div><div class="card-title">Contact Person</div><div class="card-sub">Siapa yang boleh dihubungi tetamu</div></div></div>
+    <div class="card-body">
+      <span class="side-label">Orang pertama</span>
+      <div class="grid-2"><div class="field"><label>Nama</label><input type="text" id="contact1_name" placeholder="Nama contact"></div><div class="field"><label>No. WhatsApp</label><input type="tel" id="contact1_phone" placeholder="0123456789"></div></div>
+      <hr class="field-divider">
+      <span class="side-label">Orang kedua (optional)</span>
+      <div class="grid-2"><div class="field"><label>Nama</label><input type="text" id="contact2_name" placeholder="Nama contact"></div><div class="field"><label>No. WhatsApp</label><input type="tel" id="contact2_phone" placeholder="0123456789"></div></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-head"><div class="card-icon">👗</div><div><div class="card-title">Dress Code & Warna Tema</div></div></div>
+    <div class="card-body">
+      <div class="grid-2"><div class="field"><label>Tema Dress Code (BM)</label><input type="text" id="dresscode_theme" placeholder="cth: Dusty Rose & Sage"></div><div class="field"><label>Tema Dress Code (EN)</label><input type="text" id="dresscode_theme_en" placeholder="cth: Dusty Rose & Sage"></div></div>
+      <div class="field"><label>Nota Dress Code</label><input type="text" id="dresscode_note" placeholder="cth: Elakkan warna merah & hitam"></div>
+      <hr class="field-divider">
+      <span class="side-label">🎨 Warna Tema (sehingga 5)</span>
+      <div class="grid-3">
+        <div class="field"><label>Warna 1</label><div style="display:flex;gap:8px;align-items:center"><input type="color" id="color1_hex" value="#c9a44a" style="width:40px;height:36px;padding:2px;cursor:pointer;flex-shrink:0"><input type="text" id="color1_name" placeholder="Gold" style="flex:1"></div></div>
+        <div class="field"><label>Warna 2</label><div style="display:flex;gap:8px;align-items:center"><input type="color" id="color2_hex" value="#f0ede6" style="width:40px;height:36px;padding:2px;cursor:pointer;flex-shrink:0"><input type="text" id="color2_name" placeholder="Ivory" style="flex:1"></div></div>
+        <div class="field"><label>Warna 3</label><div style="display:flex;gap:8px;align-items:center"><input type="color" id="color3_hex" value="#d4c5b2" style="width:40px;height:36px;padding:2px;cursor:pointer;flex-shrink:0"><input type="text" id="color3_name" placeholder="Blush" style="flex:1"></div></div>
+      </div>
+      <div class="optional-toggle" id="tog-warna" onclick="toggleOptional('warna')" style="margin:16px -22px -22px;border-top:1px solid var(--border);"><span class="optional-toggle-label">+ Tambah Warna 4 & 5 (optional)</span><span class="optional-toggle-arrow">▾</span></div>
+      <div class="optional-body" id="opt-warna" style="margin:0 -22px;padding:16px 22px 0;">
+        <div class="grid-2"><div class="field"><label>Warna 4</label><div style="display:flex;gap:8px;align-items:center"><input type="color" id="color4_hex" value="#8b7355" style="width:40px;height:36px;padding:2px;cursor:pointer;flex-shrink:0"><input type="text" id="color4_name" placeholder="Mocha" style="flex:1"></div></div><div class="field"><label>Warna 5</label><div style="display:flex;gap:8px;align-items:center"><input type="color" id="color5_hex" value="#4a3728" style="width:40px;height:36px;padding:2px;cursor:pointer;flex-shrink:0"><input type="text" id="color5_name" placeholder="Espresso" style="flex:1"></div></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="step-nav"><button class="btn-back" onclick="goBack(4)">← Balik</button><button class="btn-next" onclick="goNext(4)">Seterusnya — Extras →</button></div>
+</div>
+
+<!-- STEP 5 -->
+<div class="step-panel" id="step-5">
+  <div class="card">
+    <div class="card-head"><div class="card-icon">🎵</div><div><div class="card-title">Muzik Latar</div><div class="card-sub">Optional — lagu dalam kad</div></div></div>
+    <div class="card-body">
+      <div class="grid-2"><div class="field"><label>Nama Lagu & Artis</label><input type="text" id="music_label" placeholder="Beautiful In White — Westlife"></div><div class="field"><label>Link YouTube</label><input type="url" id="music_url" placeholder="https://youtube.com/watch?v=..."><div class="hint">Copy link YouTube je ✦</div></div></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-head"><div class="card-icon">💑</div><div><div class="card-title">Kisah Cinta</div><div class="card-sub">Optional — timeline perjalanan hubungan</div></div></div>
+    <div class="optional-toggle" id="tog-love" onclick="toggleOptional('love')"><span class="optional-toggle-label">+ Isi kisah cinta (optional)</span><span class="optional-toggle-arrow">▾</span></div>
+    <div class="optional-body" id="opt-love">
+      <div class="grid-2">
+        <div class="field"><label>Tahun 1</label><input type="text" id="love_year_1" placeholder="2020"></div>
+        <div class="field"><label>Cerita 1</label><input type="text" id="love_story_1" placeholder="Mula berkenalan..."></div>
+        <div class="field"><label>Tahun 2</label><input type="text" id="love_year_2" placeholder="2021"></div>
+        <div class="field"><label>Cerita 2</label><input type="text" id="love_story_2" placeholder="Mula bercinta..."></div>
+        <div class="field"><label>Tahun 3</label><input type="text" id="love_year_3" placeholder="2024"></div>
+        <div class="field"><label>Cerita 3</label><input type="text" id="love_story_3" placeholder="Bertunang..."></div>
+      </div>
+      <div class="field" style="margin-top:14px"><label>Tahun Kahwin</label><input type="text" id="love_year_4" placeholder="2025"></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-head"><div class="card-icon">💸</div><div><div class="card-title">QR Salam Kaut</div><div class="card-sub">Optional — Maybank2U / TnG / DuitNow</div></div></div>
+    <div class="optional-toggle" id="tog-qr" onclick="toggleOptional('qr')"><span class="optional-toggle-label">+ Upload QR Code (optional)</span><span class="optional-toggle-arrow">▾</span></div>
+    <div class="optional-body" id="opt-qr">
+      <div class="file-upload-wrap"><label class="file-upload-label" id="lbl-qr" for="qr_file"><span class="file-upload-icon">💸</span><span class="file-upload-text">Tekan untuk pilih gambar QR</span><span class="file-upload-sub">PNG / JPG — screenshot dari app banking</span></label><input type="file" id="qr_file" accept="image/*" onchange="handleFile('qr_file','lbl-qr','prev-qr','qr_b64')"><img id="prev-qr" class="file-preview" alt="QR Preview"></div>
+      <input type="hidden" id="qr_b64">
+    </div>
+  </div>
+  <div class="card portrait-only">
+    <div class="card-head"><div class="card-icon">🖼️</div><div><div class="card-title">Gambar</div><div class="card-sub">2 slot — hero portrait + cinematic</div></div></div>
+    <div class="card-body">
+      <div class="grid-2">
+        <div class="field"><label>🖼️ Hero (3:4)</label><div class="file-upload-wrap"><label class="file-upload-label" id="lbl-photo1" for="photo1_file"><span class="file-upload-icon">🖼️</span><span class="file-upload-text">Pilih gambar hero</span><span class="file-upload-sub">Nisbah 3:4</span></label><input type="file" id="photo1_file" accept="image/*" onchange="handleFile('photo1_file','lbl-photo1','prev-photo1','photo1_b64')"><img id="prev-photo1" class="file-preview" alt="Hero Preview"></div><input type="hidden" id="photo1_b64"></div>
+        <div class="field"><label>🎬 Cinematic (16:9)</label><div class="file-upload-wrap"><label class="file-upload-label" id="lbl-photo2" for="photo2_file"><span class="file-upload-icon">🎬</span><span class="file-upload-text">Pilih gambar cinematic</span><span class="file-upload-sub">Nisbah 16:9</span></label><input type="file" id="photo2_file" accept="image/*" onchange="handleFile('photo2_file','lbl-photo2','prev-photo2','photo2_b64')"><img id="prev-photo2" class="file-preview" alt="Cinematic Preview"></div><input type="hidden" id="photo2_b64"></div>
+      </div>
+      <div class="hint" style="margin-top:10px">💡 Kami akan optimise gambar sebelum masuk dalam kad</div>
+    </div>
+  </div>
+  <div class="coupon-wrap">
+    <p class="coupon-label">✦ Kod Promosi</p>
+    <div class="coupon-row"><input type="text" class="coupon-input" id="coupon-input" placeholder="Masukkan kod promo" maxlength="20"><button class="coupon-btn" onclick="applyCoupon()">Guna</button></div>
+    <div class="coupon-feedback" id="coupon-feedback"></div>
+    <div class="price-summary"><span class="price-summary-label">Jumlah Bayaran</span><span><span class="price-original" id="price-original" style="display:none"></span><span class="price-summary-amount" id="price-display">RM39</span></span></div>
+  </div>
+  <div class="step-nav">
+    <button class="btn-back" onclick="goBack(5)">← Balik</button>
+    <button class="btn-submit-final" onclick="handleSubmit()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg>Hantar ke EQStudio</button>
+  </div>
+</div>
+
+<div id="success"><span class="s-icon">💍</span><h2>Terima kasih!</h2><p>Maklumat anda telah dihantar ke EQStudio via WhatsApp.<br>Kami akan reply dalam masa <strong style="color:var(--gold)">2 jam</strong>. ✦</p></div>
+<div class="footer"><p>✦ <span>EQStudio</span> · Kad Digital Perkahwinan ✦</p></div>
+</div>
+
+<a href="https://wa.me/601154151433?text=Assalamualaikum%20EQstudio!%20Saya%20ada%20soalan." class="wa-float" target="_blank" aria-label="WhatsApp EQstudio"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+
 <script>
-// ── CONFIG ──
-const WA_NUMBER = '601154151433';
+const WA_NUMBER='601154151433';
+const REGISTRY_URL='https://raw.githubusercontent.com/nureqmal/eqstudio-cards/main/templates/registry.json';
+const PROMO_URL='https://raw.githubusercontent.com/nureqmal/eqstudio-cards/main/promo_codes.json';
+const PAGES_BASE='https://nureqmal.github.io/eqstudio-cards';
+const PKG_LABEL={Essential:'⭐ Essential',Portrait:'📸 Portrait',Light:'☀️ Light',Cinematic:'🎬 Cinematic',Prestige:'👑 Prestige',Potrait:'📸 Portrait'};
+const BASE_PRICE={essential:39,portrait:59};
+let currentCat='essential',appliedCoupon=null,COUPONS={},_registry=null;
+const TOTAL=5;
 
-// ── HARGA ──
-const BASE_PRICE = { essential: 39, portrait: 59 };
-let currentCat = 'essential';
-let appliedCoupon = null;
-
-// ── KOD KUPON — diload dari promo_codes.json ──
-const PROMO_URL = 'https://raw.githubusercontent.com/nureqmal/eqstudio-cards/main/promo_codes.json';
-let COUPONS = {};
-
-async function loadPromos() {
-  try {
-    const res = await fetch(PROMO_URL + '?v=' + Date.now());
-    if (!res.ok) throw new Error('fetch failed');
-    const data = await res.json();
-    const today = new Date().toISOString().split('T')[0];
-    // Filter: aktif sahaja + belum expired
-    COUPONS = {};
-    for (const [code, info] of Object.entries(data)) {
-      if (!info.active) continue;
-      if (info.expiry && info.expiry < today) continue;
-      COUPONS[code] = { discount: info.discount, owner: info.desc || '' };
-    }
-  } catch(e) {
-    COUPONS = {};
+function updateStepper(s){
+  for(let i=1;i<=TOTAL;i++){
+    const si=document.getElementById('si-'+i),sc=document.getElementById('sc-'+i);
+    si.classList.remove('active','done');
+    if(i<s){si.classList.add('done');sc.textContent='✓';}
+    else if(i===s){si.classList.add('active');sc.textContent=i;}
+    else sc.textContent=i;
+    if(i<TOTAL)document.getElementById('sl-'+i).classList.toggle('done',i<s);
   }
+  document.getElementById('progressBar').style.width=((s-1)/(TOTAL-1)*100)+'%';
 }
 
-function getBasePrice() {
-  return BASE_PRICE[currentCat] || 39;
+function goNext(from){
+  if(!validateStep(from))return;
+  document.getElementById('step-'+from).classList.remove('active');
+  document.getElementById('step-'+(from+1)).classList.add('active');
+  updateStepper(from+1);
+  window.scrollTo({top:0,behavior:'smooth'});
 }
 
-function updatePriceDisplay() {
-  const base = getBasePrice();
-  const discount = appliedCoupon ? appliedCoupon.discount : 0;
-  const final = base - discount;
-  const priceDisplay = document.getElementById('price-display');
-  const priceOriginal = document.getElementById('price-original');
-  if (discount > 0) {
-    priceOriginal.textContent = 'RM' + base;
-    priceOriginal.style.display = 'inline';
-    priceDisplay.textContent = 'RM' + final;
-  } else {
-    priceOriginal.style.display = 'none';
-    priceDisplay.textContent = 'RM' + base;
-  }
+function goBack(from){
+  document.getElementById('step-'+from).classList.remove('active');
+  document.getElementById('step-'+(from-1)).classList.add('active');
+  updateStepper(from-1);
+  window.scrollTo({top:0,behavior:'smooth'});
 }
 
-function applyCoupon() {
-  const code = document.getElementById('coupon-input').value.trim().toUpperCase();
-  const feedback = document.getElementById('coupon-feedback');
-  if (!code) {
-    feedback.textContent = 'Sila masukkan kod kupon.';
-    feedback.className = 'coupon-feedback invalid';
-    return;
-  }
-  if (COUPONS[code]) {
-    appliedCoupon = COUPONS[code];
-    feedback.textContent = '✓ Kod berjaya digunakan! Diskaun RM' + appliedCoupon.discount + ' dikenakan.';
-    feedback.className = 'coupon-feedback valid';
-    updatePriceDisplay();
-  } else {
-    appliedCoupon = null;
-    feedback.textContent = '✗ Kod tidak sah. Sila semak semula.';
-    feedback.className = 'coupon-feedback invalid';
-    updatePriceDisplay();
-  }
-}
-
-// ── TEMPLATE LIST BY CATEGORY ──
-// ── REGISTRY ──
-const REGISTRY_URL = 'https://raw.githubusercontent.com/nureqmal/eqstudio-cards/main/templates/registry.json';
-const PAGES_BASE   = 'https://nureqmal.github.io/eqstudio-cards';
-
-// Map pakej key → label & emoji untuk optgroup
-const PKG_LABEL = {
-  Essential: '⭐ Essential',
-  Portrait:  '📸 Portrait',
-  Light:     '☀️ Light',
-  Cinematic: '🎬 Cinematic',
-  Prestige:  '👑 Prestige',
-  Potrait:   '📸 Portrait',
-};
-
-// Cache registry selepas load
-let _registry = null;
-
-async function loadRegistry() {
-  try {
-    const res = await fetch(REGISTRY_URL + '?v=' + Date.now());
-    if (!res.ok) throw new Error('fetch failed');
-    _registry = await res.json();
-  } catch(e) {
-    _registry = null;
-  }
-  populateTemplateDropdown();
-}
-
-function populateTemplateDropdown() {
-  const sel = document.getElementById('template_name');
-  const _pTemplate = new URLSearchParams(window.location.search).get('template') || '';
-
-  if (!_registry) {
-    sel.innerHTML = '<option value="">— Gagal load. Refresh atau hubungi kami. —</option>';
-    return;
-  }
-
-  sel.innerHTML = '<option value="">— Pilih template anda —</option>';
-
-  const PACKAGES = ['Essential', 'Portrait', 'Light', 'Cinematic', 'Prestige', 'Potrait'];
-  PACKAGES.forEach(pkg => {
-    const pkgData = _registry[pkg];
-    if (!pkgData || typeof pkgData !== 'object' || Array.isArray(pkgData)) return;
-    const entries = Object.values(pkgData).filter(info => info && info.name);
-    if (!entries.length) return;
-
-    const group = document.createElement('optgroup');
-    group.label = PKG_LABEL[pkg] || pkg;
-
-    entries.forEach(info => {
-      const opt = document.createElement('option');
-      opt.value = info.name;
-      opt.textContent = (info.preview_emoji ? info.preview_emoji + ' ' : '') + info.name;
-      if (info.file) opt.dataset.file = info.file;
-      if (info.has_portrait_photo) opt.dataset.portrait = '1';
-      group.appendChild(opt);
-    });
-
-    sel.appendChild(group);
-  });
-
-  // Auto-select dari URL param
-  if (_pTemplate) {
-    for (let i = 0; i < sel.options.length; i++) {
-      if (sel.options[i].value.toLowerCase() === _pTemplate.toLowerCase()) {
-        sel.selectedIndex = i;
-        break;
-      }
-    }
-  }
-
-  updateProgress();
-}
-
-// ── CATEGORY (kekal untuk compatibility — button still toggle UI mode) ──
-function setCategory(cat) {
-  currentCat = cat;
-  document.body.className = 'mode-' + cat;
-  document.getElementById('btn-essential').classList.toggle('active', cat === 'essential');
-  document.getElementById('btn-portrait').classList.toggle('active', cat === 'portrait');
-  updateProgress();
-  updatePriceDisplay();
-}
-
-// ── FILE UPLOAD ──
-function handleFile(inputId, labelId, previewId, hiddenId) {
-  const file = document.getElementById(inputId).files[0];
-  if (!file) return;
-  const label = document.getElementById(labelId);
-  const preview = document.getElementById(previewId);
-
-  label.classList.add('has-file');
-  label.querySelector('.file-upload-text').textContent = file.name;
-  label.querySelector('.file-upload-sub').textContent = (file.size / 1024).toFixed(0) + ' KB';
-
-  const reader = new FileReader();
-  reader.onload = e => {
-    if (hiddenId) document.getElementById(hiddenId).value = e.target.result;
-    if (preview) { preview.src = e.target.result; preview.classList.add('show'); }
+function validateStep(s){
+  clearErrors();
+  const checks={
+    1:[{id:'template_name',msg:'Sila pilih template'}],
+    2:[{id:'groom_name',msg:'Sila isi nama pengantin lelaki'},{id:'bride_name',msg:'Sila isi nama pengantin perempuan'}],
+    3:[{id:'event_date',msg:'Sila pilih tarikh majlis'},{id:'time_start',msg:'Sila isi masa mula'},{id:'venue_name',msg:'Sila isi nama venue'}],
+    4:[],5:[]
   };
-  reader.readAsDataURL(file);
-}
-
-// ── PROGRESS ──
-function updateProgress() {
-  const required = ['template_name','groom_name','bride_name','event_date','time_start','venue_name'];
-  let filled = required.filter(id => {
-    const el = document.getElementById(id);
-    return el && el.value.trim();
-  }).length;
-  const pct = Math.round((filled / required.length) * 100);
-  document.getElementById('progressBar').style.width = pct + '%';
-}
-
-document.querySelectorAll('input, textarea, select').forEach(el => {
-  el.addEventListener('input', updateProgress);
-  el.addEventListener('change', updateProgress);
-});
-
-// ── HELPERS ──
-function v(id) {
-  const el = document.getElementById(id);
-  return el ? el.value.trim() : '';
-}
-function formatWALine(label, val) {
-  if (!val) return '';
-  return `\n*${label}:* ${val}`;
-}
-
-// ── VALIDATE ──
-function validate() {
-  const required = [
-    { id: 'template_name', label: 'Template' },
-    { id: 'groom_name',    label: 'Nama panggilan pengantin lelaki' },
-    { id: 'bride_name',    label: 'Nama panggilan pengantin perempuan' },
-    { id: 'event_date',    label: 'Tarikh majlis' },
-    { id: 'time_start',    label: 'Masa mula' },
-    { id: 'venue_name',    label: 'Nama dewan / tempat' },
-  ];
-  let ok = true;
-  document.querySelectorAll('.err-msg').forEach(e => e.remove());
-  document.querySelectorAll('input.error, select.error, textarea.error').forEach(e => e.classList.remove('error'));
-
-  required.forEach(({ id, label }) => {
-    const el = document.getElementById(id);
-    if (el && !el.value.trim()) {
-      el.classList.add('error');
-      const msg = document.createElement('div');
-      msg.className = 'err-msg';
-      msg.textContent = `⚠️ ${label} wajib diisi`;
-      el.parentNode.appendChild(msg);
-      if (ok) { el.scrollIntoView({ behavior: 'smooth', block: 'center' }); el.focus(); }
-      ok = false;
+  let ok=true;
+  (checks[s]||[]).forEach(({id,msg})=>{
+    const el=document.getElementById(id);
+    if(!el||!el.value.trim()){
+      if(el){el.classList.add('error');const em=document.createElement('div');em.className='err-msg';em.textContent=msg;el.parentNode.appendChild(em);}
+      ok=false;
     }
   });
+  if(!ok){const e=document.querySelector('.error');if(e)e.scrollIntoView({behavior:'smooth',block:'center'});}
   return ok;
 }
 
-// ── SUBMIT ──
-async function handleSubmit() {
-  if (!validate()) return;
-
-  const isPortrait = document.body.classList.contains('mode-portrait');
-  const cat = isPortrait ? 'Portrait' : 'Essential';
-
-  let msg = `Assalamualaikum EQStudio! 🌸\n\n`;
-  msg += `✦ *MAKLUMAT KAD DIGITAL* ✦\n`;
-  msg += `━━━━━━━━━━━━━━━━━━━━\n`;
-
-  msg += `\n🎨 *TEMPLATE*`;
-  msg += formatWALine('Kategori', cat);
-  msg += formatWALine('Template', v('template_name'));
-
-  msg += `\n\n👫 *PENGANTIN*`;
-  msg += formatWALine('Lelaki (panggilan)', v('groom_name'));
-  msg += formatWALine('Lelaki (penuh)', v('groom_full'));
-  msg += formatWALine('Bapa lelaki', v('groom_father'));
-  msg += formatWALine('Ibu lelaki', v('groom_mother'));
-  msg += formatWALine('Perempuan (panggilan)', v('bride_name'));
-  msg += formatWALine('Perempuan (penuh)', v('bride_full'));
-  msg += formatWALine('Bapa perempuan', v('bride_father'));
-  msg += formatWALine('Ibu perempuan', v('bride_mother'));
-
-  msg += `\n\n🏠 *TUAN RUMAH*`;
-  const hostSideMap = { perempuan: 'Pihak Perempuan', lelaki: 'Pihak Lelaki', kedua: 'Kedua-dua Pihak' };
-  msg += formatWALine('Pihak', hostSideMap[v('host_side')] || v('host_side'));
-  msg += formatWALine('Nama keluarga', v('host_family'));
-  msg += formatWALine('Nama penuh (footer)', v('host_family_full'));
-  msg += formatWALine('Mesej BM', v('host_message_bm'));
-  msg += formatWALine('Mesej EN', v('host_message_en'));
-
-  msg += `\n\n📅 *TARIKH & MASA*`;
-  msg += formatWALine('Tarikh', v('event_date'));
-  msg += formatWALine('Tarikh Hijri', v('date_hijri'));
-  msg += formatWALine('Masa mula', v('time_start'));
-  msg += formatWALine('Masa tamat', v('time_end'));
-  msg += formatWALine('Ketibaan tetamu', v('time_arrival'));
-  msg += formatWALine('Akad Nikah', v('time_akad'));
-  msg += formatWALine('Persandingan', v('time_bersanding'));
-  msg += formatWALine('Jamuan Makan', v('time_makan'));
-  msg += formatWALine('Majlis bersurai', v('time_bersurai'));
-
-  msg += `\n\n📍 *LOKASI*`;
-  msg += formatWALine('Nama dewan', v('venue_name'));
-  msg += formatWALine('Nama penuh', v('venue_fullname'));
-  msg += formatWALine('Alamat', v('venue_address'));
-  msg += formatWALine('Bandar/Negeri', v('venue_city'));
-  msg += formatWALine('Link Waze', v('waze_link'));
-  msg += formatWALine('Link GMaps', v('gmap_link'));
-
-  msg += `\n\n📞 *CONTACT PERSON*`;
-  if (v('contact1_name') || v('contact1_phone')) {
-    msg += formatWALine('Nama 1', v('contact1_name'));
-    msg += formatWALine('No. 1', v('contact1_phone'));
-  }
-  if (v('contact2_name') || v('contact2_phone')) {
-    msg += formatWALine('Nama 2', v('contact2_name'));
-    msg += formatWALine('No. 2', v('contact2_phone'));
-  }
-
-  msg += `\n\n👗 *DRESS CODE*`;
-  msg += formatWALine('Tema (BM)', v('dresscode_theme'));
-  msg += formatWALine('Tema (EN)', v('dresscode_theme_en'));
-  msg += formatWALine('Nota', v('dresscode_note'));
-  const colors = [1,2,3,4,5].map(i => {
-    const hex = v('color'+i+'_hex');
-    const name = v('color'+i+'_name');
-    if (!name) return '';
-    return `${name} (${hex})`;
-  }).filter(Boolean);
-  if (colors.length) msg += formatWALine('Warna tema', colors.join(', '));
-
-  const musicLabel = v('music_label'), musicUrl = v('music_url');
-  if (musicLabel || musicUrl) {
-    msg += `\n\n🎵 *MUZIK LATAR*`;
-    msg += formatWALine('Lagu', musicLabel);
-    msg += formatWALine('YouTube', musicUrl);
-  }
-
-  const l1 = v('love_year_1'), l2 = v('love_year_2'), l3 = v('love_year_3');
-  if (l1 || l2 || l3) {
-    msg += `\n\n💑 *KISAH CINTA*`;
-    if (l1) msg += formatWALine(v('love_year_1'), v('love_story_1'));
-    if (l2) msg += formatWALine(v('love_year_2'), v('love_story_2'));
-    if (l3) msg += formatWALine(v('love_year_3'), v('love_story_3'));
-    msg += formatWALine('Tahun kahwin', v('love_year_4'));
-  }
-
-  // QR — note je, gambar hantar berasingan
-  const qrFile = document.getElementById('qr_file');
-  const hasQR = qrFile && qrFile.files.length > 0;
-  if (hasQR) {
-    msg += `\n\n💸 *QR SALAM KAUT*`;
-    msg += `\n_(Gambar QR disertakan berasingan dalam WA ini)_`;
-  }
-
-  // Portrait — note
-  if (isPortrait) {
-    const p1 = document.getElementById('photo1_file');
-    const p2 = document.getElementById('photo2_file');
-    msg += `\n\n📸 *GAMBAR (PORTRAIT)*`;
-    if (p1 && p1.files.length > 0) msg += `\n✅ Hero: ${p1.files[0].name}`;
-    if (p2 && p2.files.length > 0) msg += `\n✅ Cinematic: ${p2.files[0].name}`;
-    msg += `\n_(Sila hantar gambar-gambar di atas dalam WA ini)_`;
-  }
-
-  msg += `\n\n━━━━━━━━━━━━━━━━━━━━`;
-  // Price & coupon summary
-  const base = getBasePrice();
-  const discount = appliedCoupon ? appliedCoupon.discount : 0;
-  const finalPrice = base - discount;
-  msg += `\n\n💰 *BAYARAN*`;
-  msg += `\n• Pakej: ${cat.charAt(0).toUpperCase()+cat.slice(1)} — RM${base}`;
-  if (appliedCoupon) {
-    const couponCode = document.getElementById('coupon-input').value.trim().toUpperCase();
-    msg += `\n• Kod kupon: ${couponCode} (via ${appliedCoupon.owner}) — RM${discount} off`;
-    msg += `\n• *Jumlah: RM${finalPrice}*`;
-  } else {
-    msg += `\n• *Jumlah: RM${finalPrice}*`;
-  }
-  msg += `\n\nTerima kasih EQStudio! 🙏`;
-
-  const waUrl = 'https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(msg);
-  window.open(waUrl, '_blank');
-
-  document.querySelector('.submit-wrap').style.display = 'none';
-  const s = document.getElementById('success');
-  s.style.display = 'block';
-  s.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  document.getElementById('progressBar').style.width = '100%';
+function clearErrors(){
+  document.querySelectorAll('.error').forEach(e=>e.classList.remove('error'));
+  document.querySelectorAll('.err-msg').forEach(e=>e.remove());
 }
 
-// ── SOCIAL PROOF ──
-const NAMES = [
-  'Aisyah','Nurul','Farah','Liyana','Hanim','Syafiqah','Nadia','Amirah',
-  'Hafizah','Suraya','Hidayah','Zulaikha','Siti','Farhana','Intan',
-  'Aiman','Haziq','Izzat','Hafiz','Azri','Danish','Ridhwan','Syafiq','Faris'
-];
-const TEMPLATES_DISPLAY = [
-  'Ivory Teracotta','Burgundy Velvet','Butter Yellow Ivory',
-  'Emerald Imperial Gold','Blush Rose Gold','Dusty Blue',
-  'Gold Luxury','Midnight Navy','Sage Green Cream','Peach Apricot'
-];
-const ACTIONS = [
-  n => `<em>${n}</em> baru mula isi borang`,
-  n => `<em>${n}</em> sedang pilih template`,
-  n => `<em>${n}</em> baru submit maklumat`,
-  n => `<em>${n}</em> tengah isi tarikh majlis`,
-  n => `<em>${n}</em> pilih <em>${TEMPLATES_DISPLAY[Math.floor(Math.random()*TEMPLATES_DISPLAY.length)]}</em>`,
-];
-const COLORS = ['#c9a44a','#0d8264','#e2a0a0','#a0c0e2','#b8a0e2','#e2c0a0'];
-
-function randName() { return NAMES[Math.floor(Math.random()*NAMES.length)]; }
-function randInt(a,b) { return a + Math.floor(Math.random()*(b-a+1)); }
-
-// Live count jitter
-let liveN = randInt(5,11);
-function jitterCount() {
-  liveN = Math.max(3, Math.min(15, liveN + (Math.random() > 0.5 ? 1 : -1)));
-  const el = document.getElementById('live-count');
-  if (el) el.textContent = liveN;
-  setTimeout(jitterCount, randInt(6000, 14000));
-}
-jitterCount();
-
-// Last submit time jitter
-let lastMin = randInt(1,5);
-function jitterLast() {
-  lastMin = Math.max(1, lastMin + (Math.random() > 0.6 ? 1 : -1));
-  const el = document.getElementById('last-submit');
-  if (el) el.textContent = lastMin + ' minit lalu';
-  setTimeout(jitterLast, randInt(30000, 90000));
-}
-jitterLast();
-
-// Toast notifications
-function showToast(html, color) {
-  const wrap = document.getElementById('toastWrap');
-  const toast = document.createElement('div');
-  toast.className = 'toast';
-  const initial = randName()[0].toUpperCase();
-  toast.innerHTML = `<div class="toast-avatar" style="background:${color}">${initial}</div>${html}`;
-  wrap.appendChild(toast);
-  requestAnimationFrame(() => { requestAnimationFrame(() => toast.classList.add('show')); });
-  setTimeout(() => {
-    toast.classList.remove('show');
-    setTimeout(() => toast.remove(), 500);
-  }, 4000);
+function setCategory(cat){
+  currentCat=cat;
+  document.body.className='mode-'+cat;
+  document.getElementById('btn-essential').classList.toggle('active',cat==='essential');
+  document.getElementById('btn-portrait').classList.toggle('active',cat==='portrait');
+  updatePriceDisplay();
 }
 
-function fireToast() {
-  const name = randName();
-  const action = ACTIONS[Math.floor(Math.random()*ACTIONS.length)];
-  const color = COLORS[Math.floor(Math.random()*COLORS.length)];
-  showToast(action(name), color);
-  setTimeout(fireToast, randInt(8000, 22000));
+function toggleOptional(id){
+  document.getElementById('tog-'+id).classList.toggle('open');
+  document.getElementById('opt-'+id).classList.toggle('open');
 }
-setTimeout(fireToast, randInt(3000, 7000));
 
-// Init — baca URL params dulu, then load registry
-const _params = new URLSearchParams(window.location.search);
-const _pCat = (_params.get('cat') || 'essential').toLowerCase();
+async function loadRegistry(){
+  try{const r=await fetch(REGISTRY_URL+'?v='+Date.now());if(!r.ok)throw new Error();_registry=await r.json();}catch(e){_registry=null;}
+  populateTemplateDropdown();
+}
 
-setCategory(_pCat === 'portrait' ? 'portrait' : 'essential');
+function populateTemplateDropdown(){
+  const sel=document.getElementById('template_name');
+  const pt=new URLSearchParams(window.location.search).get('template')||'';
+  if(!_registry){sel.innerHTML='<option value="">— Gagal load. Refresh atau WA kami. —</option>';return;}
+  sel.innerHTML='<option value="">— Pilih template anda —</option>';
+  ['Essential','Portrait','Light','Cinematic','Prestige','Potrait'].forEach(pkg=>{
+    const d=_registry[pkg];
+    if(!d||typeof d!=='object'||Array.isArray(d))return;
+    const entries=Object.values(d).filter(i=>i&&i.name);
+    if(!entries.length)return;
+    const g=document.createElement('optgroup');g.label=PKG_LABEL[pkg]||pkg;
+    entries.forEach(info=>{
+      const o=document.createElement('option');o.value=info.name;
+      o.textContent=(info.preview_emoji?info.preview_emoji+' ':'')+info.name;
+      if(info.file)o.dataset.file=info.file;
+      if(info.has_portrait_photo)o.dataset.portrait='1';
+      g.appendChild(o);
+    });
+    sel.appendChild(g);
+  });
+  if(pt){for(let i=0;i<sel.options.length;i++){if(sel.options[i].value.toLowerCase()===pt.toLowerCase()){sel.selectedIndex=i;break;}}}
+  onTemplateChange();
+}
+
+function onTemplateChange(){
+  const sel=document.getElementById('template_name');
+  const opt=sel.options[sel.selectedIndex];
+  const w=document.getElementById('template-demo-wrap');
+  const l=document.getElementById('template-demo-link');
+  if(opt&&opt.dataset.file){l.href=PAGES_BASE+'/demo.html?t='+opt.dataset.file;w.style.display='block';}
+  else w.style.display='none';
+}
+
+function autoHijri(){
+  const d=document.getElementById('event_date').value;
+  if(!d)return;
+  try{
+    const hijri=new Intl.DateTimeFormat('ms-MY-u-ca-islamic',{day:'numeric',month:'long',year:'numeric'}).format(new Date(d));
+    document.getElementById('date_hijri').value=hijri;
+    const n=document.getElementById('hijri-auto');n.style.display='block';
+    setTimeout(()=>n.style.display='none',3000);
+  }catch(e){}
+}
+
+function autoGenMaps(){
+  const addr=(document.getElementById('venue_address').value+' '+document.getElementById('venue_city').value).trim();
+  if(!addr||addr.length<5)return;
+  const enc=encodeURIComponent(addr);
+  const we=document.getElementById('waze_link'),ge=document.getElementById('gmap_link');
+  if(!we.value)we.value='https://waze.com/ul?q='+enc;
+  if(!ge.value)ge.value='https://maps.google.com/?q='+enc;
+  const h=document.getElementById('maps-hint');h.style.display='block';
+}
+
+async function loadPromos(){
+  try{
+    const r=await fetch(PROMO_URL+'?v='+Date.now());if(!r.ok)throw new Error();
+    const data=await r.json();const today=new Date().toISOString().split('T')[0];
+    COUPONS={};
+    for(const[code,info]of Object.entries(data)){
+      if(!info.active)continue;if(info.expiry&&info.expiry<today)continue;
+      COUPONS[code]={discount:info.discount,owner:info.desc||''};
+    }
+  }catch(e){COUPONS={};}
+}
+
+function getBasePrice(){return BASE_PRICE[currentCat]||39;}
+
+function updatePriceDisplay(){
+  const base=getBasePrice(),disc=appliedCoupon?appliedCoupon.discount:0;
+  const po=document.getElementById('price-original'),pd=document.getElementById('price-display');
+  if(disc>0){po.textContent='RM'+base;po.style.display='inline';pd.textContent='RM'+(base-disc);}
+  else{po.style.display='none';pd.textContent='RM'+base;}
+}
+
+function applyCoupon(){
+  const code=document.getElementById('coupon-input').value.trim().toUpperCase();
+  const fb=document.getElementById('coupon-feedback');
+  if(!code){fb.textContent='Sila masukkan kod promo.';fb.className='coupon-feedback invalid';return;}
+  if(COUPONS[code]){appliedCoupon=COUPONS[code];fb.textContent='✓ Kod digunakan! Diskaun RM'+appliedCoupon.discount+' dikenakan.';fb.className='coupon-feedback valid';updatePriceDisplay();}
+  else{appliedCoupon=null;fb.textContent='✗ Kod tidak sah. Sila semak semula.';fb.className='coupon-feedback invalid';updatePriceDisplay();}
+}
+
+function handleFile(inputId,labelId,previewId,hiddenId){
+  const file=document.getElementById(inputId).files[0];if(!file)return;
+  const label=document.getElementById(labelId);
+  label.classList.add('has-file');
+  label.querySelector('.file-upload-text').textContent=file.name;
+  label.querySelector('.file-upload-sub').textContent=(file.size/1024).toFixed(0)+' KB';
+  const reader=new FileReader();
+  reader.onload=e=>{if(hiddenId)document.getElementById(hiddenId).value=e.target.result;const p=document.getElementById(previewId);if(p){p.src=e.target.result;p.classList.add('show');}};
+  reader.readAsDataURL(file);
+}
+
+function v(id){const el=document.getElementById(id);return el?el.value.trim():'';}
+function line(label,val){return val?'\n*'+label+':* '+val:'';}
+
+function handleSubmit(){
+  clearErrors();
+  const req=[{id:'template_name'},{id:'groom_name'},{id:'bride_name'},{id:'event_date'},{id:'time_start'},{id:'venue_name'}];
+  let ok=true;req.forEach(({id})=>{if(!v(id))ok=false;});
+  if(!ok){alert('Sila pastikan semua maklumat wajib (*) telah diisi.');return;}
+  const cat=currentCat,isPortrait=cat==='portrait',base=getBasePrice(),disc=appliedCoupon?appliedCoupon.discount:0,final=base-disc;
+  let msg='💍 *TEMPAHAN KAD DIGITAL — EQSTUDIO*\n';
+  msg+='\n🎨 *TEMPLATE*';msg+=line('Template',v('template_name'));msg+=line('Pakej',cat.charAt(0).toUpperCase()+cat.slice(1));
+  msg+='\n\n👫 *PENGANTIN*';msg+=line('Lelaki (panggilan)',v('groom_name'));msg+=line('Lelaki (penuh)',v('groom_full'));msg+=line('Bapa lelaki',v('groom_father'));msg+=line('Ibu lelaki',v('groom_mother'));msg+=line('Perempuan (panggilan)',v('bride_name'));msg+=line('Perempuan (penuh)',v('bride_full'));msg+=line('Bapa perempuan',v('bride_father'));msg+=line('Ibu perempuan',v('bride_mother'));
+  msg+='\n\n🏠 *TUAN RUMAH*';const hm={perempuan:'Pihak Perempuan',lelaki:'Pihak Lelaki',kedua:'Kedua-dua Pihak'};msg+=line('Pihak',hm[v('host_side')]||v('host_side'));msg+=line('Nama keluarga',v('host_family'));msg+=line('Nama penuh (footer)',v('host_family_full'));msg+=line('Mesej BM',v('host_message_bm'));msg+=line('Mesej EN',v('host_message_en'));
+  msg+='\n\n📅 *TARIKH & MASA*';msg+=line('Tarikh',v('event_date'));msg+=line('Tarikh Hijri',v('date_hijri'));msg+=line('Masa mula',v('time_start'));msg+=line('Masa tamat',v('time_end'));msg+=line('Ketibaan tetamu',v('time_arrival'));msg+=line('Akad Nikah',v('time_akad'));msg+=line('Persandingan',v('time_bersanding'));msg+=line('Jamuan Makan',v('time_makan'));msg+=line('Majlis bersurai',v('time_bersurai'));
+  msg+='\n\n📍 *LOKASI*';msg+=line('Nama dewan',v('venue_name'));msg+=line('Nama penuh',v('venue_fullname'));msg+=line('Alamat',v('venue_address'));msg+=line('Bandar/Negeri',v('venue_city'));msg+=line('Link Waze',v('waze_link'));msg+=line('Link GMaps',v('gmap_link'));
+  msg+='\n\n📞 *CONTACT PERSON*';if(v('contact1_name')||v('contact1_phone')){msg+=line('Nama 1',v('contact1_name'));msg+=line('No. 1',v('contact1_phone'));}if(v('contact2_name')||v('contact2_phone')){msg+=line('Nama 2',v('contact2_name'));msg+=line('No. 2',v('contact2_phone'));}
+  msg+='\n\n👗 *DRESS CODE*';msg+=line('Tema (BM)',v('dresscode_theme'));msg+=line('Tema (EN)',v('dresscode_theme_en'));msg+=line('Nota',v('dresscode_note'));
+  const colors=[1,2,3,4,5].map(i=>{const n=v('color'+i+'_name');return n?n+' ('+v('color'+i+'_hex')+')':''}).filter(Boolean);
+  if(colors.length)msg+=line('Warna tema',colors.join(', '));
+  if(v('music_label')||v('music_url')){msg+='\n\n🎵 *MUZIK*';msg+=line('Lagu',v('music_label'));msg+=line('YouTube',v('music_url'));}
+  const l1=v('love_year_1'),l2=v('love_year_2'),l3=v('love_year_3');
+  if(l1||l2||l3){msg+='\n\n💑 *KISAH CINTA*';if(l1)msg+='\n*'+v('love_year_1')+':* '+v('love_story_1');if(l2)msg+='\n*'+v('love_year_2')+':* '+v('love_story_2');if(l3)msg+='\n*'+v('love_year_3')+':* '+v('love_story_3');msg+=line('Tahun kahwin',v('love_year_4'));}
+  const qr=document.getElementById('qr_file');if(qr&&qr.files.length)msg+='\n\n💸 *QR SALAM KAUT*\n_(Gambar QR disertakan berasingan)_';
+  if(isPortrait){const p1=document.getElementById('photo1_file'),p2=document.getElementById('photo2_file');msg+='\n\n📸 *GAMBAR (PORTRAIT)*';if(p1&&p1.files.length)msg+='\n✅ Hero: '+p1.files[0].name;if(p2&&p2.files.length)msg+='\n✅ Cinematic: '+p2.files[0].name;msg+='\n_(Sila hantar gambar dalam WA ini)_';}
+  msg+='\n\n━━━━━━━━━━━━━━━━━━━━\n💰 *BAYARAN*';msg+='\n• Pakej: '+cat.charAt(0).toUpperCase()+cat.slice(1)+' — RM'+base;
+  if(appliedCoupon){msg+='\n• Promo: '+document.getElementById('coupon-input').value.trim().toUpperCase()+' ('+appliedCoupon.owner+') — RM'+disc+' off';msg+='\n• *Jumlah: RM'+final+'*';}else msg+='\n• *Jumlah: RM'+final+'*';
+  msg+='\n\nTerima kasih EQStudio! 🙏';
+  window.open('https://wa.me/'+WA_NUMBER+'?text='+encodeURIComponent(msg),'_blank');
+  document.querySelector('.step-panel.active').style.display='none';
+  const s=document.getElementById('success');s.style.display='block';s.scrollIntoView({behavior:'smooth',block:'center'});
+  document.getElementById('progressBar').style.width='100%';
+}
+
+const _p=new URLSearchParams(window.location.search);
+const _pc=(_p.get('cat')||'essential').toLowerCase();
+setCategory(_pc==='portrait'?'portrait':'essential');
+updateStepper(1);
 loadRegistry();
 loadPromos();
 </script>
-<!-- WA Float -->
-<div class="wa-float-tip">Ada soalan? Tanya kami!</div>
-<a href="https://wa.me/601154151433?text=Assalamualaikum%20EQstudio!%20Saya%20ada%20soalan%20mengenai%20borang%20maklumat%20kad%20digital." class="wa-float" target="_blank" aria-label="WhatsApp EQstudio">
-  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-</a>
-
 </body>
 </html>
