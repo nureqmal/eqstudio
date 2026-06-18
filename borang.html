@@ -163,8 +163,8 @@ input.error,textarea.error,select.error{border-color:rgba(220,80,60,.6);box-shad
 <!-- STEP 1 -->
 <div class="step-panel active" id="step-1">
   <div class="cat-toggle">
-    <div class="cat-btn active" id="btn-essential" onclick="setCategory('essential')"><span class="cat-btn-emoji">⭐</span><div class="cat-btn-name">Essential</div><div class="cat-btn-desc">Kad elegan tanpa gambar. Fokus tipografi & warna.</div><span class="cat-btn-badge badge-essential">dari RM39</span></div>
-    <div class="cat-btn" id="btn-portrait" onclick="setCategory('portrait')"><span class="cat-btn-emoji">📸</span><div class="cat-btn-name">Portrait</div><div class="cat-btn-desc">Kad dengan 2 slot gambar — hero + cinematic.</div><span class="cat-btn-badge badge-portrait">dari RM59</span></div>
+    <div class="cat-btn active" id="btn-essential" onclick="setCategory('essential')"><span class="cat-btn-emoji">⭐</span><div class="cat-btn-name">Essential</div><div class="cat-btn-desc">Kad elegan tanpa gambar. Fokus tipografi & warna.</div><span class="cat-btn-badge badge-essential">dari RM77</span></div>
+    <div class="cat-btn" id="btn-portrait" onclick="setCategory('portrait')"><span class="cat-btn-emoji">📸</span><div class="cat-btn-name">Portrait</div><div class="cat-btn-desc">Kad dengan 2 slot gambar — hero + cinematic.</div><span class="cat-btn-badge badge-portrait">dari RM89</span></div>
   </div>
   <div class="card">
     <div class="card-head"><div class="card-icon">✦</div><div><div class="card-title">Pilih Template</div><div class="card-sub">Koleksi terkini dari registry kami</div></div></div>
@@ -339,7 +339,7 @@ input.error,textarea.error,select.error{border-color:rgba(220,80,60,.6);box-shad
     <p class="coupon-label">✦ Kod Promosi</p>
     <div class="coupon-row"><input type="text" class="coupon-input" id="coupon-input" placeholder="Masukkan kod promo" maxlength="20"><button class="coupon-btn" onclick="applyCoupon()">Guna</button></div>
     <div class="coupon-feedback" id="coupon-feedback"></div>
-    <div class="price-summary"><span class="price-summary-label">Jumlah Bayaran</span><span><span class="price-original" id="price-original" style="display:none"></span><span class="price-summary-amount" id="price-display">RM39</span></span></div>
+    <div class="price-summary"><span class="price-summary-label">Jumlah Bayaran</span><span><span class="price-original" id="price-original" style="display:none"></span><span class="price-summary-amount" id="price-display">RM77</span></span></div>
   </div>
   <div class="step-nav">
     <button class="btn-back" onclick="goBack(5)">← Balik</button>
@@ -359,7 +359,7 @@ const REGISTRY_URL='https://raw.githubusercontent.com/nureqmal/eqstudio-cards/ma
 const PROMO_URL='https://raw.githubusercontent.com/nureqmal/eqstudio-cards/main/promo_codes.json';
 const PAGES_BASE='https://nureqmal.github.io/eqstudio-cards';
 const PKG_LABEL={Essential:'⭐ Essential',Portrait:'📸 Portrait',Light:'☀️ Light',Cinematic:'🎬 Cinematic',Prestige:'👑 Prestige',Potrait:'📸 Portrait'};
-const BASE_PRICE={essential:39,portrait:59};
+const BASE_PRICE={essential:77,portrait:89};
 let currentCat='essential',appliedCoupon=null,COUPONS={},_registry=null;
 const TOTAL=5;
 
@@ -499,7 +499,7 @@ async function loadPromos(){
   }catch(e){COUPONS={};}
 }
 
-function getBasePrice(){return BASE_PRICE[currentCat]||39;}
+function getBasePrice(){return BASE_PRICE[currentCat]||77;}
 
 function updatePriceDisplay(){
   const base=getBasePrice(),disc=appliedCoupon?appliedCoupon.discount:0;
