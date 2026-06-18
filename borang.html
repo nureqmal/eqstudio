@@ -189,7 +189,6 @@ input.error,textarea.error,select.error{border-color:rgba(220,80,60,.6);box-shad
     <div class="card-body">
       <div class="grid-2">
         <div class="field"><label>Nama Panggilan <span class="req">*</span></label><input type="text" id="groom_name" placeholder="Ahmad" required></div>
-        <div class="field"><label>Nama Penuh</label><input type="text" id="groom_full" placeholder="Ahmad bin Abdullah"></div>
         <div class="field"><label>Nama Bapa</label><input type="text" id="groom_father" placeholder="Abdullah bin Salleh"></div>
         <div class="field"><label>Nama Ibu</label><input type="text" id="groom_mother" placeholder="Siti binti Ahmad"></div>
       </div>
@@ -200,7 +199,6 @@ input.error,textarea.error,select.error{border-color:rgba(220,80,60,.6);box-shad
     <div class="card-body">
       <div class="grid-2">
         <div class="field"><label>Nama Panggilan <span class="req">*</span></label><input type="text" id="bride_name" placeholder="Sarah" required></div>
-        <div class="field"><label>Nama Penuh</label><input type="text" id="bride_full" placeholder="Sarah binti Ibrahim"></div>
         <div class="field"><label>Nama Bapa</label><input type="text" id="bride_father" placeholder="Ibrahim bin Hassan"></div>
         <div class="field"><label>Nama Ibu</label><input type="text" id="bride_mother" placeholder="Aminah binti Yusof"></div>
       </div>
@@ -347,7 +345,7 @@ input.error,textarea.error,select.error{border-color:rgba(220,80,60,.6);box-shad
   </div>
 </div>
 
-<div id="success"><span class="s-icon">💍</span><h2>Terima kasih!</h2><p>Maklumat anda telah dihantar ke EQStudio via WhatsApp.<br>Kami akan reply dalam masa <strong style="color:var(--gold)">2 jam</strong>. ✦</p></div>
+<div id="success"><span class="s-icon">💍</span><h2>Terima kasih!</h2><p>Maklumat anda telah dihantar ke EQStudio via WhatsApp.<br>Kami akan reply dalam masa <strong style="color:var(--gold)">2 jam</strong>. ✦</p><div style="display:flex;gap:12px;justify-content:center;margin-top:28px;flex-wrap:wrap;"><button onclick="editForm()" style="padding:13px 24px;background:transparent;border:1px solid rgba(201,164,74,0.35);border-radius:2px;color:var(--gold2);font-family:var(--ff-ui);font-size:11px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;transition:all .2s;" onmouseover="this.style.background='rgba(201,164,74,0.08)'" onmouseout="this.style.background='transparent'">✎ Edit Maklumat</button><button onclick="resendWA()" style="display:inline-flex;align-items:center;gap:8px;padding:13px 24px;background:var(--gold-g);color:#060b0a;font-family:var(--ff-ui);font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;border:none;border-radius:2px;cursor:pointer;transition:transform .2s,box-shadow .2s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg>Hantar Semula</button></div></div>
 <div class="footer"><p>✦ <span>EQStudio</span> · Kad Digital Perkahwinan ✦</p></div>
 </div>
 
@@ -538,7 +536,7 @@ function handleSubmit(){
   const cat=currentCat,isPortrait=cat==='portrait',base=getBasePrice(),disc=appliedCoupon?appliedCoupon.discount:0,final=base-disc;
   let msg='💍 *TEMPAHAN KAD DIGITAL — EQSTUDIO*\n';
   msg+='\n🎨 *TEMPLATE*';msg+=line('Template',v('template_name'));msg+=line('Pakej',cat.charAt(0).toUpperCase()+cat.slice(1));
-  msg+='\n\n👫 *PENGANTIN*';msg+=line('Lelaki (panggilan)',v('groom_name'));msg+=line('Lelaki (penuh)',v('groom_full'));msg+=line('Bapa lelaki',v('groom_father'));msg+=line('Ibu lelaki',v('groom_mother'));msg+=line('Perempuan (panggilan)',v('bride_name'));msg+=line('Perempuan (penuh)',v('bride_full'));msg+=line('Bapa perempuan',v('bride_father'));msg+=line('Ibu perempuan',v('bride_mother'));
+  msg+='\n\n👫 *PENGANTIN*';msg+=line('Lelaki (panggilan)',v('groom_name'));msg+=line('Bapa lelaki',v('groom_father'));msg+=line('Ibu lelaki',v('groom_mother'));msg+=line('Perempuan (panggilan)',v('bride_name'));msg+=line('Bapa perempuan',v('bride_father'));msg+=line('Ibu perempuan',v('bride_mother'));
   msg+='\n\n🏠 *TUAN RUMAH*';const hm={perempuan:'Pihak Perempuan',lelaki:'Pihak Lelaki',kedua:'Kedua-dua Pihak'};msg+=line('Pihak',hm[v('host_side')]||v('host_side'));msg+=line('Nama keluarga',v('host_family'));msg+=line('Nama penuh (footer)',v('host_family_full'));msg+=line('Mesej BM',v('host_message_bm'));msg+=line('Mesej EN',v('host_message_en'));
   msg+='\n\n📅 *TARIKH & MASA*';msg+=line('Tarikh',v('event_date'));msg+=line('Tarikh Hijri',v('date_hijri'));msg+=line('Masa mula',v('time_start'));msg+=line('Masa tamat',v('time_end'));msg+=line('Ketibaan tetamu',v('time_arrival'));msg+=line('Akad Nikah',v('time_akad'));msg+=line('Persandingan',v('time_bersanding'));msg+=line('Jamuan Makan',v('time_makan'));msg+=line('Majlis bersurai',v('time_bersurai'));
   msg+='\n\n📍 *LOKASI*';msg+=line('Nama dewan',v('venue_name'));msg+=line('Nama penuh',v('venue_fullname'));msg+=line('Alamat',v('venue_address'));msg+=line('Bandar/Negeri',v('venue_city'));msg+=line('Link Waze',v('waze_link'));msg+=line('Link GMaps',v('gmap_link'));
@@ -554,10 +552,23 @@ function handleSubmit(){
   msg+='\n\n━━━━━━━━━━━━━━━━━━━━\n💰 *BAYARAN*';msg+='\n• Pakej: '+cat.charAt(0).toUpperCase()+cat.slice(1)+' — RM'+base;
   if(appliedCoupon){msg+='\n• Promo: '+document.getElementById('coupon-input').value.trim().toUpperCase()+' ('+appliedCoupon.owner+') — RM'+disc+' off';msg+='\n• *Jumlah: RM'+final+'*';}else msg+='\n• *Jumlah: RM'+final+'*';
   msg+='\n\nTerima kasih EQStudio! 🙏';
-  window.open('https://wa.me/'+WA_NUMBER+'?text='+encodeURIComponent(msg),'_blank');
+  const waUrl='https://wa.me/'+WA_NUMBER+'?text='+encodeURIComponent(msg);
+  window._lastWaUrl=waUrl;
+  window.open(waUrl,'_blank');
   document.querySelector('.step-panel.active').style.display='none';
   const s=document.getElementById('success');s.style.display='block';s.scrollIntoView({behavior:'smooth',block:'center'});
   document.getElementById('progressBar').style.width='100%';
+}
+
+function editForm(){
+  document.getElementById('success').style.display='none';
+  document.getElementById('step-5').classList.add('active');
+  updateStepper(5);
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function resendWA(){
+  if(window._lastWaUrl)window.open(window._lastWaUrl,'_blank');
 }
 
 const _p=new URLSearchParams(window.location.search);
