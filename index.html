@@ -275,6 +275,36 @@ section { padding: 100px 40px; }
 /* ── TEMPLATE SECTION ── */
 .template-section { background: var(--cream); }
 .filter-row { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin:40px 0 28px; }
+
+/* ── GALLERY DEMO VIDEO ── */
+.demo-showcase {
+  display: flex; align-items: center; gap: 48px;
+  background: var(--white); border: 1px solid var(--rose);
+  border-radius: 14px; padding: 36px 40px; margin-top: 36px;
+}
+.demo-video-wrap {
+  flex-shrink: 0; width: 220px; aspect-ratio: 9/16;
+  border-radius: 18px; overflow: hidden; position: relative;
+  box-shadow: 0 16px 40px rgba(44,44,42,0.18);
+  border: 6px solid var(--ink);
+}
+.demo-video-wrap video {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+}
+.demo-text-eyebrow {
+  font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--rose-drk); margin-bottom: 10px;
+}
+.demo-text-title {
+  font-family: var(--ff-display); font-size: 22px; font-weight: 500;
+  color: var(--ink); line-height: 1.35; margin-bottom: 10px;
+}
+.demo-text-title em { font-style: italic; color: var(--rose-drk); }
+.demo-text-desc { font-size: 14px; color: var(--ink2); line-height: 1.65; max-width: 380px; }
+@media (max-width: 720px) {
+  .demo-showcase { flex-direction: column; text-align: center; padding: 28px 24px; }
+  .demo-text-desc { max-width: 100%; }
+}
 .f-btn {
   padding:8px 20px; background:transparent;
   border:1px solid var(--rose); border-radius:20px;
@@ -511,6 +541,69 @@ section { padding: 100px 40px; }
 .kenapa-point-title { font-size: 15px; font-weight: 500; color: var(--ink); margin-bottom: 6px; }
 .kenapa-point-desc { font-size: 14px; font-weight: 300; color: var(--ink2); line-height: 1.65; }
 
+/* ── SELEPAS MAJLIS (Time Capsule) ── */
+.capsule-section {
+  background: linear-gradient(180deg, var(--cream) 0%, #F0E6E0 50%, var(--cream) 100%);
+  position: relative; overflow: hidden;
+}
+.capsule-section::before {
+  content: '';
+  position: absolute; top: 10%; right: -5%; width: 380px; height: 380px;
+  background: radial-gradient(circle, rgba(201,169,158,0.18) 0%, transparent 70%);
+  border-radius: 50%; pointer-events: none;
+}
+.capsule-timeline {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  gap: 24px; margin-top: 64px; position: relative;
+}
+.capsule-timeline::before {
+  content: '';
+  position: absolute; top: 28px; left: 6%; right: 6%; height: 1px;
+  background: repeating-linear-gradient(90deg, var(--rose-mid) 0, var(--rose-mid) 6px, transparent 6px, transparent 12px);
+}
+.capsule-point {
+  flex: 1; text-align: center; position: relative; z-index: 1;
+}
+.capsule-icon {
+  width: 56px; height: 56px; border-radius: 50%;
+  background: var(--white); border: 1px solid var(--rose);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; margin: 0 auto 20px;
+  box-shadow: 0 6px 20px rgba(160,112,104,0.12);
+  transition: transform .3s ease;
+}
+.capsule-point.is-future .capsule-icon {
+  background: var(--ink); border-color: var(--ink);
+  box-shadow: 0 8px 24px rgba(44,44,42,0.25);
+}
+.capsule-tag {
+  font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--rose-drk); margin-bottom: 8px;
+}
+.capsule-title {
+  font-family: var(--ff-display); font-size: 19px; font-weight: 500;
+  color: var(--ink); margin-bottom: 8px; line-height: 1.3;
+}
+.capsule-desc {
+  font-size: 13px; color: var(--ink2); line-height: 1.6; max-width: 220px; margin: 0 auto;
+}
+.capsule-payoff {
+  margin-top: 64px; text-align: center; max-width: 620px; margin-left: auto; margin-right: auto;
+}
+.capsule-payoff-quote {
+  font-family: var(--ff-display); font-style: italic; font-size: 22px;
+  color: var(--ink); line-height: 1.5; margin-bottom: 16px;
+}
+.capsule-payoff-tag {
+  font-size: 12px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--rose-drk);
+}
+@media (max-width: 760px) {
+  .capsule-timeline { flex-direction: column; gap: 40px; }
+  .capsule-timeline::before { display: none; }
+  .capsule-desc { max-width: 100%; }
+}
+
 /* ── TESTIMONI PLACEHOLDER ── */
 .testi-section { background: var(--cream2); }
 .testi-coming {
@@ -728,6 +821,29 @@ footer {
   margin: 48px 0; opacity: 0.6;
 }
 
+/* ── MINI FEATURES ROW ── */
+.mini-features-row {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+  margin-top: 64px; padding-top: 48px; border-top: 1px solid var(--rose);
+}
+.mini-feature {
+  display: flex; align-items: flex-start; gap: 14px;
+}
+.mini-feature-icon {
+  width: 38px; height: 38px; border-radius: 10px; flex-shrink: 0;
+  background: var(--cream2); border: 1px solid var(--rose);
+  display: flex; align-items: center; justify-content: center; font-size: 16px;
+}
+.mini-feature-title {
+  font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px;
+}
+.mini-feature-desc {
+  font-size: 12.5px; color: var(--ink2); line-height: 1.55;
+}
+@media (max-width: 760px) {
+  .mini-features-row { grid-template-columns: 1fr; gap: 28px; margin-top: 48px; padding-top: 36px; }
+}
+
 @media (max-width: 860px) {
   .live-features-grid { grid-template-columns: 1fr; gap: 48px; }
   .lf-visuals { order: -1; }
@@ -758,7 +874,7 @@ footer {
   <div class="hero">
     <div class="hero-text">
       <div class="hero-eyebrow">Kad kahwin digital yang actually cantik</div>
-      <h1>Kad kahwin digital.<br><em>Siap esok.</em><br>Kongsi terus ke semua orang.</h1>
+      <h1>Kerana ada hari<br><em>yang terlalu indah</em><br>untuk dilupakan.</h1>
       <p class="hero-sub">Anda isi borang, kami siapkan dalam 48 jam. Dapat satu link — terus blast ke semua tetamu. No app, no fuss.</p>
       <div class="hero-actions">
         <a href="borang.html" class="btn-primary">Tempah Sekarang · dari RM77</a>
@@ -871,6 +987,30 @@ footer {
         <div class="lf-caption">Tangkapan skrin sebenar dari kad EQstudio</div>
       </div>
     </div>
+
+    <div class="mini-features-row fade-in">
+      <div class="mini-feature">
+        <div class="mini-feature-icon">☁️</div>
+        <div>
+          <div class="mini-feature-title">Ramalan cuaca real-time</div>
+          <div class="mini-feature-desc">Tetamu nampak cuaca hari majlis terus dalam kad — boleh plan awal nak bawa payung atau tak.</div>
+        </div>
+      </div>
+      <div class="mini-feature">
+        <div class="mini-feature-icon">🌐</div>
+        <div>
+          <div class="mini-feature-title">Multilingual — BM, EN, Arab</div>
+          <div class="mini-feature-desc">Ada tetamu dari luar negara atau tak fasih BM? Kad anda boleh tukar bahasa sekelip mata.</div>
+        </div>
+      </div>
+      <div class="mini-feature">
+        <div class="mini-feature-icon">🎮</div>
+        <div>
+          <div class="mini-feature-title">Mini game & salam kaut</div>
+          <div class="mini-feature-desc">Tetamu boleh main sambil tunggu majlis, dan terus salam kaut digital tanpa cash kosong.</div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -882,6 +1022,20 @@ footer {
       <h2 class="section-heading">Ada yang memang <em>created for you.</em></h2>
       <p class="section-sub">Bukan sekadar cantik — setiap template works perfectly kat semua phone. Cuba live demo dulu.</p>
     </div>
+
+    <div class="demo-showcase fade-in">
+      <div class="demo-video-wrap">
+        <video autoplay loop muted playsinline>
+          <source src="gallery_demo.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div>
+        <div class="demo-text-eyebrow">Galeri Foto Dalam Kad</div>
+        <h3 class="demo-text-title">Leret untuk lihat <em>10 gambar kenangan</em><br>terus dalam kad anda.</h3>
+        <p class="demo-text-desc">Bukan sekadar satu gambar statik — tetamu boleh leret carousel untuk lihat sehingga 10 gambar pre-wedding atau momen istimewa anda, terus dalam kad. Tap mana-mana gambar untuk lihat lebih dekat.</p>
+      </div>
+    </div>
+
     <div class="filter-row fade-in" id="styleFilterRow">
       <button class="f-btn on" onclick="selectStyle('all',this)">Semua</button>
     </div>
@@ -1037,6 +1191,43 @@ footer {
   </div>
 </section>
 
+<!-- SELEPAS MAJLIS (TIME CAPSULE) -->
+<section class="capsule-section" id="selepas-majlis">
+  <div class="container">
+    <div class="fade-in">
+      <div class="section-label">Bukan sekadar jemputan</div>
+      <h2 class="section-heading">Kad kahwin biasa <em>mati</em><br>lepas majlis. Kad kami baru <em>bermula.</em></h2>
+      <p class="section-sub">Lepas majlis habis, kebanyakan kad digital terus dilupakan. Kad EQstudio kekal — dengan setiap ucapan, setiap doa, setiap nama yang pernah datang.</p>
+    </div>
+
+    <div class="capsule-timeline fade-in">
+      <div class="capsule-point">
+        <div class="capsule-icon">📨</div>
+        <div class="capsule-tag">Hari Ini</div>
+        <div class="capsule-title">Anda jemput tetamu</div>
+        <div class="capsule-desc">Link dihantar, RSVP mula masuk. Majlis anda dah pun bermula sebelum hari sebenar.</div>
+      </div>
+      <div class="capsule-point">
+        <div class="capsule-icon">💌</div>
+        <div class="capsule-tag">Hari Majlis</div>
+        <div class="capsule-title">Ucapan & doa berkumpul</div>
+        <div class="capsule-desc">Setiap tetamu yang datang tinggalkan jejak — doa, ucapan, kenangan — terus dalam kad anda.</div>
+      </div>
+      <div class="capsule-point is-future">
+        <div class="capsule-icon">📖</div>
+        <div class="capsule-tag">Bertahun Kemudian</div>
+        <div class="capsule-title">Anda buka semula</div>
+        <div class="capsule-desc">Link yang sama, masih hidup. Semua ucapan dan doa itu — masih di sana, menunggu untuk dibaca semula.</div>
+      </div>
+    </div>
+
+    <div class="capsule-payoff fade-in">
+      <p class="capsule-payoff-quote">"Setahun, lima tahun, sepuluh tahun lagi — buka balik link tu, semuanya masih ada."</p>
+      <div class="capsule-payoff-tag">✦ Itu yang kami maksudkan — Link the Art</div>
+    </div>
+  </div>
+</section>
+
 <!-- TESTIMONI -->
 <section class="testi-section" id="testimoni">
   <div class="container">
@@ -1103,6 +1294,7 @@ footer {
         <div class="cta-note">Link forever</div>
         <div class="cta-note">Done dalam 48 jam</div>
       </div>
+      <p style="margin-top:32px; font-family:var(--ff-display); font-style:italic; font-size:15px; color:var(--rose-drk);">Link the Art — kerana sehari yang indah patut kekal selamanya.</p>
     </div>
   </div>
 </section>
@@ -1115,7 +1307,7 @@ footer {
     <a href="https://tiktok.com/@eqstudio">TikTok</a>
     <a href="https://wa.me/601154151433">WhatsApp</a>
   </div>
-  <div class="footer-copy">© 2026 EQstudio. Hak Cipta Terpelihara.</div>
+  <div class="footer-copy">© 2026 EQstudio · Link the Art · Hak Cipta Terpelihara.</div>
 </footer>
 
 <!-- STICKY BAR (mobile) -->
