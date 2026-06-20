@@ -906,41 +906,63 @@ footer {
   </div>
 </section>
 
-<!-- CARA TEMPAH -->
-<section class="cara-section" id="cara">
+<!-- DEMO VIDEO SHOWCASE -->
+<section class="template-section" id="demo-galeri">
   <div class="container">
     <div class="fade-in">
-      <div class="section-label">Macam mana ia works</div>
-      <h2 class="section-heading">4 langkah je.<br><em>Seriously, that's it.</em></h2>
-      <p class="section-sub">Tak payah faham benda teknikal. Anda bagi info, kami buat selebihnya.</p>
+      <div class="section-label">Pilih template anda</div>
+      <h2 class="section-heading">Ada yang memang <em>created for you.</em></h2>
+      <p class="section-sub">Bukan sekadar cantik — setiap template works perfectly kat semua phone. Cuba live demo dulu.</p>
     </div>
-    <div class="cara-grid fade-in" id="caraGrid">
-      <div class="cara-step">
-        <div class="cara-num">1</div>
-        <div class="cara-title">Pilih template</div>
-        <div class="cara-desc">Scroll koleksi kami, pilih yang paling kena dengan vibe majlis anda.</div>
+
+    <div class="demo-showcase fade-in">
+      <div class="demo-video-wrap">
+        <video autoplay loop muted playsinline>
+          <source src="gallery_demo.mp4" type="video/mp4">
+        </video>
       </div>
-      <div class="cara-step">
-        <div class="cara-num">2</div>
-        <div class="cara-title">Isi borang</div>
-        <div class="cara-desc">Nama, tarikh, lokasi. Habis dalam 2 minit, tak tipu.</div>
-      </div>
-      <div class="cara-step">
-        <div class="cara-num">3</div>
-        <div class="cara-title">Kami reach out</div>
-        <div class="cara-desc">Dalam 2 jam kami WhatsApp untuk confirm details dan proceed.</div>
-      </div>
-      <div class="cara-step">
-        <div class="cara-num">4</div>
-        <div class="cara-title">Link ready</div>
-        <div class="cara-desc">48 jam, kad anda siap. Approve, terus blast ke semua tetamu.</div>
+      <div>
+        <div class="demo-text-eyebrow">Galeri Foto Dalam Kad</div>
+        <h3 class="demo-text-title">Leret untuk lihat <em>10 gambar kenangan</em><br>terus dalam kad anda.</h3>
+        <p class="demo-text-desc">Bukan sekadar satu gambar statik — tetamu boleh leret carousel untuk lihat sehingga 10 gambar pre-wedding atau momen istimewa anda, terus dalam kad. Tap mana-mana gambar untuk lihat lebih dekat.</p>
       </div>
     </div>
-    <div class="cara-dots" id="caraDots">
-      <button class="cara-dot active" data-idx="0"></button>
-      <button class="cara-dot" data-idx="1"></button>
-      <button class="cara-dot" data-idx="2"></button>
-      <button class="cara-dot" data-idx="3"></button>
+  </div>
+</section>
+
+<!-- SELEPAS MAJLIS (TIME CAPSULE) -->
+<section class="capsule-section" id="selepas-majlis">
+  <div class="container">
+    <div class="fade-in">
+      <div class="section-label">Bukan sekadar jemputan</div>
+      <h2 class="section-heading">Kad kahwin biasa <em>mati</em><br>lepas majlis. Kad kami baru <em>bermula.</em></h2>
+      <p class="section-sub">Lepas majlis habis, kebanyakan kad digital terus dilupakan. Kad EQstudio kekal — dengan setiap ucapan, setiap doa, setiap nama yang pernah datang.</p>
+    </div>
+
+    <div class="capsule-timeline fade-in">
+      <div class="capsule-point">
+        <div class="capsule-icon">📨</div>
+        <div class="capsule-tag">Hari Ini</div>
+        <div class="capsule-title">Anda jemput tetamu</div>
+        <div class="capsule-desc">Link dihantar, RSVP mula masuk. Majlis anda dah pun bermula sebelum hari sebenar.</div>
+      </div>
+      <div class="capsule-point">
+        <div class="capsule-icon">💌</div>
+        <div class="capsule-tag">Hari Majlis</div>
+        <div class="capsule-title">Ucapan & doa berkumpul</div>
+        <div class="capsule-desc">Setiap tetamu yang datang tinggalkan jejak — doa, ucapan, kenangan — terus dalam kad anda.</div>
+      </div>
+      <div class="capsule-point is-future">
+        <div class="capsule-icon">📖</div>
+        <div class="capsule-tag">Bertahun Kemudian</div>
+        <div class="capsule-title">Anda buka semula</div>
+        <div class="capsule-desc">Link yang sama, masih hidup. Semua ucapan dan doa itu — masih di sana, menunggu untuk dibaca semula.</div>
+      </div>
+    </div>
+
+    <div class="capsule-payoff fade-in">
+      <p class="capsule-payoff-quote">"Setahun, lima tahun, sepuluh tahun lagi — buka balik link tu, semuanya masih ada."</p>
+      <div class="capsule-payoff-tag">✦ Itu yang kami maksudkan — Link the Art</div>
     </div>
   </div>
 </section>
@@ -987,6 +1009,84 @@ footer {
         <div class="lf-caption">Tangkapan skrin sebenar dari kad EQstudio</div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- TEMPLATE -->
+<section class="template-section" id="template">
+  <div class="container">
+    <div class="fade-in">
+      <div class="section-label">Pilih template anda</div>
+      <h2 class="section-heading">Ada yang memang <em>created for you.</em></h2>
+      <p class="section-sub">Bukan sekadar cantik — setiap template works perfectly kat semua phone. Cuba live demo dulu.</p>
+    </div>
+
+    <div class="filter-row fade-in" id="styleFilterRow">
+      <button class="f-btn on" onclick="selectStyle('all',this)">Semua</button>
+    </div>
+    <div class="style-filter-row" id="pkgFilterRow">
+      <span class="style-filter-label">✦ Pakej</span>
+      <button class="sf-btn on" onclick="selectPkg('all',this)">Semua Pakej</button>
+    </div>
+    <div class="tmpl-grid fade-in" id="tmplGrid">
+      <div id="tmpl-loading">✦ &nbsp; MEMUATKAN KOLEKSI TEMPLATE &nbsp; ✦</div>
+    </div>
+    <div class="view-more-wrap fade-in" id="viewMoreWrap" style="display:none">
+      <button class="view-more-btn" id="viewMoreBtn" onclick="showMoreTemplates()">
+        <span>Tengok Semua Template</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- CARA TEMPAH -->
+<section class="cara-section" id="cara">
+  <div class="container">
+    <div class="fade-in">
+      <div class="section-label">Macam mana ia works</div>
+      <h2 class="section-heading">4 langkah je.<br><em>Seriously, that's it.</em></h2>
+      <p class="section-sub">Tak payah faham benda teknikal. Anda bagi info, kami buat selebihnya.</p>
+    </div>
+    <div class="cara-grid fade-in" id="caraGrid">
+      <div class="cara-step">
+        <div class="cara-num">1</div>
+        <div class="cara-title">Pilih template</div>
+        <div class="cara-desc">Scroll koleksi kami, pilih yang paling kena dengan vibe majlis anda.</div>
+      </div>
+      <div class="cara-step">
+        <div class="cara-num">2</div>
+        <div class="cara-title">Isi borang</div>
+        <div class="cara-desc">Nama, tarikh, lokasi. Habis dalam 2 minit, tak tipu.</div>
+      </div>
+      <div class="cara-step">
+        <div class="cara-num">3</div>
+        <div class="cara-title">Kami reach out</div>
+        <div class="cara-desc">Dalam 2 jam kami WhatsApp untuk confirm details dan proceed.</div>
+      </div>
+      <div class="cara-step">
+        <div class="cara-num">4</div>
+        <div class="cara-title">Link ready</div>
+        <div class="cara-desc">48 jam, kad anda siap. Approve, terus blast ke semua tetamu.</div>
+      </div>
+    </div>
+    <div class="cara-dots" id="caraDots">
+      <button class="cara-dot active" data-idx="0"></button>
+      <button class="cara-dot" data-idx="1"></button>
+      <button class="cara-dot" data-idx="2"></button>
+      <button class="cara-dot" data-idx="3"></button>
+    </div>
+  </div>
+</section>
+
+<!-- MINI FEATURES -->
+<section class="live-section">
+  <div class="container">
+    <div class="fade-in">
+      <div class="section-label">Lagi banyak detail kecil</div>
+      <h2 class="section-heading">Yang tetamu <em>tak sangka ada.</em></h2>
+      <p class="section-sub">Bukan benda besar — tapi detail kecil ni yang buat tetamu rasa "wahh, kad kahwin ni lain macam."</p>
+    </div>
 
     <div class="mini-features-row fade-in">
       <div class="mini-feature">
@@ -1010,47 +1110,6 @@ footer {
           <div class="mini-feature-desc">Tetamu boleh main sambil tunggu majlis, dan terus salam kaut digital tanpa cash kosong.</div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- TEMPLATE -->
-<section class="template-section" id="template">
-  <div class="container">
-    <div class="fade-in">
-      <div class="section-label">Pilih template anda</div>
-      <h2 class="section-heading">Ada yang memang <em>created for you.</em></h2>
-      <p class="section-sub">Bukan sekadar cantik — setiap template works perfectly kat semua phone. Cuba live demo dulu.</p>
-    </div>
-
-    <div class="demo-showcase fade-in">
-      <div class="demo-video-wrap">
-        <video autoplay loop muted playsinline>
-          <source src="gallery_demo.mp4" type="video/mp4">
-        </video>
-      </div>
-      <div>
-        <div class="demo-text-eyebrow">Galeri Foto Dalam Kad</div>
-        <h3 class="demo-text-title">Leret untuk lihat <em>10 gambar kenangan</em><br>terus dalam kad anda.</h3>
-        <p class="demo-text-desc">Bukan sekadar satu gambar statik — tetamu boleh leret carousel untuk lihat sehingga 10 gambar pre-wedding atau momen istimewa anda, terus dalam kad. Tap mana-mana gambar untuk lihat lebih dekat.</p>
-      </div>
-    </div>
-
-    <div class="filter-row fade-in" id="styleFilterRow">
-      <button class="f-btn on" onclick="selectStyle('all',this)">Semua</button>
-    </div>
-    <div class="style-filter-row" id="pkgFilterRow">
-      <span class="style-filter-label">✦ Pakej</span>
-      <button class="sf-btn on" onclick="selectPkg('all',this)">Semua Pakej</button>
-    </div>
-    <div class="tmpl-grid fade-in" id="tmplGrid">
-      <div id="tmpl-loading">✦ &nbsp; MEMUATKAN KOLEKSI TEMPLATE &nbsp; ✦</div>
-    </div>
-    <div class="view-more-wrap fade-in" id="viewMoreWrap" style="display:none">
-      <button class="view-more-btn" id="viewMoreBtn" onclick="showMoreTemplates()">
-        <span>Tengok Semua Template</span>
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 9l6 6 6-6"/></svg>
-      </button>
     </div>
   </div>
 </section>
@@ -1187,43 +1246,6 @@ footer {
           <div class="kenapa-point-desc">Hantar info pagi, kami reply dalam 2 jam. Ada isu lepas terima kad? Terus message, kami settle.</div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- SELEPAS MAJLIS (TIME CAPSULE) -->
-<section class="capsule-section" id="selepas-majlis">
-  <div class="container">
-    <div class="fade-in">
-      <div class="section-label">Bukan sekadar jemputan</div>
-      <h2 class="section-heading">Kad kahwin biasa <em>mati</em><br>lepas majlis. Kad kami baru <em>bermula.</em></h2>
-      <p class="section-sub">Lepas majlis habis, kebanyakan kad digital terus dilupakan. Kad EQstudio kekal — dengan setiap ucapan, setiap doa, setiap nama yang pernah datang.</p>
-    </div>
-
-    <div class="capsule-timeline fade-in">
-      <div class="capsule-point">
-        <div class="capsule-icon">📨</div>
-        <div class="capsule-tag">Hari Ini</div>
-        <div class="capsule-title">Anda jemput tetamu</div>
-        <div class="capsule-desc">Link dihantar, RSVP mula masuk. Majlis anda dah pun bermula sebelum hari sebenar.</div>
-      </div>
-      <div class="capsule-point">
-        <div class="capsule-icon">💌</div>
-        <div class="capsule-tag">Hari Majlis</div>
-        <div class="capsule-title">Ucapan & doa berkumpul</div>
-        <div class="capsule-desc">Setiap tetamu yang datang tinggalkan jejak — doa, ucapan, kenangan — terus dalam kad anda.</div>
-      </div>
-      <div class="capsule-point is-future">
-        <div class="capsule-icon">📖</div>
-        <div class="capsule-tag">Bertahun Kemudian</div>
-        <div class="capsule-title">Anda buka semula</div>
-        <div class="capsule-desc">Link yang sama, masih hidup. Semua ucapan dan doa itu — masih di sana, menunggu untuk dibaca semula.</div>
-      </div>
-    </div>
-
-    <div class="capsule-payoff fade-in">
-      <p class="capsule-payoff-quote">"Setahun, lima tahun, sepuluh tahun lagi — buka balik link tu, semuanya masih ada."</p>
-      <div class="capsule-payoff-tag">✦ Itu yang kami maksudkan — Link the Art</div>
     </div>
   </div>
 </section>
