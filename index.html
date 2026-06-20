@@ -1340,7 +1340,7 @@ footer {
 
 <script>
 // ── CONFIG ──
-const REGISTRY_URL = 'https://raw.githubusercontent.com/nureqmal/eqstudio-cards/main/templates/registry.json';
+const REGISTRY_URL = 'https://api.github.com/repos/nureqmal/eqstudio-cards/contents/templates/registry.json';
 const PAGES_BASE   = 'https://demo.eqstudio.link';
 const PRICE_MAP    = { Essential:77, Portrait:89, Potrait:89, Light:89, Cinematic:109, Prestige:139 };
 const CAT_SLUG     = { Essential:'esential', Portrait:'potrait', Potrait:'potrait', Light:'potrait', Cinematic:'cinematic', Prestige:'prestige' };
@@ -1382,9 +1382,11 @@ window.addEventListener('scroll', () => {
 // ── TEMPLATE REGISTRY ──
 async function loadTemplates() {
   try {
-    const res = await fetch(REGISTRY_URL + '?v=' + Date.now());
+    const res = await fetch(REGISTRY_URL + '?v=' + Date.now(), { cache: 'no-store' });
     if (!res.ok) throw new Error('fetch failed');
-    const registry = await res.json();
+    const data = await res.json();
+    const bytes = Uint8Array.from(atob(data.content.replace(/\n/g, '')), c => c.charCodeAt(0));
+    const registry = JSON.parse(new TextDecoder().decode(bytes));
     renderTemplates(registry);
   } catch(e) {
     const el = document.getElementById('tmpl-loading');
